@@ -6,7 +6,7 @@ function NavBar() {
             <ul>
                 <li><a href="#">Posztok</a></li>
                 <li><a href="#">Felhasználók</a></li>
-                <li><a href="#">Felhasználói adatok</a></li>
+                <li><a href="#">Felhasználó</a></li>
             </ul>
         </nav>
     )
