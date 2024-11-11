@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 
 
-function AchievementList() {
-
+function AchievementList(url) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchAchievements = async () => {
             try {
-                const response = await fetch("http://localhost/api/achievements",);
+                const response = await fetch(url.url + "achievement", {
+                    "method": "GET",
+                    "headers": {
+                        "Accept": "application/json"
+                    }
+                });
                 const result = await response.json();
-                setData(result);
+                setData(result.achievements);
             }
             catch (error) {
                 console.log(error); //Handle the error somehow
@@ -18,7 +22,8 @@ function AchievementList() {
         }
 
         fetchAchievements();
-    }, [])
+    }, [url.url])
+
 
     return (
         <div>
@@ -30,6 +35,8 @@ function AchievementList() {
             </ul>
         </div>
     )
+
+
 }
 
 export default AchievementList;

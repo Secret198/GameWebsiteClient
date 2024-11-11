@@ -1,12 +1,15 @@
-import AchievementList from './components/AchievementList';
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
+import Login from "./components/Login";
 
 function App() {
+    const url = "http://localhost:8000/api/"
+
+
     return <>
         <NavBar />
 
-        <AchievementList />
+        <Login url={url} />
 
         <Footer />
     </>
