@@ -1,35 +1,31 @@
 import { useEffect } from "react"
 
 
-function LoginFetch({ email, password, url }) {
-    console.log("bitch")
-    useEffect(() => {
-        const fetchLogin = async () => {
-            try {
-                const response = await fetch(url + "user/login", {
-                    "method": "POST",
-                    "headers": { "Accept": "application/json" },
-                    "body": JSON.stringify({ email: email, password: password })
-                });
-                const result = await response.json();
-                console.log(result)
-            }
-            catch (error) {
-                console.log(error); //Handle the error somehow
-            }
-        }
+async function loginUser(email, password, url) {
 
-        fetchLogin();
-    }, [url, email, password])
-    return null
+    const credentials = { email: email, password: password }
+
+    try {
+        const response = await fetch(url + "user/login", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(credentials)
+        });
+        const result = await response.json();
+        localStorage.setItem("token", result.user.token)
+    } catch (error) {
+        console.error(error) //Handle error
+    }
 }
 
 function Login({ url }) {
 
     const login = (event) => {
         event.preventDefault();
-        return <LoginFetch email={event.target.email.value} password={event.target.password.value} url={url} />;
-        // LoginFetch(event.target.email.value, event.target.password.value, url)
+        loginUser(event.target.email.value, event.target.password.value, url)
     }
 
     return <form onSubmit={login}>

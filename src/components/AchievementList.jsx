@@ -7,7 +7,7 @@ function AchievementList(url) {
     useEffect(() => {
         const fetchAchievements = async () => {
             try {
-                const response = await fetch(url.url + "achievement", {
+                const response = await fetch("http://localhost:8000/api/achievement", {
                     "method": "GET",
                     "headers": {
                         "Accept": "application/json"
