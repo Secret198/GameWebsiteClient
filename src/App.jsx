@@ -3,16 +3,15 @@ import NavBar from './components/NavBar';
 import Login from "./components/Login";
 
 function App() {
-    const url = "http://localhost:8000/api/"
 
 
-    return <>
+    return (<>
         <NavBar />
-
-        <Login url={url} />
-
+        <Outlet />
         <Footer />
     </>
+    )
+
 }
 
 export default App

@@ -7,9 +7,10 @@ import ErrorPage from './pages/ErrorPage.jsx'
 import AchievementList from './components/AchievementList.jsx'
 import Layout from "./pages/Layout.jsx"
 import Login from './components/Login.jsx'
-
+import GoToLogin from './pages/GoToLogin.jsx'
 
 const url = "http://localhost:8000/api/"
+
 
 const router = createBrowserRouter([
     {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "achievement",
-                element: (localStorage.getItem("token") ? <AchievementList /> : <Login url={url} />)
+                element: (localStorage.getItem("token") ? <AchievementList /> : <GoToLogin />)
+            },
+            {
+                path: "login",
+                element: <Login url={url} />
             }
         ]
     }
