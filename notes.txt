@@ -1,3 +1,2 @@
 loading thing
 Error handling when fetching
-Redirecting is not clear
