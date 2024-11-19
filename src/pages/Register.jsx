@@ -1,9 +1,10 @@
 import { useState } from "react"
 import FeedBack from "../components/FeedBack"
 import { useNavigate } from "react-router-dom"
+import RegisterBox from "../components/RegisterBox"
 
 
-export default function Register({ url }) {
+export default function Register({ url, headers }) {
 
     const navigation = useNavigate()
     const [error, setError] = useState("")
@@ -19,15 +20,14 @@ export default function Register({ url }) {
 
         const response = await fetch(url + "user/register", {
             method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json"
-            },
+            headers: headers,
             body: JSON.stringify(userData)
         });
         const result = await response.json()
 
         if (response.status == 200) {
+            localStorage.setItem("token", result.user.token)
+            localStorage.setItem("userId", result.user.id)
             setSuccess(result.message)
             setTimeout(() => {
                 navigation("/")
@@ -51,38 +51,28 @@ export default function Register({ url }) {
 
 
     if (error) {
-        return <>
-            <FeedBack message={error} />
-            <form onSubmit={register}>
-                <input type="email" placeholder="Email" id="email" required />
-                <input type="text" placeholder="Username" id="name" required />
-                <input type="password" placeholder="Password" id="password" required />
-                <input type="password" placeholder="Password again" id="password2" required />
-                <button type="submit">Regisztráció</button>
-            </form>
-        </>
+        return (
+            <div>
+                <FeedBack message={error} />
+                <RegisterBox register={register} />
+            </div>
+        )
     }
     else if (success) {
-        return <>
-            <FeedBack message={success} />
-
-            <form onSubmit={register}>
-                <input type="email" placeholder="Email" id="email" required />
-                <input type="text" placeholder="Username" id="name" required />
-                <input type="password" placeholder="Password" id="password" required />
-                <input type="password" placeholder="Password again" id="password2" required />
-                <button type="submit" disabled>Regisztráció</button>
-            </form>
-        </>
+        return (
+            <div>
+                <FeedBack message={success} />
+                <RegisterBox register={register} />
+            </div>
+        )
     }
     else {
-        return <form onSubmit={register}>
-            <input type="email" placeholder="Email" id="email" required />
-            <input type="text" placeholder="Username" id="name" required />
-            <input type="password" placeholder="Password" id="password" required />
-            <input type="password" placeholder="Password again" id="password2" required />
-            <button type="submit">Regisztráció</button>
-        </form>
+        return (
+            <div>
+                <RegisterBox register={register} />
+            </div>
+        )
+
     }
 
 }

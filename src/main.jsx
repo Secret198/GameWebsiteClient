@@ -8,8 +8,13 @@ import AchievementList from './components/AchievementList.jsx'
 import Layout from "./pages/Layout.jsx"
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
+import PostCreate from './pages/PostCreate.jsx'
 
 const url = "http://localhost:8000/api/"
+const headers = {
+    "Accept": "application/json",
+    "Content-type": "application/json"
+}
 
 
 const router = createBrowserRouter([
@@ -20,17 +25,22 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "achievement",
-                element: (localStorage.getItem("token") ? <AchievementList /> : <Login url={url} />)
+                element: (localStorage.getItem("token") ? <AchievementList /> : <Login url={url} headers={headers} />)
             },
             {
-                path: "login",
-                element: <Login url={url} />
-            },
-            {
-                path: "register",
-                element: <Register url={url} />
+                path: "post/create",
+                element: (localStorage.getItem("token") ? <PostCreate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             }
+
         ]
+    },
+    {
+        path: "login",
+        element: <Login url={url} headers={headers} />
+    },
+    {
+        path: "register",
+        element: <Register url={url} headers={headers} />
     }
 ])
 
