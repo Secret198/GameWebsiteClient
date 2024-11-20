@@ -9,6 +9,7 @@ import Layout from "./pages/Layout.jsx"
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import PostCreate from './pages/PostCreate.jsx'
+import PostUpdate from './pages/PostUpdate.jsx'
 
 const url = "http://localhost:8000/api/"
 const headers = {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: "post/create",
                 element: (localStorage.getItem("token") ? <PostCreate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
+            },
+            {
+                path: "post/edit/:id",
+                element: (localStorage.getItem("token") ? <PostUpdate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             }
 
         ]
