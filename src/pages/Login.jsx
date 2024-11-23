@@ -2,6 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import FeedBack from "../components/FeedBack";
 import LoginBox from "../components/LoginBox";
 import { useState } from "react";
+import SetLocalSorage from "../components/localStorageHandle";
 
 function Login({ url, headers }) {
 
@@ -21,8 +22,7 @@ function Login({ url, headers }) {
         });
         const result = await response.json();
         if (response.status == 200) {
-            localStorage.setItem("token", result.user.token)
-            localStorage.setItem("userId", result.user.id)
+            SetLocalSorage(result.user.token, result.user.id, result.user.privilege)
             setSuccess(result.message)
 
 

@@ -2,6 +2,7 @@ import { useState } from "react"
 import FeedBack from "../components/FeedBack"
 import { useNavigate } from "react-router-dom"
 import RegisterBox from "../components/RegisterBox"
+import SetLocalSorage from "../components/localStorageHandle"
 
 
 export default function Register({ url, headers }) {
@@ -26,8 +27,7 @@ export default function Register({ url, headers }) {
         const result = await response.json()
 
         if (response.status == 200) {
-            localStorage.setItem("token", result.user.token)
-            localStorage.setItem("userId", result.user.id)
+            SetLocalSorage(result.user.token, result.user.id, result.user.privilege)
             setSuccess(result.message)
             setTimeout(() => {
                 navigation("/")

@@ -10,6 +10,9 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import PostCreate from './pages/PostCreate.jsx'
 import PostUpdate from './pages/PostUpdate.jsx'
+import AchievementCreate from './pages/AchievementCreate.jsx'
+import AchievementUpdate from './pages/AchievementUpdate.jsx'
+import UserUpdate from './pages/UserUpdate.jsx'
 
 const url = "http://localhost:8000/api/"
 const headers = {
@@ -26,7 +29,19 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "achievement",
-                element: (localStorage.getItem("token") ? <AchievementList /> : <Login url={url} headers={headers} />)
+                element: (localStorage.getItem("token") ? <AchievementList url={url} headers={headers} /> : <Login url={url} headers={headers} />)
+            },
+            {
+                path: "achievement/create",
+                element: (localStorage.getItem("token") ? <AchievementCreate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
+            },
+            {
+                path: "achievement/update/:id",
+                element: (localStorage.getItem("token") ? <AchievementUpdate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
+            },
+            {
+                path: "user/update/:id",
+                element: (localStorage.getItem("token") ? <UserUpdate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             },
             {
                 path: "post/create",
