@@ -61,7 +61,7 @@ export default function UserUpdate({ url, headers }) {
     if (success) {
         return (
             <div>
-                <FeedBack message={success} />
+                <FeedBack message={success} status={"success"} />
                 <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
             </div>
         )
@@ -69,7 +69,7 @@ export default function UserUpdate({ url, headers }) {
     else if (error) {
         return (
             <div>
-                <FeedBack message={error} />
+                <FeedBack message={error} status={"failure"} />
                 <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
             </div>
         )

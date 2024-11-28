@@ -50,7 +50,7 @@ export default function PostCreate({ url, headers }) {
     if (error) {
         return (
             <div>
-                <FeedBack message={error} />
+                <FeedBack message={error} status={"failure"} />
                 <PostCreateBox submitPost={createPost} />
             </div>
         )
@@ -58,7 +58,7 @@ export default function PostCreate({ url, headers }) {
     else if (success) {
         return (
             <div>
-                <FeedBack message={success} />
+                <FeedBack message={success} status={"success"} />
                 <PostCreateBox submitPost={createPost} />
             </div>
         )

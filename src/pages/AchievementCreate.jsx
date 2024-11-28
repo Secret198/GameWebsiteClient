@@ -45,7 +45,7 @@ export default function AchievementCreate({ url, headers }) {
     if (error) {
         return (
             <div>
-                <FeedBack message={error} />
+                <FeedBack message={error} status={"failure"} />
                 <AchievementCreateBox submitAchievement={submitAchievement} selected={"kills"} />
             </div>
         )
@@ -53,7 +53,7 @@ export default function AchievementCreate({ url, headers }) {
     else if (success) {
         return (
             <div>
-                <FeedBack message={success} />
+                <FeedBack message={success} status={"success"} />
                 <AchievementCreateBox submitAchievement={submitAchievement} selected={"kills"} />
             </div>
         )

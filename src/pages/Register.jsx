@@ -53,7 +53,7 @@ export default function Register({ url, headers }) {
     if (error) {
         return (
             <div>
-                <FeedBack message={error} />
+                <FeedBack message={error} status={"failure"} />
                 <RegisterBox register={register} />
             </div>
         )
@@ -61,7 +61,7 @@ export default function Register({ url, headers }) {
     else if (success) {
         return (
             <div>
-                <FeedBack message={success} />
+                <FeedBack message={success} status={"success"} />
                 <RegisterBox register={register} />
             </div>
         )

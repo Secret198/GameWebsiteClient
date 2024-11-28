@@ -60,7 +60,7 @@ export default function PostUpdate({ url, headers }) {
     if (success) {
         return (
             <div>
-                <FeedBack message={success} />
+                <FeedBack message={success} status={"success"} />
                 <PostUpdateBox post={post.post} updatePost={updatePost} />
             </div>
         )
@@ -68,7 +68,7 @@ export default function PostUpdate({ url, headers }) {
     else if (error) {
         return (
             <div>
-                <FeedBack message={error} />
+                <FeedBack message={error} status={"failure"} />
                 <PostUpdateBox post={post.post} updatePost={updatePost} />
             </div>
         )

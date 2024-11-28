@@ -63,7 +63,7 @@ export default function AchievementUpdate({ url, headers }) {
     if (success) {
         return (
             <div>
-                <FeedBack message={success} />
+                <FeedBack message={success} status={"success"} />
                 <AchievementUpdateBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} />
             </div>
         )
@@ -71,7 +71,7 @@ export default function AchievementUpdate({ url, headers }) {
     else if (error) {
         return (
             <div>
-                <FeedBack message={error} />
+                <FeedBack message={error} status={"failure"} />
                 <AchievementUpdateBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} />
             </div>
         )

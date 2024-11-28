@@ -47,14 +47,14 @@ function Login({ url, headers }) {
 
     if (error) {
         return <div>
-            <FeedBack message={error} />
+            <FeedBack message={error} status={"failure"} />
             <LoginBox login={login} />
 
         </div>
     }
     else if (success) {
         return <div>
-            <FeedBack message={success} />
+            <FeedBack message={success} status={"success"} />
             <LoginBox login={login} />
 
 
