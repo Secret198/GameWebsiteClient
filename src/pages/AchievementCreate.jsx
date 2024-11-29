@@ -1,4 +1,4 @@
-import AchievementCreateBox from "../components/AchievementCreateBox"
+import AchievementBox from "../components/AchievementBox"
 import FeedBack from "../components/FeedBack"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
@@ -46,7 +46,7 @@ export default function AchievementCreate({ url, headers }) {
         return (
             <div>
                 <FeedBack message={error} status={"failure"} />
-                <AchievementCreateBox submitAchievement={submitAchievement} selected={"kills"} />
+                <AchievementBox submitAchievement={submitAchievement} selected={"kills"} isCreate={true} />
             </div>
         )
     }
@@ -54,13 +54,13 @@ export default function AchievementCreate({ url, headers }) {
         return (
             <div>
                 <FeedBack message={success} status={"success"} />
-                <AchievementCreateBox submitAchievement={submitAchievement} selected={"kills"} />
+                <AchievementBox submitAchievement={submitAchievement} selected={"kills"} isCreate={true} />
             </div>
         )
     }
     else {
         return <div>
-            <AchievementCreateBox submitAchievement={submitAchievement} selected={"kills"} />
+            <AchievementBox submitAchievement={submitAchievement} selected={"kills"} isCreate={true} />
         </div>
 
     }

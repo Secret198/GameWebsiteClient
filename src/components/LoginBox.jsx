@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export default function LoginBox({ login }) {
     return (
-        <div className="centerScreen coolBox">
+        <div className="centerScreen coolBox loginSize">
             <h1>Bejelentkezés</h1>
             <form className="loginForm" onSubmit={login}>
                 <label htmlFor="email">Email cím</label>

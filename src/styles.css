@@ -1,5 +1,6 @@
 :root{
     --textColor: rgb(231, 231, 231);
+    --textBoxcolor: rgba(143, 210, 255, 0.582);
 }
 
 #root{
@@ -16,6 +17,10 @@ body{
     background-attachment: fixed;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: var(--textColor);
+}
+
+main{
+    padding-bottom: 250px;
 }
 
 nav > ul{
@@ -59,11 +64,14 @@ footer{
     transform: translateX(-50%);
 }
 
+.loginSize{
+    width: 400px;
+}
+
 .coolBox{
     background-color: rgba(20, 36, 105, 0.404);
-    padding: 20px;
+    padding: 30px;
     padding-bottom: 40px;
-    width: 400px;
     border-radius: 20px;
     box-shadow: 0 0 20px 10px rgb(111, 198, 238) inset;
     background-image: linear-gradient(135deg, rgba(20, 36, 105, 0.404), rgba(111, 198, 238, 0.514));
@@ -75,7 +83,7 @@ footer{
 
 .coolBox > a{
     text-align: left;
-    color: white;
+    color: var(--textColor);
 }
 
 .loginForm{
@@ -86,11 +94,11 @@ footer{
 .loginForm * {
     margin: 10px;
     height: 40px;
-    border-radius: 20px;
+    border-radius: 15px;
 }
 
-.loginForm input, .loginForm select{
-    background-color: rgba(143, 210, 255, 0.582);
+.loginForm input, .loginForm select, textarea{
+    background-color: var(--textBoxcolor);
     border: 2px solid rgb(18, 39, 97);
     padding: 0 15px;
     font-size: 120%;
@@ -115,7 +123,7 @@ input[type=number] {
   appearance: textfield;
 }
 
-.loginForm button{
+.loginForm button, .postForm button{
     font-size: 120%;
     background-color: rgb(127, 223, 143);
     border: 2px solid rgb(18, 39, 97);
@@ -147,4 +155,57 @@ input[type=number] {
 .failure{
     background-color: rgba(185, 64, 64, 0.548);
     border: 2px solid rgb(189, 19, 19);
+}
+
+textarea{
+    resize: none;
+}
+
+.postForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.postForm *{
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.menuBox{
+    width: 300px;
+    border-radius: 10px;
+    background-color: rgb(18, 18, 66);
+    border: 2px solid rgb(39, 75, 129);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    position: fixed;
+    right: 10px;
+    top: 50px;
+    z-index: 10;
+}
+
+.menuBox * {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.menuBox > h1{
+    margin-bottom: 0;
+}
+
+.menuBox > a{
+    color: var(--textColor);
+    text-decoration: none;
+}
+
+.menuBox > hr{
+    color: rgb(21, 27, 102);
+    width: 100%;
+}
+
+.menuBox > button{
+    background-color: transparent;
+    color:  red;
+    border: none;
 }

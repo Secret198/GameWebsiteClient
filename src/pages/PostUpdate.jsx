@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import PostUpdateBox from "../components/PostUpdateBox"
+import PostBox from "../components/PostBox"
 import { useParams, useNavigate } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
 
@@ -61,7 +61,7 @@ export default function PostUpdate({ url, headers }) {
         return (
             <div>
                 <FeedBack message={success} status={"success"} />
-                <PostUpdateBox post={post.post} updatePost={updatePost} />
+                <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
             </div>
         )
     }
@@ -69,13 +69,13 @@ export default function PostUpdate({ url, headers }) {
         return (
             <div>
                 <FeedBack message={error} status={"failure"} />
-                <PostUpdateBox post={post.post} updatePost={updatePost} />
+                <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
             </div>
         )
     }
     else if (post) {
         return <div>
-            <PostUpdateBox post={post.post} updatePost={updatePost} />
+            <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
         </div>
     }
 

@@ -48,7 +48,7 @@ const router = createBrowserRouter([
                 element: (localStorage.getItem("token") ? <PostCreate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             },
             {
-                path: "post/edit/:id",
+                path: "post/update/:id",
                 element: (localStorage.getItem("token") ? <PostUpdate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             }
 

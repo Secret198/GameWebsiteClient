@@ -1,0 +1,53 @@
+export default function AchievementBox({ submitAchievement, selected, name, threshold, description, isCreate}) {
+    if(isCreate){
+        return (
+            <div className="coolBox centerHorizontal loginSize">
+                <h1>Achievement hozzáadás</h1>
+                <form className="loginForm" onSubmit={submitAchievement}>
+                    <label htmlFor="name">Új achievement neve</label>
+                    <input type="text" id="name" name="name" placeholder="Új achievement neve" required />
+                    <label htmlFor="field">Megszerzéshez szükséges kategória ??????</label>
+                    <select name="field" id="field">
+                        <option value="kills">Kills</option>
+                        <option value="deaths">Deaths</option>
+                        <option value="points">Points</option>
+                        <option value="boss1lvl">Boss 1 lvl</option>
+                        <option value="boss2lvl">Boss 2 lvl</option>
+                        <option value="boss3lvl">Boss 3 lvl</option>
+                    </select>
+                    <label htmlFor="threshold">Threshold ??</label>
+                    <input type="number" id="threshold" name="threshold" placeholder="Threshold" min={0} />
+                    <label htmlFor="description">Új achievement leírása</label>
+                    <input type="text" id="description" name="description" placeholder="Leírás" required />
+                    <button type="submit">Feltöltés</button>
+                </form>
+            </div>
+        )
+    }
+    else{
+        return (
+            <div className="coolBox centerHorizontal loginSize">
+                <h1>Achievement szerkesztése</h1>
+                <form className="loginForm" onSubmit={submitAchievement}>
+                    <label htmlFor="name">Achievement új neve</label>
+                    <input type="text" id="name" name="name" placeholder="Név" required defaultValue={name} />
+                    <label htmlFor="field">Megszerzéshez szükséges kategória ??????</label>
+                    <select name="field" id="field" defaultValue={selected}>
+                        <option value="kills">Kills</option>
+                        <option value="deaths">Deaths</option>
+                        <option value="points">Points</option>
+                        <option value="boss1lvl">Boss 1 lvl</option>
+                        <option value="boss2lvl">Boss 2 lvl</option>
+                        <option value="boss3lvl">Boss 3 lvl</option>
+                    </select>
+                    <label htmlFor="threshold">Threshold ??</label>
+                    <input type="number" id="threshold" name="threshold" placeholder="threshold" min={0} defaultValue={threshold} required />
+                    <label htmlFor="description">Achievement új leírása</label>
+                    <input type="text" id="description" name="description" placeholder="Leírás" required defaultValue={description} />
+                    <button type="submit">Feltöltés</button>
+                </form>
+            </div>
+        )
+    }
+    
+}

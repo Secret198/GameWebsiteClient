@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
-import AchievementUpdateBox from "../components/AchievementUpdateBox"
+import AchievementBox from "../components/AchievementBox"
 
 
 export default function AchievementUpdate({ url, headers }) {
@@ -64,7 +64,7 @@ export default function AchievementUpdate({ url, headers }) {
         return (
             <div>
                 <FeedBack message={success} status={"success"} />
-                <AchievementUpdateBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} />
+                <AchievementBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} isCreate={false} />
             </div>
         )
     }
@@ -72,13 +72,13 @@ export default function AchievementUpdate({ url, headers }) {
         return (
             <div>
                 <FeedBack message={error} status={"failure"} />
-                <AchievementUpdateBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} />
+                <AchievementBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} isCreate={false} />
             </div>
         )
     }
     else if (achievement) {
         return <div>
-            <AchievementUpdateBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} />
+            <AchievementBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} isCreate={false} />
         </div>
     }
 

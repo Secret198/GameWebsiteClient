@@ -2,7 +2,7 @@
 
 export default function RegisterBox({ register }) {
     return (
-        <div className="centerScreen coolBox">
+        <div className="centerScreen coolBox loginSize">
             <h1>Regisztráció</h1>
             <form className="loginForm" onSubmit={register}>
                 <label htmlFor="email">Email cím</label>

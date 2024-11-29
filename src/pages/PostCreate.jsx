@@ -1,5 +1,5 @@
 import FeedBack from "../components/FeedBack"
-import PostCreateBox from "../components/PostCreateBox"
+import PostBox from "../components/PostBox"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
@@ -51,7 +51,7 @@ export default function PostCreate({ url, headers }) {
         return (
             <div>
                 <FeedBack message={error} status={"failure"} />
-                <PostCreateBox submitPost={createPost} />
+                <PostBox submitPost={createPost} isCreate={true} />
             </div>
         )
     }
@@ -59,12 +59,12 @@ export default function PostCreate({ url, headers }) {
         return (
             <div>
                 <FeedBack message={success} status={"success"} />
-                <PostCreateBox submitPost={createPost} />
+                <PostBox submitPost={createPost} isCreate={true} />
             </div>
         )
     }
     else {
-        return <PostCreateBox submitPost={createPost} />
+        return <PostBox submitPost={createPost} isCreate={true} />
     }
 
 }
