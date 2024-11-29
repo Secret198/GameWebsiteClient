@@ -1,0 +1,150 @@
+:root{
+    --textColor: rgb(231, 231, 231);
+}
+
+#root{
+    position: relative;
+    min-height: 100vh;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    background-image: linear-gradient(45deg, rgb(19, 28, 75), rgb(18, 82, 112));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: var(--textColor);
+}
+
+nav > ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: right;
+    background-color: none;
+    margin: 0;
+}
+
+nav>ul>li{
+    padding: 20px;
+}
+
+.navElement{
+    text-decoration: none;
+    font-size: 20px;
+    color: var(--textColor);
+}
+
+nav>ul>li:hover{
+    background-color: rgba(30, 70, 155, 0.527);
+}
+
+footer{
+    background-color: rgb(22, 17, 53);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.centerScreen{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centerHorizontal{
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.coolBox{
+    background-color: rgba(20, 36, 105, 0.404);
+    padding: 20px;
+    padding-bottom: 40px;
+    width: 400px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px 10px rgb(111, 198, 238) inset;
+    background-image: linear-gradient(135deg, rgba(20, 36, 105, 0.404), rgba(111, 198, 238, 0.514));
+}
+
+.coolBox > h1{
+    text-align: center;
+}
+
+.coolBox > a{
+    text-align: left;
+    color: white;
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.loginForm * {
+    margin: 10px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.loginForm input, .loginForm select{
+    background-color: rgba(143, 210, 255, 0.582);
+    border: 2px solid rgb(18, 39, 97);
+    padding: 0 15px;
+    font-size: 120%;
+    margin-top: 5px;
+}
+
+.loginForm label{
+    height: 20px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    margin-left: 10px;
+    padding-left: 15px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  appearance: textfield;
+}
+
+.loginForm button{
+    font-size: 120%;
+    background-color: rgb(127, 223, 143);
+    border: 2px solid rgb(18, 39, 97);
+    height: 50px;
+}
+
+.feedBack{
+    position: absolute;
+    /* right: 20px;
+    bottom: 25px; */
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30px;
+    z-index: 10;
+    padding: 0 10px;
+    font-size: 120%;
+    border-radius: 20px;
+}
+
+.feedBack > p{
+    margin: 10px;
+}
+
+.success{
+    background-color: rgba(75, 233, 128, 0.699);
+    border: 2px solid rgb(28, 134, 64);
+}
+
+.failure{
+    background-color: rgba(185, 64, 64, 0.548);
+    border: 2px solid rgb(189, 19, 19);
+}

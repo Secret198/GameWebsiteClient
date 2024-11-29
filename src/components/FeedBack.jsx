@@ -1,7 +1,7 @@
 
 
-export default function FeedBack({ message }) {
-    return <div>
-        <h1>{message}</h1>
+export default function FeedBack({ message, status }) {
+    return <div className={`feedBack ${status}`}>
+        <p>{message}</p>
     </div>
 }

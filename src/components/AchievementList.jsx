@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 
 
-function AchievementList(url) {
+function AchievementList({ url, headers }) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchAchievements = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/achievement", {
+                const response = await fetch(url + "achievement", {
                     "method": "GET",
-                    "headers": {
-                        "Accept": "application/json"
-                    }
+                    "headers": headers
                 });
                 const result = await response.json();
                 setData(result.achievements);
@@ -22,7 +20,7 @@ function AchievementList(url) {
         }
 
         fetchAchievements();
-    }, [url.url])
+    }, [])
 
 
     return (

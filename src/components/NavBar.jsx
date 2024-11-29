@@ -5,9 +5,9 @@ function NavBar() {
     return (
         <nav>
             <ul>
-                <li><Link to={"/"}>Posztok</Link></li>
-                <li><Link to={"/yourmom"}>Másik</Link></li>
-                <li><Link to={"/"}>eeeeeeeeeee</Link></li>
+                <li><Link className="navElement" to={"/"}>Posztok</Link></li>
+                <li><Link className="navElement" to={"/yourmom"}>Felhasználók</Link></li>
+                <li><Link className="navElement" to={"/"}>Login</Link></li>
             </ul>
         </nav>
     )

@@ -1,15 +1,24 @@
 import { StrictMode, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-// import './index.css'
+import './styles.css'
 import App from './App.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import AchievementList from './components/AchievementList.jsx'
 import Layout from "./pages/Layout.jsx"
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
+import PostCreate from './pages/PostCreate.jsx'
+import PostUpdate from './pages/PostUpdate.jsx'
+import AchievementCreate from './pages/AchievementCreate.jsx'
+import AchievementUpdate from './pages/AchievementUpdate.jsx'
+import UserUpdate from './pages/UserUpdate.jsx'
 
 const url = "http://localhost:8000/api/"
+const headers = {
+    "Accept": "application/json",
+    "Content-type": "application/json"
+}
 
 
 const router = createBrowserRouter([
@@ -20,17 +29,38 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "achievement",
-                element: (localStorage.getItem("token") ? <AchievementList /> : <Login url={url} />)
+                element: (localStorage.getItem("token") ? <AchievementList url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             },
             {
-                path: "login",
-                element: <Login url={url} />
+                path: "achievement/create",
+                element: (localStorage.getItem("token") ? <AchievementCreate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             },
             {
-                path: "register",
-                element: <Register url={url} />
+                path: "achievement/update/:id",
+                element: (localStorage.getItem("token") ? <AchievementUpdate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
+            },
+            {
+                path: "user/update/:id",
+                element: (localStorage.getItem("token") ? <UserUpdate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
+            },
+            {
+                path: "post/create",
+                element: (localStorage.getItem("token") ? <PostCreate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
+            },
+            {
+                path: "post/edit/:id",
+                element: (localStorage.getItem("token") ? <PostUpdate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             }
+
         ]
+    },
+    {
+        path: "login",
+        element: <Login url={url} headers={headers} />
+    },
+    {
+        path: "register",
+        element: <Register url={url} headers={headers} />
     }
 ])
 
