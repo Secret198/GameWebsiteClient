@@ -181,7 +181,7 @@ textarea{
     padding: 10px;
     position: fixed;
     right: 10px;
-    top: 50px;
+    top: 70px;
     z-index: 10;
 }
 
@@ -208,4 +208,5 @@ textarea{
     background-color: transparent;
     color:  red;
     border: none;
+    cursor: pointer;
 }

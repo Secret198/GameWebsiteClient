@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
 import AchievementBox from "../components/AchievementBox"
-
+import getRequest from "../components/getRequest"
+import otherRequest from "../components/otherRequest"
 
 export default function AchievementUpdate({ url, headers }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -14,15 +15,11 @@ export default function AchievementUpdate({ url, headers }) {
 
     useEffect(() => {
         const getAchievement = async () => {
-            const response = await fetch(url + "achievement/" + id, {
-                method: "GET",
-                headers: headers
-            })
 
-            const result = await response.json()
+            const responseData = await getRequest(url, headers, "achievement/"+id)
 
-            if (response.status == 200) {
-                setAchievement(result.achievement)
+            if (responseData.response.status == 200) {
+                setAchievement(responseData.result.achievement)
             }
         }
         getAchievement()
@@ -39,22 +36,16 @@ export default function AchievementUpdate({ url, headers }) {
             threshold: e.target.threshold.value
         }
 
-        const response = await fetch(url + "achievement/" + achievement.id, {
-            method: "PATCH",
-            headers: headers,
-            body: JSON.stringify(newAchievement)
-        })
+        const responseData = await otherRequest(url, headers, "achievement/"+achievement.id, newAchievement, "PATCH")
 
-        const result = await response.json()
-
-        if (response.status == 200) {
-            setSuccess(result.message)
+        if (responseData.response.status == 200) {
+            setSuccess(responseData.result.message)
             setTimeout(() => {
                 navigation("/")
             }, 1000);
         }
         else {
-            setError(result.message)
+            setError(responseData.result.message)
         }
     }
 

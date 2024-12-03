@@ -2,6 +2,7 @@ import AchievementBox from "../components/AchievementBox"
 import FeedBack from "../components/FeedBack"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import otherRequest from "../components/otherRequest"
 
 
 export default function AchievementCreate({ url, headers }) {
@@ -23,21 +24,16 @@ export default function AchievementCreate({ url, headers }) {
                 description: e.target.description.value
             }
 
-            const response = await fetch(url + "achievement", {
-                method: "POST",
-                headers: headers,
-                body: JSON.stringify(data)
-            })
-            const result = await response.json()
+            const responseData = await otherRequest(url, headers, "achievement", data, "POST")
 
-            if (response.status == 200) {
-                setSuccess(result.message)
+            if (responseData.response.status == 200) {
+                setSuccess(responseData.result.message)
                 setTimeout(() => {
                     navigation("/")
                 }, 1000);
             }
             else {
-                setError(result.error)
+                setError(responseData.result.error)
             }
         }
     }

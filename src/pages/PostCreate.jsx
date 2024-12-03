@@ -2,6 +2,7 @@ import FeedBack from "../components/FeedBack"
 import PostBox from "../components/PostBox"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import otherRequest from "../components/otherRequest"
 
 export default function PostCreate({ url, headers }) {
     headers.Authorization = 'Bearer ' + localStorage.getItem("token")
@@ -13,22 +14,17 @@ export default function PostCreate({ url, headers }) {
     async function submitPost(post, image) {
 
         const data = { post: post, image: image }
-        const response = await fetch(url + "post", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(data)
-        })
 
-        const result = await response.json()
+        const responseData = await otherRequest(url, headers, "post", data, "POST")
 
-        if (response.status == 200) {
-            setSuccess(result.message)
+        if (responseData.response.status == 200) {
+            setSuccess(responseData.result.message)
             setTimeout(() => {
                 navigation("/")
             }, 1000);
         }
         else {
-            setError(result.message)
+            setError(responseData.result.message)
         }
     }
 

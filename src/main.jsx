@@ -13,6 +13,7 @@ import PostUpdate from './pages/PostUpdate.jsx'
 import AchievementCreate from './pages/AchievementCreate.jsx'
 import AchievementUpdate from './pages/AchievementUpdate.jsx'
 import UserUpdate from './pages/UserUpdate.jsx'
+import GetUserData from './pages/GetUserData.jsx'
 
 const url = "http://localhost:8000/api/"
 const headers = {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "user/update/:id",
                 element: (localStorage.getItem("token") ? <UserUpdate url={url} headers={headers} /> : <Login url={url} headers={headers} />)
+            },
+            {
+                path: "user/show/:id",
+                element: (localStorage.getItem("token") ? <GetUserData url={url} headers={headers} /> : <Login url={url} headers={headers} />)
             },
             {
                 path: "post/create",

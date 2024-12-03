@@ -8,9 +8,8 @@ function AchievementList({ url, headers }) {
         const fetchAchievements = async () => {
             const data = await getRequest(url, headers, "achievement")
             setData(data.result.achievements)
-           
         }
-       
+        
         fetchAchievements();
     }, [])
 

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
 import UserUpdateBox from "../components/UserUpdateBox"
+import otherRequest from "../components/otherRequest"
+import getRequest from "../components/getRequest"
 
 
 export default function UserUpdate({ url, headers }) {
@@ -14,15 +16,11 @@ export default function UserUpdate({ url, headers }) {
 
     useEffect(() => {
         const getUser = async () => {
-            const response = await fetch(url + "user/" + id, {
-                method: "GET",
-                headers: headers
-            })
 
-            const result = await response.json()
+            const returnData = await getRequest(url, headers, "user/"+id)
 
-            if (response.status == 200) {
-                setUser(result.user)
+            if (returnData.response.status == 200) {
+                setUser(returnData.result.user)
             }
         }
         getUser()
@@ -37,22 +35,16 @@ export default function UserUpdate({ url, headers }) {
             email: e.target.email.value
         }
 
-        const response = await fetch(url + "user/update/" + user.id, {
-            method: "PUT",
-            headers: headers,
-            body: JSON.stringify(newUser)
-        })
+        const returnData = await otherRequest(url, headers, "user/update/"+user.id, newUser, "PUT")
 
-        const result = await response.json()
-
-        if (response.status == 200) {
-            setSuccess(result.message)
+        if (returnData.response.status == 200) {
+            setSuccess(returnData.result.message)
             setTimeout(() => {
                 navigation("/")
             }, 1000);
         }
         else {
-            setError(result.message)
+            setError(returnData.result.message)
         }
     }
 

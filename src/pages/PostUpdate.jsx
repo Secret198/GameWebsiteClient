@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import PostBox from "../components/PostBox"
 import { useParams, useNavigate } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
+import otherRequest from "../components/otherRequest"
+import getRequest from "../components/getRequest"
 
 
 export default function PostUpdate({ url, headers }) {
@@ -14,15 +16,11 @@ export default function PostUpdate({ url, headers }) {
 
     useEffect(() => {
         const getPost = async () => {
-            const response = await fetch(url + "post/" + id, {
-                method: "GET",
-                headers: headers
-            })
 
-            const result = await response.json()
+            const responseData = await getRequest(url, headers, "post/"+id)
 
-            if (response.status == 200) {
-                setPost(result.post)
+            if (responseData.response.status == 200) {
+                setPost(responseData.result.post)
             }
         }
         getPost()
@@ -36,22 +34,16 @@ export default function PostUpdate({ url, headers }) {
             post: e.target.post.value
         }
 
-        const response = await fetch(url + "post/" + post.id, {
-            method: "PATCH",
-            headers: headers,
-            body: JSON.stringify(newPost)
-        })
+        const responseData = await otherRequest(url, headers, "post/"+post.id, newPost, "PATCH")
 
-        const result = await response.json()
-
-        if (response.status == 200) {
-            setSuccess(result.message)
+        if (responseData.response.status == 200) {
+            setSuccess(responseData.result.message)
             setTimeout(() => {
                 navigation("/")
             }, 1000);
         }
         else {
-            setError(result.message)
+            setError(responseData.result.message)
         }
     }
 

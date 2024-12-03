@@ -3,6 +3,7 @@ import FeedBack from "../components/FeedBack";
 import LoginBox from "../components/LoginBox";
 import { useState } from "react";
 import SetLocalSorage from "../components/localStorageHandle";
+import otherRequest from "../components/otherRequest";
 
 function Login({ url, headers }) {
 
@@ -15,26 +16,18 @@ function Login({ url, headers }) {
 
         const credentials = { email: email, password: password }
 
-        const response = await fetch(url + "user/login", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(credentials)
-        });
-        const result = await response.json();
-        if (response.status == 200) {
-            SetLocalSorage(result.user.token, result.user.id, result.user.privilege)
-            setSuccess(result.message)
+        const responseData = await otherRequest(url, headers, "user/login", credentials, "POST")
+        if(responseData.response.status == 200){
+            SetLocalSorage(responseData.result.user.token, responseData.result.user.id, responseData.result.user.privilege)
+            setSuccess(responseData.result.message)
 
-
-            setTimeout(() => {
+                setTimeout(() => {
                 navigation("/")
             }, 1000);
-
         }
-        else {
-            setError(result.message)
+        else{
+            setError(responseData.result.message)
         }
-
 
     }
 

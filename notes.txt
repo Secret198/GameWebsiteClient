@@ -3,3 +3,4 @@ Error handling when fetching
 form validation
 form update image
 correctly display feedback messages
+success redirect

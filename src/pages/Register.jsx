@@ -3,6 +3,7 @@ import FeedBack from "../components/FeedBack"
 import { useNavigate } from "react-router-dom"
 import RegisterBox from "../components/RegisterBox"
 import SetLocalSorage from "../components/localStorageHandle"
+import otherRequest from "../components/otherRequest"
 
 
 export default function Register({ url, headers }) {
@@ -18,23 +19,17 @@ export default function Register({ url, headers }) {
             password: password
         }
 
+        const responseData = await otherRequest(url, headers, "user/register", userData, "POST")
 
-        const response = await fetch(url + "user/register", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(userData)
-        });
-        const result = await response.json()
-
-        if (response.status == 200) {
-            SetLocalSorage(result.user.token, result.user.id, result.user.privilege)
-            setSuccess(result.message)
+        if (responseData.response.status == 200) {
+            SetLocalSorage(responseData.result.user.token, responseData.result.user.id, responseData.result.user.privilege)
+            setSuccess(responseData.result.message)
             setTimeout(() => {
                 navigation("/")
             }, 1000);
         }
         else {
-            setError(result.message)
+            setError(responseData.result.message)
         }
 
     }
