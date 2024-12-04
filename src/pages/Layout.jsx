@@ -4,9 +4,9 @@ import NavBar from "../components/NavBar";
 
 
 
-function Layout() {
+function Layout({ loggedIn, setLoggedIn }) {
     return (<>
-        <NavBar />
+        <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <main>
             <Outlet />
         </main>

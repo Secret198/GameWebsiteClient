@@ -2,24 +2,24 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import UserMenu from "./UserMenu"
 
-function NavBar() {
+function NavBar({ loggedIn, setLoggedIn }) {
     const [showBar, setShowBar] = useState(false)
 
-    if(localStorage.getItem("token")){
+    if (localStorage.getItem("token")) {
         return (
             <>
                 <nav>
                     <ul>
                         <li><Link className="navElement" to={"/"}>Posztok</Link></li>
                         <li><Link className="navElement" to={"/yourmom"}>Felhasználók</Link></li>
-                        <li><a className="navElement" onClick={() => setShowBar(!showBar)}>Menü</a></li>
+                        <a className="navElement" onClick={() => setShowBar(!showBar)}><li>Menü</li></a>
                     </ul>
                 </nav>
-                {showBar === true && <UserMenu /> }
+                {showBar === true && <UserMenu loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
             </>
         )
     }
-    else{
+    else {
         return (
             <nav>
                 <ul>
@@ -31,7 +31,7 @@ function NavBar() {
             </nav>
         )
     }
-    
+
 }
 
 export default NavBar

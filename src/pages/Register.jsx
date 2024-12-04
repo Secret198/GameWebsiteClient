@@ -6,7 +6,7 @@ import SetLocalSorage from "../components/localStorageHandle"
 import otherRequest from "../components/otherRequest"
 
 
-export default function Register({ url, headers }) {
+export default function Register({ url, headers, setLoggedIn }) {
 
     const navigation = useNavigate()
     const [error, setError] = useState("")
@@ -23,6 +23,7 @@ export default function Register({ url, headers }) {
 
         if (responseData.response.status == 200) {
             SetLocalSorage(responseData.result.user.token, responseData.result.user.id, responseData.result.user.privilege)
+            setLoggedIn(true)
             setSuccess(responseData.result.message)
             setTimeout(() => {
                 navigation("/")

@@ -1,53 +1,46 @@
-import Footer from './components/Footer';
-import NavBar from './components/NavBar';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import Layout from './pages/Layout';
+import Register from './pages/Register';
 import Login from "./pages/Login";
+import GetUserData from './pages/GetUserData';
+import UserUpdate from './pages/UserUpdate.jsx';
+import PostCreate from './pages/PostCreate.jsx';
+import PostUpdate from './pages/PostUpdate.jsx';
+import AchievementCreate from './pages/AchievementCreate.jsx';
+import AchievementUpdate from './pages/AchievementUpdate.jsx';
+import AchievementList from './components/AchievementList.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 
 function App() {
+    const url = "http://localhost:8000/api/"
+    const headers = {
+        "Accept": "application/json",
+        "Content-type": "application/json"
+    }
 
+    const [loggedIn, setLoggedIn] = useState((localStorage.getItem("token") ? true : false))
 
     return (<>
-        <NavBar />
-        <Outlet />
-        <Footer />
+        <BrowserRouter >
+            <Routes>
+                <Route path='/' element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} >
+                    <Route path='achievement' element={loggedIn ? <AchievementList GetUserData url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='achievement/create' element={loggedIn ? <AchievementCreate GetUserData url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='achievement/update/:id' element={loggedIn ? <AchievementUpdate GetUserData url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='user/update/:id' element={loggedIn ? <UserUpdate GetUserData url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='user/show/:id' element={loggedIn ? <GetUserData GetUserData url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='post/create' element={loggedIn ? <PostCreate GetUserData url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='post/update/:id' element={loggedIn ? <PostUpdate GetUserData url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                </Route>
+                <Route path='login' element={<Login url={url} headers={headers} setLoggedIn={setLoggedIn} />} />
+                <Route path='register' element={<Register url={url} headers={headers} setLoggedIn={setLoggedIn} />} />
+                <Route path='*' element={<ErrorPage />} />
+            </Routes>
+        </BrowserRouter>
     </>
     )
 
 }
 
 export default App
-
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App

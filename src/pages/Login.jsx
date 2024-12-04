@@ -5,7 +5,7 @@ import { useState } from "react";
 import SetLocalSorage from "../components/localStorageHandle";
 import otherRequest from "../components/otherRequest";
 
-function Login({ url, headers }) {
+function Login({ url, headers, setLoggedIn }) {
 
     const navigation = useNavigate()
     const [error, setError] = useState("")
@@ -17,15 +17,18 @@ function Login({ url, headers }) {
         const credentials = { email: email, password: password }
 
         const responseData = await otherRequest(url, headers, "user/login", credentials, "POST")
-        if(responseData.response.status == 200){
+        if (responseData.response.status == 200) {
             SetLocalSorage(responseData.result.user.token, responseData.result.user.id, responseData.result.user.privilege)
+            //This thing
+            setLoggedIn(true)
+
             setSuccess(responseData.result.message)
 
-                setTimeout(() => {
+            setTimeout(() => {
                 navigation("/")
             }, 1000);
         }
-        else{
+        else {
             setError(responseData.result.message)
         }
 
