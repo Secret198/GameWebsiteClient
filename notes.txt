@@ -4,3 +4,4 @@ form validation
 form update image
 correctly display feedback messages
 success redirect
+Figure out a way to handle routing errors
