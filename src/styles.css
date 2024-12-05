@@ -27,13 +27,16 @@ nav > ul{
     list-style-type: none;
     display: flex;
     justify-content: right;
+    align-items: center;
     background-color: none;
     margin: 0;
 }
 
 nav>ul>li{
     padding: 20px;
+    cursor: pointer;
 }
+
 
 .navElement{
     text-decoration: none;

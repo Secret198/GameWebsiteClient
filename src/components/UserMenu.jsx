@@ -16,6 +16,8 @@ export default function UserMenu({ loggedIn, setLoggedIn }) {
             <h1>Menü</h1>
             <hr />
             <Link to={"/user/show/" + userId}>Adatok megjelenítése</Link>
+            <Link to={"/post/create"}>Új poszt létrehozása</Link>
+            <Link to={"#"}>Posztjaim</Link>
             <button onClick={logout}>Kijelentkezés</button>
         </div>
     )

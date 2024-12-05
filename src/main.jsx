@@ -14,6 +14,7 @@ import AchievementCreate from './pages/AchievementCreate.jsx'
 import AchievementUpdate from './pages/AchievementUpdate.jsx'
 import UserUpdate from './pages/UserUpdate.jsx'
 import GetUserData from './pages/GetUserData.jsx'
+import GetPosts from './pages/GetPosts.jsx'
 
 // const url = "http://localhost:8000/api/"
 // const headers = {
@@ -55,6 +56,10 @@ import GetUserData from './pages/GetUserData.jsx'
 //             {
 //                 path: "post/update/:id",
 //                 element: (localStorage.getItem("token") ? <PostUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />)
+//             },
+//             {
+//                 path: "post",
+//                 element: (localStorage.getItem("token") ? <GetPosts url={url} headers={headers} /> : <Navigate replace to={"/login"} />)    
 //             }
 
 //         ]

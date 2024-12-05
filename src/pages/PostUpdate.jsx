@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import PostBox from "../components/PostBox"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, redirect } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
 import otherRequest from "../components/otherRequest"
 import getRequest from "../components/getRequest"
@@ -17,7 +17,7 @@ export default function PostUpdate({ url, headers }) {
     useEffect(() => {
         const getPost = async () => {
 
-            const responseData = await getRequest(url, headers, "post/"+id)
+            const responseData = await getRequest(url, headers, "post/" + id)
 
             if (responseData.response.status == 200) {
                 setPost(responseData.result.post)
@@ -30,21 +30,48 @@ export default function PostUpdate({ url, headers }) {
     const updatePost = async (e) => {
         e.preventDefault()
 
-        const newPost = {
+        let reader = new FileReader()
+
+        let newPost = {
             post: e.target.post.value
         }
 
-        const responseData = await otherRequest(url, headers, "post/"+post.id, newPost, "PATCH")
+        if (!e.target.image["files"][0]) {
 
-        if (responseData.response.status == 200) {
-            setSuccess(responseData.result.message)
-            setTimeout(() => {
-                navigation("/")
-            }, 1000);
+
+            const responseData = await otherRequest(url, headers, "post/" + post.id, newPost, "PATCH")
+
+            if (responseData.response.status == 200) {
+                setSuccess(responseData.result.message)
+                setTimeout(() => {
+                    navigation("/")
+                }, 1000);
+            }
+            else {
+                setError(responseData.result.message)
+            }
         }
         else {
-            setError(responseData.result.message)
+            reader.readAsDataURL(e.target.image["files"][0])
         }
+
+        reader.onload = async function () {
+            newPost.image = reader.result
+
+            const responseData = await otherRequest(url, headers, "post/" + post.id, newPost, "PATCH")
+
+            if (responseData.response.status == 200) {
+                setSuccess(responseData.result.message)
+                setTimeout(() => {
+                    navigation("/")
+                }, 1000);
+            }
+            else {
+                setError(responseData.result.message)
+            }
+        }
+
+
     }
 
 
