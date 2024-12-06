@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import getRequest from "../components/getRequest"
-import PostList from "../components/PostList"
+import UserList from "../components/UserList"
 import { useNavigate } from "react-router-dom"
 import deleteRequest from "../components/deleteRequest"
 
 
-export default function GetPosts({ url, headers }) {
+export default function GetUsers({ url, headers }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const [page, setPage] = useState(1)
     const [sortBy, setSortBy] = useState("id")
@@ -15,15 +15,15 @@ export default function GetPosts({ url, headers }) {
     const navigation = useNavigate()
     const privilege = localStorage.getItem("privilege")
 
-    const fetchPosts = async () => {
-        const responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
+    const fetchUsers = async () => {
+        const responseData = await getRequest(url, headers, "user/all/" + sortBy + "/" + sortDir + "/?page=" + page)
         // setData(responseData.result.posts.data)
-        setData((prevData) => [...prevData, ...responseData.result.posts.data])
+        setData((prevData) => [...prevData, ...responseData.result.users.data])
         setLoading(false)
     }
 
     useEffect(() => {
-        fetchPosts()
+        fetchUsers()
     }, [page, sortBy, sortDir])
 
     const handleScroll = () => {
@@ -48,8 +48,8 @@ export default function GetPosts({ url, headers }) {
         }
     }, [loading])
 
-    const viewPost = (postId) => {
-        navigation("/post/show/" + postId)
+    const viewUser = (userId) => {
+        navigation("/user/show/" + userId)
     }
 
     const changeSortBy = (e) => {
@@ -62,12 +62,12 @@ export default function GetPosts({ url, headers }) {
         setSortDir(e.target.value)
     }
 
-    const editPost = (postId) => {
-        navigation("/post/update/" + postId)
+    const editUser = (postId) => {
+        navigation("/user/update/" + postId)
     }
 
-    const deletePost = async (postId) => {
-        const responseData = await deleteRequest(url, headers, "post/" + postId)
+    const deleteUser = async (postId) => {
+        const responseData = await deleteRequest(url, headers, "user/" + postId)
         //output is somehow
         console.log(responseData)
     }
@@ -76,18 +76,19 @@ export default function GetPosts({ url, headers }) {
         <div>
             <select name="sortBy" id="sortBy" onChange={changeSortBy} defaultValue={"id"}>
                 <option value="id">Relevencia idk??</option>
-                <option value="created_at">Dátum</option>
-                <option value="likes">Like</option>
+                <option value="created_at">Regisztrációs dátum</option>
+                <option value="updated_at">Legutóbbi módosítás dátum</option>
+                <option value="#">All the other stuff</option>
             </select>
             <select name="sortDir" id="sortDir" onChange={changeSortDir} defaultValue={"asc"}>
                 <option value="asc">Növekvő</option>
                 <option value="desc">Csökkenő</option>
             </select>
             {privilege == 10 && data.map((item) => (
-                <PostList key={item.id} id={item.id} post={item.post} created_at={item.created_at} viewPost={viewPost} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} admin={true} />
+                <UserList key={item.id} id={item.id} name={item.name} created_at={item.created_at} viewUser={viewUser} deleted_at={item.deleted_at} editUser={editUser} deleteUser={deleteUser} admin={true} />
             ))}
             {privilege == 1 && data.map((item) => (
-                <PostList key={item.id} id={item.id} post={item.post} created_at={item.created_at} viewPost={viewPost} admin={false} />
+                <UserList key={item.id} id={item.id} name={item.name} viewUser={viewUser} admin={false} />
             ))}
         </div>
 

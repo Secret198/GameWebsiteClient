@@ -60,6 +60,10 @@ import GetPosts from './pages/GetPosts.jsx'
 //             {
 //                 path: "post",
 //                 element: (localStorage.getItem("token") ? <GetPosts url={url} headers={headers} /> : <Navigate replace to={"/login"} />)    
+//             },
+//             {
+//                 path: "post/show/:id",
+//                 element: (localStorage.getItem("token") ? <GetPostData url={url} headers={headers} /> : <Navigate replace to={"/login"} />)    
 //             }
 
 //         ]
@@ -75,8 +79,9 @@ import GetPosts from './pages/GetPosts.jsx'
 // ])
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
-        {/* <RouterProvider router={router} /> */}
-        <App />
-    </StrictMode>,
+    <App />
+    // <StrictMode>
+    //     {/* <RouterProvider router={router} /> */}
+    //     <App />
+    // </StrictMode>,
 )
