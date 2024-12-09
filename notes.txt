@@ -9,3 +9,4 @@ maybe image preview when uploading images
 menu closing x and stuff
 like system
 maybe i could return the likes if i can sort by likes
+return privilege of user so there can be admin flags and the button only appeares when needs to

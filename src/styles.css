@@ -213,3 +213,16 @@ textarea{
     border: none;
     cursor: pointer;
 }
+
+.listBox{
+    border: 2px solid rgb(21, 27, 102);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px 20px 0 20px;
+    background-color: rgb(35, 43, 131);
+}
+
+.deleteBox{
+    background-color: rgb(35, 35, 59); 
+    /* Idk somehow gray it out */
+}
