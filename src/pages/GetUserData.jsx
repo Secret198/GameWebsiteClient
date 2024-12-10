@@ -29,7 +29,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
     useEffect(() => {
         const getUserData = async () => {
             const responseData = await getRequest(url, headers, "user/" + id)
-
+            console.log(responseData)
             if (responseData.response.status == 200) {
                 setUser(responseData.result.user)
                 setAchievements(responseData.result.achievements)
@@ -61,7 +61,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
             <UserDataShow user={user} achievements={achievements} admin={admin} />
             {(id === localStorage.getItem("userId") || privilege == 10) && <Link to={"/user/update/" + id}>Szerkesztés</Link>}
             {(privilege == 10) && <button onClick={() => deleteUser(id)}>Fiók törlése</button>}
-            {(privilege == 10) && <button onClick={() => makeUserAdmin(id)}>Adminná tevés</button>}
+            {(privilege == 10 && user.privilege != 10 ) && <button onClick={() => makeUserAdmin(id)}>Adminná tevés</button>}
         </>
 
     )

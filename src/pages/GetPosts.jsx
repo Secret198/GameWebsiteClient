@@ -3,6 +3,8 @@ import getRequest from "../components/getRequest"
 import PostList from "../components/PostList"
 import { useNavigate } from "react-router-dom"
 import deleteRequest from "../components/deleteRequest"
+import otherRequest from "../components/otherRequest"
+import FilterOptions from "../components/FilterOptions"
 
 
 export default function GetPosts({ url, headers }) {
@@ -14,9 +16,16 @@ export default function GetPosts({ url, headers }) {
     const [loading, setLoading] = useState(false)
     const navigation = useNavigate()
     const privilege = localStorage.getItem("privilege")
+    const [search, setSearch] = useState("")
 
     const fetchPosts = async () => {
-        const responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
+        let responseData
+        if(search){
+            responseData = await getRequest(url, headers, "post/search/"+sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
+        }
+        else{
+            responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
+        }
         // setData(responseData.result.posts.data)
         setData((prevData) => [...prevData, ...responseData.result.posts.data])
         setLoading(false)
@@ -24,7 +33,7 @@ export default function GetPosts({ url, headers }) {
 
     useEffect(() => {
         fetchPosts()
-    }, [page, sortBy, sortDir])
+    }, [page, sortBy, sortDir, search])
 
     const handleScroll = () => {
         // if (document.body.scrollHeight - 200 < window.scrollY + window.innerHeight) {
@@ -72,22 +81,33 @@ export default function GetPosts({ url, headers }) {
         console.log(responseData)
     }
 
+    const likePost = async (postId, newPost) => {
+        const responseData = await otherRequest(url, headers, "post/"+postId, newPost, "PATCH")
+
+        console.log(responseData)
+    }
+
+    const searchPost = async (event) => {
+        event.preventDefault();
+        if(event.target.postSearch.value != ""){
+            setData([])
+            setSearch(event.target.postSearch.value)
+        }
+        else{
+            setData([])
+            setSearch("")
+        }
+        // fetchPosts(event.target.postSearch.value)
+    }
+
     return (
         <div>
-            <select name="sortBy" id="sortBy" onChange={changeSortBy} defaultValue={"id"}>
-                <option value="id">Relevencia idk??</option>
-                <option value="created_at">Dátum</option>
-                <option value="likes">Like</option>
-            </select>
-            <select name="sortDir" id="sortDir" onChange={changeSortDir} defaultValue={"asc"}>
-                <option value="asc">Növekvő</option>
-                <option value="desc">Csökkenő</option>
-            </select>
+            <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
             {privilege == 10 && data.map((item) => (
-                <PostList key={item.id} id={item.id} post={item.post} created_at={item.created_at} viewPost={viewPost} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} admin={true} />
+                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} admin={true} />
             ))}
             {privilege == 1 && data.map((item) => (
-                <PostList key={item.id} id={item.id} post={item.post} created_at={item.created_at} viewPost={viewPost} admin={false} />
+                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} admin={false} />
             ))}
         </div>
 

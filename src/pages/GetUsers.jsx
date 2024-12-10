@@ -3,6 +3,7 @@ import getRequest from "../components/getRequest"
 import UserList from "../components/UserList"
 import { useNavigate } from "react-router-dom"
 import deleteRequest from "../components/deleteRequest"
+import FilterOptions from "../components/FilterOptions"
 
 
 export default function GetUsers({ url, headers }) {
@@ -14,17 +15,24 @@ export default function GetUsers({ url, headers }) {
     const [loading, setLoading] = useState(false)
     const navigation = useNavigate()
     const privilege = localStorage.getItem("privilege")
+    const [search, setSearch] = useState("")
 
     const fetchUsers = async () => {
-        const responseData = await getRequest(url, headers, "user/all/" + sortBy + "/" + sortDir + "/?page=" + page)
+        let responseData;
+        if(search){
+            responseData = await getRequest(url, headers, "user/search/"+sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
+        }
+        else{
+            responseData = await getRequest(url, headers, "user/all/" + sortBy + "/" + sortDir + "/?page=" + page)
+        }
         // setData(responseData.result.posts.data)
         setData((prevData) => [...prevData, ...responseData.result.users.data])
         setLoading(false)
     }
 
     useEffect(() => {
-        fetchUsers()
-    }, [page, sortBy, sortDir])
+        fetchUsers(false)
+    }, [page, sortBy, sortDir, search])
 
     const handleScroll = () => {
         // if (document.body.scrollHeight - 200 < window.scrollY + window.innerHeight) {
@@ -77,23 +85,27 @@ export default function GetUsers({ url, headers }) {
         console.log(responseData)
     }
 
+    const searchUser = async (event) => {
+        event.preventDefault();
+        if(event.target.postSearch.value != ""){
+            setData([])
+            setSearch(event.target.postSearch.value)
+        }
+        else{
+            setData([])
+            setSearch("")
+        }
+        // fetchUsers(event.target.userSearch.value)
+    }
+
     return (
         <div>
-            <select name="sortBy" id="sortBy" onChange={changeSortBy} defaultValue={"id"}>
-                <option value="id">Relevencia idk??</option>
-                <option value="created_at">Regisztrációs dátum</option>
-                <option value="updated_at">Legutóbbi módosítás dátum</option>
-                <option value="#">All the other stuff</option>
-            </select>
-            <select name="sortDir" id="sortDir" onChange={changeSortDir} defaultValue={"asc"}>
-                <option value="asc">Növekvő</option>
-                <option value="desc">Csökkenő</option>
-            </select>
+            <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchUser} />
             {privilege == 10 && data.map((item) => (
-                <UserList key={item.id} id={item.id} name={item.name} created_at={item.created_at} updated_at={item.updated_at} viewUser={viewUser} deleted_at={item.deleted_at} restoreUser={restoreUser} editUser={editUser} deleteUser={deleteUser} admin={true} />
+                <UserList key={item.id} user={item} viewUser={viewUser} restoreUser={restoreUser} editUser={editUser} deleteUser={deleteUser} admin={true} />
             ))}
             {privilege == 1 && data.map((item) => (
-                <UserList key={item.id} id={item.id} name={item.name} viewUser={viewUser} admin={false} />
+                <UserList key={item.id} user={item} viewUser={viewUser} admin={false} />
             ))}
         </div>
 
