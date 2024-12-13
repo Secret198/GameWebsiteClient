@@ -1,6 +1,8 @@
 
 
-export default function PostList({post, viewPost, editPost, deletePost, likePost, admin }) {
+export default function PostList({post, viewPost, editPost, deletePost, likePost, likedPostsArr, admin }) {
+
+
     if (admin) {
         return (
             <div>
@@ -11,7 +13,8 @@ export default function PostList({post, viewPost, editPost, deletePost, likePost
                 <p>{post.deleted_at}</p>
                 <button onClick={() => editPost(post.id)}>Szerkesztés</button>
                 <button onClick={() => deletePost(post.id)}>Törlés</button>
-                <button onClick={() => likePost(post.id, {likes: true})}>Like</button>
+                {!likedPostsArr.includes(post.id) ? <button onClick={() => likePost(post.id, {likes: true})}>Like</button> : <button className="liked" onClick={() => likePost(post.id, {likes: false})}>Like</button>}
+                
             </div>
         )
     }
@@ -22,7 +25,8 @@ export default function PostList({post, viewPost, editPost, deletePost, likePost
             <p>{post.likes}</p>
             <p>{post.created_at}</p>
             <p>{post.modified_at}</p>
-            <button onClick={() => likePost(post.id, {likes: true})}>Like</button>
+            {!likedPostsArr.includes(post.id) ? <button onClick={() => likePost(post.id, {likes: true})}>Like</button> : <button className="liked" onClick={() => likePost(post.id, {likes: false})}>Like</button>}
+
         </div>
     )
 }

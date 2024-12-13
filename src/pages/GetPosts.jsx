@@ -7,7 +7,7 @@ import otherRequest from "../components/otherRequest"
 import FilterOptions from "../components/FilterOptions"
 
 
-export default function GetPosts({ url, headers }) {
+export default function GetPosts({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const [page, setPage] = useState(1)
     const [sortBy, setSortBy] = useState("id")
@@ -17,6 +17,7 @@ export default function GetPosts({ url, headers }) {
     const navigation = useNavigate()
     const privilege = localStorage.getItem("privilege")
     const [search, setSearch] = useState("")
+    // const [likedPosts, setLikedPosts] = useState([])
 
     const fetchPosts = async () => {
         let responseData
@@ -26,6 +27,8 @@ export default function GetPosts({ url, headers }) {
         else{
             responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
+        setLikedPosts(responseData.result.likedPosts)
+
         // setData(responseData.result.posts.data)
         setData((prevData) => [...prevData, ...responseData.result.posts.data])
         setLoading(false)
@@ -81,11 +84,19 @@ export default function GetPosts({ url, headers }) {
         console.log(responseData)
     }
 
-    const likePost = async (postId, newPost) => {
-        const responseData = await otherRequest(url, headers, "post/"+postId, newPost, "PATCH")
+    // const likePost = async (postId, newPost) => {
+    //     const responseData = await otherRequest(url, headers, "post/like/"+postId, newPost, "PATCH")
+    //     if(newPost.likes){
+    //         setLikedPosts([...likedPosts, postId])
+    //     }
+    //     else{
+    //         let tempLikedPosts = [...likedPosts]
+    //         tempLikedPosts.splice(tempLikedPosts.indexOf(postId), 1)
+    //         setLikedPosts(tempLikedPosts)
+    //     }
 
-        console.log(responseData)
-    }
+    //     console.log(responseData)
+    // }
 
     const searchPost = async (event) => {
         event.preventDefault();
@@ -104,10 +115,10 @@ export default function GetPosts({ url, headers }) {
         <div>
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
             {privilege == 10 && data.map((item) => (
-                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} admin={true} />
+                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} admin={true} />
             ))}
             {privilege == 1 && data.map((item) => (
-                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} admin={false} />
+                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
             ))}
         </div>
 

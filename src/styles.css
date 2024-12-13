@@ -226,3 +226,7 @@ textarea{
     background-color: rgb(35, 35, 59); 
     /* Idk somehow gray it out */
 }
+
+.liked{
+    background-color: red;
+}

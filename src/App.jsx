@@ -14,6 +14,7 @@ import ErrorPage from './pages/ErrorPage.jsx';
 import GetPosts from './pages/GetPosts.jsx';
 import GetPostData from './pages/GetPostData.jsx';
 import GetUsers from './pages/GetUsers.jsx';
+import otherRequest from './components/otherRequest.js';
 
 function App() {
     const url = "http://localhost:8000/api/"
@@ -23,6 +24,21 @@ function App() {
     }
 
     const [loggedIn, setLoggedIn] = useState((localStorage.getItem("token") ? true : false))
+    const [likedPosts, setLikedPosts] = useState([])
+
+    const likePost = async (postId, newPost) => {
+        const responseData = await otherRequest(url, headers, "post/like/"+postId, newPost, "PATCH")
+        if(newPost.likes){
+            setLikedPosts([...likedPosts, postId])
+        }
+        else{
+            let tempLikedPosts = [...likedPosts]
+            tempLikedPosts.splice(tempLikedPosts.indexOf(postId), 1)
+            setLikedPosts(tempLikedPosts)
+        }
+
+        console.log(responseData)
+    }
 
     return (<>
         <BrowserRouter >
@@ -36,8 +52,8 @@ function App() {
                     <Route path='user' element={loggedIn ? <GetUsers url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/create' element={loggedIn ? <PostCreate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/update/:id' element={loggedIn ? <PostUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
-                    <Route path='post' element={loggedIn ? <GetPosts url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
-                    <Route path='post/show/:id' element={loggedIn ? <GetPostData url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='post' element={loggedIn ? <GetPosts url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='post/show/:id' element={loggedIn ? <GetPostData url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} /> : <Navigate replace to={"/login"} />} />
                 </Route>
                 <Route path='login' element={<Login url={url} headers={headers} setLoggedIn={setLoggedIn} />} />
                 <Route path='register' element={<Register url={url} headers={headers} setLoggedIn={setLoggedIn} />} />

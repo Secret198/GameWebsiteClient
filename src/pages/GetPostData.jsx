@@ -3,7 +3,7 @@ import getRequest from "../components/getRequest";
 import { useEffect, useState } from "react";
 
 
-export default function GetPostData({ url, headers }) {
+export default function GetPostData({ url, headers, likedPosts, likePost}) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const id = useParams().id
     const [error, setError] = useState()
@@ -38,6 +38,7 @@ export default function GetPostData({ url, headers }) {
                 <p>{post.post}</p>
                 <p>{post.created_at}</p>
                 <p>{post.likes}</p>
+                {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, {likes: true})}>Like</button> : <button className="liked" onClick={() => likePost(post.id, {likes: false})}>Like</button>}
             </div>
         )
     }
