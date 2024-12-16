@@ -1,43 +1,35 @@
-import { useEffect, useState } from "react"
-import getRequest from "../components/getRequest"
-import PostList from "../components/PostList"
+import { useState, useEffect } from "react";
+import getRequest from "../components/getRequest";
 import { useNavigate } from "react-router-dom"
-import deleteRequest from "../components/deleteRequest"
-import otherRequest from "../components/otherRequest"
-import FilterOptions from "../components/FilterOptions"
+import PostList from "../components/PostList";
+import FilterOptions from "../components/FilterOptions";
+import deleteRequest from "../components/deleteRequest";
 
-
-export default function GetPosts({ url, headers, likedPosts, likePost, setLikedPosts }) {
+export default function GetOwnPosts({url, headers, likedPosts, likePost, setLikedPosts}){
     headers.Authorization = "Bearer " + localStorage.getItem("token")
+
     const [page, setPage] = useState(1)
     const [sortBy, setSortBy] = useState("id")
     const [sortDir, setSortDir] = useState("asc")
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
     const navigation = useNavigate()
-    const privilege = localStorage.getItem("privilege")
     const [search, setSearch] = useState("")
-    // const [likedPosts, setLikedPosts] = useState([])
 
     const fetchPosts = async () => {
-        let responseData
-        if(search){
-            responseData = await getRequest(url, headers, "post/search/"+sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
-        }
-        else{
-            responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
-        }
+        const responseData = await getRequest(url, headers, "user/"+sortBy+"/"+sortDir)
+        console.log(responseData)
+
         setLikedPosts(responseData.result.likedPosts)
 
-        // setData(responseData.result.posts.data)
         setData((prevData) => [...prevData, ...responseData.result.posts.data])
         setLoading(false)
     }
 
     useEffect(() => {
-        fetchPosts()
+        fetchPosts(false)
     }, [page, sortBy, sortDir, search])
-
+    
     const handleScroll = () => {
         // if (document.body.scrollHeight - 200 < window.scrollY + window.innerHeight) {
         //     setLoading(true)
@@ -51,7 +43,6 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
     }
 
     window.addEventListener("scroll", handleScroll)
-
 
     useEffect(() => {
         if (loading == true) {
@@ -84,20 +75,6 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         console.log(responseData)
     }
 
-    // const likePost = async (postId, newPost) => {
-    //     const responseData = await otherRequest(url, headers, "post/like/"+postId, newPost, "PATCH")
-    //     if(newPost.likes){
-    //         setLikedPosts([...likedPosts, postId])
-    //     }
-    //     else{
-    //         let tempLikedPosts = [...likedPosts]
-    //         tempLikedPosts.splice(tempLikedPosts.indexOf(postId), 1)
-    //         setLikedPosts(tempLikedPosts)
-    //     }
-
-    //     console.log(responseData)
-    // }
-
     const searchPost = async (event) => {
         event.preventDefault();
         if(event.target.postSearch.value != ""){
@@ -108,18 +85,16 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
             setData([])
             setSearch("")
         }
-        // fetchPosts(event.target.postSearch.value)
+        // fetchUsers(event.target.userSearch.value)
     }
 
     return (
         <div>
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
-            {privilege == 10 && data.map((item) => (
-                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} admin={true} />
+            {data.map((item) => (
+                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} deletePost={deletePost} admin={true} />
             ))}
-            {privilege == 1 && data.map((item) => (
-                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
-            ))}
+       
         </div>
 
     )

@@ -13,7 +13,7 @@ export default function FilterOptions({changeSortBy, changeSortDir, search}){
                 <option value="desc">Csökkenő</option>
             </select>
             <form onSubmit={search}>
-                <input type="text" name="postSearch" id="postSearch" />
+                <input type="text" name="searchBar" id="searchBar" />
                 <button type="submit">Keresés</button>
             </form>
         </>

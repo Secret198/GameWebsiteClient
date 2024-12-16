@@ -89,7 +89,7 @@ export default function GetUsers({ url, headers }) {
         event.preventDefault();
         if(event.target.postSearch.value != ""){
             setData([])
-            setSearch(event.target.postSearch.value)
+            setSearch(event.target.searchBar.value)
         }
         else{
             setData([])

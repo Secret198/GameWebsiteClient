@@ -15,6 +15,7 @@ import GetPosts from './pages/GetPosts.jsx';
 import GetPostData from './pages/GetPostData.jsx';
 import GetUsers from './pages/GetUsers.jsx';
 import otherRequest from './components/otherRequest.js';
+import GetOwnPosts from './pages/GetOwnPosts.jsx';
 
 function App() {
     const url = "http://localhost:8000/api/"
@@ -50,6 +51,7 @@ function App() {
                     <Route path='user/update/:id' element={loggedIn ? <UserUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='user/show/:id' element={loggedIn ? <GetUserData url={url} headers={headers} setLoggedIn={setLoggedIn} /> : <Navigate replace to={"/login"} />} />
                     <Route path='user' element={loggedIn ? <GetUsers url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='user/posts' element={loggedIn ? <GetOwnPosts url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/create' element={loggedIn ? <PostCreate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/update/:id' element={loggedIn ? <PostUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post' element={loggedIn ? <GetPosts url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
