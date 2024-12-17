@@ -11,6 +11,12 @@ export default function Register({ url, headers, setLoggedIn }) {
     const navigation = useNavigate()
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
+    const [values, setValues] = useState({
+        name: "",
+        email: "",
+        password: "",
+        password2: ""
+    })
 
     async function addUser(url, name, email, password) {
         const userData = {
@@ -45,12 +51,16 @@ export default function Register({ url, headers, setLoggedIn }) {
         }
     }
 
+    const onChange = (e) => {
+        setValues({...values, [e.target.name]: e.target.value})
+        console.log(values)
+    }
 
     if (error) {
         return (
             <div>
                 <FeedBack message={error} status={"failure"} />
-                <RegisterBox register={register} />
+                <RegisterBox register={register} password={values.password} onChange={onChange} values={values} />
             </div>
         )
     }
@@ -58,14 +68,14 @@ export default function Register({ url, headers, setLoggedIn }) {
         return (
             <div>
                 <FeedBack message={success} status={"success"} />
-                <RegisterBox register={register} />
+                <RegisterBox register={register} password={values.password} onChange={onChange} values={values} />
             </div>
         )
     }
     else {
         return (
             <div>
-                <RegisterBox register={register} />
+                <RegisterBox register={register} password={values.password} onChange={onChange} values={values} />
             </div>
         )
 

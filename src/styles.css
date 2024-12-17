@@ -230,3 +230,12 @@ textarea{
 .liked{
     background-color: red;
 }
+
+.formError{
+    color: red;
+    display: none;
+}
+
+input:invalid[focused="true"] ~ .formError{
+    display: block;
+}
