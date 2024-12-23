@@ -21,10 +21,10 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
 
     const fetchPosts = async () => {
         let responseData
-        if(search){
-            responseData = await getRequest(url, headers, "post/search/"+sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
+        if (search) {
+            responseData = await getRequest(url, headers, "post/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
         }
-        else{
+        else {
             responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
         setLikedPosts(responseData.result.likedPosts)
@@ -100,11 +100,11 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
 
     const searchPost = async (event) => {
         event.preventDefault();
-        if(event.target.postSearch.value != ""){
+        if (event.target.searchBar.value != "") {
             setData([])
             setSearch(event.target.searchBar.value)
         }
-        else{
+        else {
             setData([])
             setSearch("")
         }

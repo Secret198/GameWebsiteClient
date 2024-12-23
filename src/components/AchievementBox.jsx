@@ -1,11 +1,12 @@
-export default function AchievementBox({ submitAchievement, selected, name, threshold, description, isCreate}) {
-    if(isCreate){
+import FormInput from "./FormInput"
+
+export default function AchievementBox({ submitAchievement, selected, name, threshold, description, isCreate }) {
+    if (isCreate) {
         return (
             <div className="coolBox centerHorizontal loginSize">
                 <h1>Achievement hozzáadás</h1>
                 <form className="loginForm" onSubmit={submitAchievement}>
-                    <label htmlFor="name">Új achievement neve</label>
-                    <input type="text" id="name" name="name" placeholder="Új achievement neve" required />
+                    <FormInput type={"text"} inputId={"name"} label={"Új achievement neve"} errorMessage={"Mező kitöltése kötelező"} />
                     <label htmlFor="field">Megszerzéshez szükséges kategória ??????</label>
                     <select name="field" id="field">
                         <option value="kills">Kills</option>
@@ -15,22 +16,19 @@ export default function AchievementBox({ submitAchievement, selected, name, thre
                         <option value="boss2lvl">Boss 2 lvl</option>
                         <option value="boss3lvl">Boss 3 lvl</option>
                     </select>
-                    <label htmlFor="threshold">Threshold ??</label>
-                    <input type="number" id="threshold" name="threshold" placeholder="Threshold" min={0} />
-                    <label htmlFor="description">Új achievement leírása</label>
-                    <input type="text" id="description" name="description" placeholder="Leírás" required />
+                    <FormInput type={"number"} inputId={"threshold"} label={"Threshold ??"} errorMessage={"Mező kitöltése kötelező, 0-nál nagyobb számot adjon meg"} min={"0"} />
+                    <FormInput type={"text"} inputId={"description"} label={"Új achievement leírása"} errorMessage={"Mező kitöltése kötelező"} />
                     <button type="submit">Feltöltés</button>
                 </form>
             </div>
         )
     }
-    else{
+    else {
         return (
             <div className="coolBox centerHorizontal loginSize">
                 <h1>Achievement szerkesztése</h1>
                 <form className="loginForm" onSubmit={submitAchievement}>
-                    <label htmlFor="name">Achievement új neve</label>
-                    <input type="text" id="name" name="name" placeholder="Név" required defaultValue={name} />
+                    <FormInput type={"text"} inputId={"name"} label={"Achievement új neve"} errorMessage={"Mező kitöltése kötelező"} defaultValue={name} />
                     <label htmlFor="field">Megszerzéshez szükséges kategória ??????</label>
                     <select name="field" id="field" defaultValue={selected}>
                         <option value="kills">Kills</option>
@@ -40,14 +38,12 @@ export default function AchievementBox({ submitAchievement, selected, name, thre
                         <option value="boss2lvl">Boss 2 lvl</option>
                         <option value="boss3lvl">Boss 3 lvl</option>
                     </select>
-                    <label htmlFor="threshold">Threshold ??</label>
-                    <input type="number" id="threshold" name="threshold" placeholder="threshold" min={0} defaultValue={threshold} required />
-                    <label htmlFor="description">Achievement új leírása</label>
-                    <input type="text" id="description" name="description" placeholder="Leírás" required defaultValue={description} />
+                    <FormInput type={"number"} inputId={"threshold"} label={"Threshold ??"} errorMessage={"Mező kitöltése kötelező, 0-nál nagyobb számot adjon meg"} min={"0"} defaultValue={threshold} />
+                    <FormInput type={"text"} inputId={"description"} label={"Achievement új leírása"} errorMessage={"Mező kitöltése kötelező"} defaultValue={description} />
                     <button type="submit">Feltöltés</button>
                 </form>
             </div>
         )
     }
-    
+
 }

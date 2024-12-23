@@ -236,6 +236,6 @@ textarea{
     display: none;
 }
 
-input:invalid[focused="true"] ~ .formError{
+input:invalid[focused="true"] + .formError{
     display: block;
 }

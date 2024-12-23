@@ -16,8 +16,8 @@ export default function AchievementUpdate({ url, headers }) {
     useEffect(() => {
         const getAchievement = async () => {
 
-            const responseData = await getRequest(url, headers, "achievement/"+id)
-
+            const responseData = await getRequest(url, headers, "achievement/" + id)
+            console.log(responseData)
             if (responseData.response.status == 200) {
                 setAchievement(responseData.result.achievement)
             }
@@ -36,7 +36,7 @@ export default function AchievementUpdate({ url, headers }) {
             threshold: e.target.threshold.value
         }
 
-        const responseData = await otherRequest(url, headers, "achievement/"+achievement.id, newAchievement, "PATCH")
+        const responseData = await otherRequest(url, headers, "achievement/" + achievement.id, newAchievement, "PATCH")
 
         if (responseData.response.status == 200) {
             setSuccess(responseData.result.message)

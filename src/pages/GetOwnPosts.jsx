@@ -5,7 +5,7 @@ import PostList from "../components/PostList";
 import FilterOptions from "../components/FilterOptions";
 import deleteRequest from "../components/deleteRequest";
 
-export default function GetOwnPosts({url, headers, likedPosts, likePost, setLikedPosts}){
+export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
 
     const [page, setPage] = useState(1)
@@ -17,8 +17,7 @@ export default function GetOwnPosts({url, headers, likedPosts, likePost, setLike
     const [search, setSearch] = useState("")
 
     const fetchPosts = async () => {
-        const responseData = await getRequest(url, headers, "user/"+sortBy+"/"+sortDir)
-        console.log(responseData)
+        const responseData = await getRequest(url, headers, "user/" + sortBy + "/" + sortDir + "/?page=" + page)
 
         setLikedPosts(responseData.result.likedPosts)
 
@@ -29,7 +28,7 @@ export default function GetOwnPosts({url, headers, likedPosts, likePost, setLike
     useEffect(() => {
         fetchPosts(false)
     }, [page, sortBy, sortDir, search])
-    
+
     const handleScroll = () => {
         // if (document.body.scrollHeight - 200 < window.scrollY + window.innerHeight) {
         //     setLoading(true)
@@ -77,11 +76,11 @@ export default function GetOwnPosts({url, headers, likedPosts, likePost, setLike
 
     const searchPost = async (event) => {
         event.preventDefault();
-        if(event.target.postSearch.value != ""){
+        if (event.target.searchBar.value != "") {
             setData([])
             setSearch(event.target.searchBar.value)
         }
-        else{
+        else {
             setData([])
             setSearch("")
         }
@@ -94,7 +93,7 @@ export default function GetOwnPosts({url, headers, likedPosts, likePost, setLike
             {data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} deletePost={deletePost} admin={true} />
             ))}
-       
+
         </div>
 
     )

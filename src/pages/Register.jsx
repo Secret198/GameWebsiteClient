@@ -43,24 +43,20 @@ export default function Register({ url, headers, setLoggedIn }) {
 
     const register = async (event) => {
         event.preventDefault();
-        if (event.target.password.value !== event.target.password2.value) {
-            setError("A két jelszó nem egyezik meg")
-        }
-        else {
-            await addUser(url, event.target.name.value, event.target.email.value, event.target.password.value)
-        }
+
+        await addUser(url, event.target.name.value, event.target.email.value, event.target.password.value)
+
     }
 
     const onChange = (e) => {
-        setValues({...values, [e.target.name]: e.target.value})
-        console.log(values)
+        setValues({ ...values, [e.target.name]: e.target.value })
     }
 
     if (error) {
         return (
             <div>
                 <FeedBack message={error} status={"failure"} />
-                <RegisterBox register={register} password={values.password} onChange={onChange} values={values} />
+                <RegisterBox register={register} password={values.password} onChange={onChange} />
             </div>
         )
     }
@@ -68,14 +64,14 @@ export default function Register({ url, headers, setLoggedIn }) {
         return (
             <div>
                 <FeedBack message={success} status={"success"} />
-                <RegisterBox register={register} password={values.password} onChange={onChange} values={values} />
+                <RegisterBox register={register} password={values.password} onChange={onChange} />
             </div>
         )
     }
     else {
         return (
             <div>
-                <RegisterBox register={register} password={values.password} onChange={onChange} values={values} />
+                <RegisterBox register={register} password={values.password} onChange={onChange} />
             </div>
         )
 

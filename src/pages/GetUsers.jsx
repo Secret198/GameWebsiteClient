@@ -19,10 +19,10 @@ export default function GetUsers({ url, headers }) {
 
     const fetchUsers = async () => {
         let responseData;
-        if(search){
-            responseData = await getRequest(url, headers, "user/search/"+sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
+        if (search) {
+            responseData = await getRequest(url, headers, "user/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
         }
-        else{
+        else {
             responseData = await getRequest(url, headers, "user/all/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
         // setData(responseData.result.posts.data)
@@ -81,17 +81,17 @@ export default function GetUsers({ url, headers }) {
     }
 
     const restoreUser = async (userId) => {
-        const responseData = await deleteRequest(url, headers, "user/restore/"+userId)
+        const responseData = await deleteRequest(url, headers, "user/restore/" + userId)
         console.log(responseData)
     }
 
     const searchUser = async (event) => {
         event.preventDefault();
-        if(event.target.postSearch.value != ""){
+        if (event.target.searchBar.value != "") {
             setData([])
             setSearch(event.target.searchBar.value)
         }
-        else{
+        else {
             setData([])
             setSearch("")
         }

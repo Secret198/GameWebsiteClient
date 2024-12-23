@@ -1,13 +1,12 @@
+import FormInput from "./FormInput";
 
 
 export default function UserUpdateBox({ submitUser, name, email }) {
     return (
         <div className="coolBox loginSize centerHorizontal">
             <form className="loginForm" onSubmit={submitUser}>
-                <label htmlFor="name">Új felhasználónév</label>
-                <input type="text" id="name" name="name" defaultValue={name} required />
-                <label htmlFor="email">Új email cím</label>
-                <input type="email" id="email" name="email" defaultValue={email} required />
+                <FormInput type={"text"} inputId={"name"} label={"Új felhasználónév"} errorMessage={"Felhasználnév megadása kötelező, legalább 3 karakter hosszúnak kell lennie"} pattern={".{3,}"} defaultValue={name} />
+                <FormInput type={"email"} inputId={"email"} label={"Email cím"} errorMessage={"Email cím megadása kötelező"} defaultValue={email} />
                 <button type="submit">Frissítés</button>
             </form>
         </div>
