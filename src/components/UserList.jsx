@@ -17,10 +17,7 @@ export default function UserList({ user, viewUser, restoreUser, editUser, delete
             </div>
         )
     }
-    else if(admin){
-        const processedCreatedAt = processDate(user.created_at)
-        const processedUpdatedAt = processDate(user.updated_at)
-        const processedDeletedAt = processDate(user.deleted_at)
+    else if (admin) {
         return (
             <div className="listBox">
                 {user.privilege == 10 && <p>Admin</p>}
@@ -33,7 +30,7 @@ export default function UserList({ user, viewUser, restoreUser, editUser, delete
             </div>
         )
     }
-    else{
+    else {
         return (
             <div>
                 {user.privilege == 10 && <p>Admin</p>}

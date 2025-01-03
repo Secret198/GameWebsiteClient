@@ -4,6 +4,7 @@ import { useParams, useNavigate, redirect } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
 import otherRequest from "../components/otherRequest"
 import getRequest from "../components/getRequest"
+import Load from "../components/Load"
 
 
 export default function PostUpdate({ url, headers }) {
@@ -12,9 +13,11 @@ export default function PostUpdate({ url, headers }) {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
     const [post, setPost] = useState("")
+    const [loading, setLoading] = useState(false)
     const id = useParams().id
 
     useEffect(() => {
+        setLoading(true)
         const getPost = async () => {
 
             const responseData = await getRequest(url, headers, "post/" + id)
@@ -22,6 +25,7 @@ export default function PostUpdate({ url, headers }) {
             if (responseData.response.status == 200) {
                 setPost(responseData.result.post)
             }
+            setLoading(false)
         }
         getPost()
 
@@ -35,12 +39,12 @@ export default function PostUpdate({ url, headers }) {
         let newPost = {
             post: e.target.post.value
         }
-
+        setLoading(true)
         if (!e.target.image["files"][0]) {
 
 
             const responseData = await otherRequest(url, headers, "post/" + post.id, newPost, "PATCH")
-
+            setLoading(false)
             if (responseData.response.status == 200) {
                 setSuccess(responseData.result.message)
                 setTimeout(() => {
@@ -55,11 +59,14 @@ export default function PostUpdate({ url, headers }) {
             reader.readAsDataURL(e.target.image["files"][0])
         }
 
+
         reader.onload = async function () {
+            setLoading(true)
             newPost.image = reader.result
 
             const responseData = await otherRequest(url, headers, "post/" + post.id, newPost, "PATCH")
 
+            setLoading(false)
             if (responseData.response.status == 200) {
                 setSuccess(responseData.result.message)
                 setTimeout(() => {
@@ -74,28 +81,31 @@ export default function PostUpdate({ url, headers }) {
 
     }
 
-
-
-    if (success) {
-        return (
-            <div>
-                <FeedBack message={success} status={"success"} />
-                <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
-            </div>
-        )
-    }
-    else if (error) {
-        return (
-            <div>
-                <FeedBack message={error} status={"failure"} />
-                <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
-            </div>
-        )
-    }
-    else if (post) {
-        return <div>
+    return (
+        <div>
+            {loading && <Load />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
         </div>
-    }
+    )
+    // if (success) {
+    //     return (
+    //         <div>
+    //             <FeedBack message={success} status={"success"} />
+    //             <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
+    //         </div>
+    //     )
+    // }
+    // else if (error) {
+    //     return (
+    //         <div>
+    //             <FeedBack message={error} status={"failure"} />
+    //             <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
+    //         </div>
+    //     )
+    // }
+    // else if (post) {
+
+    // }
 
 }

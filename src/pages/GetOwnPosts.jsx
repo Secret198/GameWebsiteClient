@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import PostList from "../components/PostList";
 import FilterOptions from "../components/FilterOptions";
 import deleteRequest from "../components/deleteRequest";
+import Load from "../components/Load";
 
 export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -15,18 +16,30 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
     const [loading, setLoading] = useState(false)
     const navigation = useNavigate()
     const [search, setSearch] = useState("")
+    const [dataMaxNum, setDataMaxNum] = useState(0)
 
     const fetchPosts = async () => {
-        const responseData = await getRequest(url, headers, "user/" + sortBy + "/" + sortDir + "/?page=" + page)
+        let responseData;
 
+        if (search) {
+            responseData = await getRequest(url, headers, "user/post/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
+        }
+        else {
+            responseData = await getRequest(url, headers, "user/" + sortBy + "/" + sortDir + "/?page=" + page)
+        }
+
+        console.log(responseData.result)
         setLikedPosts(responseData.result.likedPosts)
+        setDataMaxNum(responseData.result.posts.total)
 
         setData((prevData) => [...prevData, ...responseData.result.posts.data])
         setLoading(false)
     }
 
     useEffect(() => {
-        fetchPosts(false)
+        if (data.length < dataMaxNum || data.length == 0) {
+            fetchPosts()
+        }
     }, [page, sortBy, sortDir, search])
 
     const handleScroll = () => {
@@ -93,6 +106,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
             {data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} deletePost={deletePost} admin={true} />
             ))}
+            {(loading && data.length < dataMaxNum) && <Load />}
 
         </div>
 

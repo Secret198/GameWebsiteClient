@@ -4,6 +4,7 @@ import UserList from "../components/UserList"
 import { useNavigate } from "react-router-dom"
 import deleteRequest from "../components/deleteRequest"
 import FilterOptions from "../components/FilterOptions"
+import Load from "../components/Load"
 
 
 export default function GetUsers({ url, headers }) {
@@ -16,6 +17,7 @@ export default function GetUsers({ url, headers }) {
     const navigation = useNavigate()
     const privilege = localStorage.getItem("privilege")
     const [search, setSearch] = useState("")
+    const [dataMaxNum, setDataMaxNum] = useState(0)
 
     const fetchUsers = async () => {
         let responseData;
@@ -26,12 +28,16 @@ export default function GetUsers({ url, headers }) {
             responseData = await getRequest(url, headers, "user/all/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
         // setData(responseData.result.posts.data)
+
+        setDataMaxNum(responseData.result.users.total)
         setData((prevData) => [...prevData, ...responseData.result.users.data])
         setLoading(false)
     }
 
     useEffect(() => {
-        fetchUsers(false)
+        if (data.length < dataMaxNum || data.length == 0) {
+            fetchUsers()
+        }
     }, [page, sortBy, sortDir, search])
 
     const handleScroll = () => {
@@ -107,6 +113,7 @@ export default function GetUsers({ url, headers }) {
             {privilege == 1 && data.map((item) => (
                 <UserList key={item.id} user={item} viewUser={viewUser} admin={false} />
             ))}
+            {(loading && data.length < dataMaxNum) && <Load />}
         </div>
 
     )

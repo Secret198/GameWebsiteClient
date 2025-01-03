@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import deleteRequest from "../components/deleteRequest"
 import otherRequest from "../components/otherRequest"
 import FilterOptions from "../components/FilterOptions"
-
+import Load from "../components/Load"
 
 export default function GetPosts({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -17,6 +17,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
     const navigation = useNavigate()
     const privilege = localStorage.getItem("privilege")
     const [search, setSearch] = useState("")
+    const [dataMaxNum, setDataMaxNum] = useState(0)
     // const [likedPosts, setLikedPosts] = useState([])
 
     const fetchPosts = async () => {
@@ -28,14 +29,17 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
             responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
         setLikedPosts(responseData.result.likedPosts)
-
+        setDataMaxNum(responseData.result.posts.total)
         // setData(responseData.result.posts.data)
         setData((prevData) => [...prevData, ...responseData.result.posts.data])
         setLoading(false)
     }
 
     useEffect(() => {
-        fetchPosts()
+        if (data.length < dataMaxNum || data.length == 0) {
+            fetchPosts()
+        }
+
     }, [page, sortBy, sortDir, search])
 
     const handleScroll = () => {
@@ -84,6 +88,11 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         console.log(responseData)
     }
 
+    const restorePost = async (postId) => {
+        const responseData = await deleteRequest(url, headers, "post/restore/" + postId)
+        console.log(responseData)
+    }
+
     // const likePost = async (postId, newPost) => {
     //     const responseData = await otherRequest(url, headers, "post/like/"+postId, newPost, "PATCH")
     //     if(newPost.likes){
@@ -115,11 +124,13 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         <div>
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
             {privilege == 10 && data.map((item) => (
-                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} admin={true} />
+                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} restorePost={restorePost} admin={true} />
             ))}
             {privilege == 1 && data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
             ))}
+            {(loading && data.length < dataMaxNum) && <Load />}
+
         </div>
 
     )

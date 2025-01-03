@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import RegisterBox from "../components/RegisterBox"
 import SetLocalSorage from "../components/localStorageHandle"
 import otherRequest from "../components/otherRequest"
-
+import Load from "../components/Load"
 
 export default function Register({ url, headers, setLoggedIn }) {
 
@@ -17,8 +17,11 @@ export default function Register({ url, headers, setLoggedIn }) {
         password: "",
         password2: ""
     })
+    const [loading, setLoading] = useState(false)
+
 
     async function addUser(url, name, email, password) {
+        setLoading(true)
         const userData = {
             name: name,
             email: email,
@@ -38,7 +41,7 @@ export default function Register({ url, headers, setLoggedIn }) {
         else {
             setError(responseData.result.message)
         }
-
+        setLoading(false)
     }
 
     const register = async (event) => {
@@ -52,29 +55,13 @@ export default function Register({ url, headers, setLoggedIn }) {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
 
-    if (error) {
-        return (
-            <div>
-                <FeedBack message={error} status={"failure"} />
-                <RegisterBox register={register} password={values.password} onChange={onChange} />
-            </div>
-        )
-    }
-    else if (success) {
-        return (
-            <div>
-                <FeedBack message={success} status={"success"} />
-                <RegisterBox register={register} password={values.password} onChange={onChange} />
-            </div>
-        )
-    }
-    else {
-        return (
-            <div>
-                <RegisterBox register={register} password={values.password} onChange={onChange} />
-            </div>
-        )
+    return (
+        <div>
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            <RegisterBox register={register} password={values.password} onChange={onChange} />
+            {loading && <Load />}
 
-    }
+        </div>
+    )
 
 }

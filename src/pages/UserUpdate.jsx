@@ -11,13 +11,13 @@ export default function UserUpdate({ url, headers }) {
     const navigation = useNavigate()
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
-    const [user, setUser] = useState()
+    const [user, setUser] = useState({})
     const id = useParams().id
 
     useEffect(() => {
         const getUser = async () => {
 
-            const returnData = await getRequest(url, headers, "user/"+id)
+            const returnData = await getRequest(url, headers, "user/" + id)
 
             if (returnData.response.status == 200) {
                 setUser(returnData.result.user)
@@ -35,7 +35,7 @@ export default function UserUpdate({ url, headers }) {
             email: e.target.email.value
         }
 
-        const returnData = await otherRequest(url, headers, "user/update/"+user.id, newUser, "PUT")
+        const returnData = await otherRequest(url, headers, "user/update/" + user.id, newUser, "PUT")
 
         if (returnData.response.status == 200) {
             setSuccess(returnData.result.message)
@@ -48,28 +48,34 @@ export default function UserUpdate({ url, headers }) {
         }
     }
 
-
-
-    if (success) {
-        return (
-            <div>
-                <FeedBack message={success} status={"success"} />
-                <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
-            </div>
-        )
-    }
-    else if (error) {
-        return (
-            <div>
-                <FeedBack message={error} status={"failure"} />
-                <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
-            </div>
-        )
-    }
-    else if (user) {
-        return <div>
+    return (
+        <div>
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
         </div>
-    }
+    )
+
+    // if (success) {
+    //     return (
+    //         <div>
+    //             <FeedBack message={success} status={"success"} />
+    //             <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
+    //         </div>
+    //     )
+    // }
+    // else if (error) {
+    //     return (
+    //         <div>
+    //             <FeedBack message={error} status={"failure"} />
+    //             <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
+    //         </div>
+    //     )
+    // }
+    // else if (user) {
+    //     return <div>
+    //         {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+    //         <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
+    //     </div>
+    // }
 
 }

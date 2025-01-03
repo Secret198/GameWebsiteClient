@@ -3,6 +3,7 @@ import PostBox from "../components/PostBox"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import otherRequest from "../components/otherRequest"
+import Load from "../components/Load"
 
 export default function PostCreate({ url, headers }) {
     headers.Authorization = 'Bearer ' + localStorage.getItem("token")
@@ -10,13 +11,15 @@ export default function PostCreate({ url, headers }) {
     const navigation = useNavigate()
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
+    const [loading, setLoading] = useState(false)
 
     async function submitPost(post, image) {
-
+        setLoading(true)
         const data = { post: post, image: image }
 
         const responseData = await otherRequest(url, headers, "post", data, "POST")
 
+        setLoading(false)
         if (responseData.response.status == 200) {
             setSuccess(responseData.result.message)
             setTimeout(() => {
@@ -30,37 +33,32 @@ export default function PostCreate({ url, headers }) {
 
 
     const createPost = async (e) => {
+        setLoading(true)
         e.preventDefault()
 
         let reader = new FileReader()
 
-        reader.readAsDataURL(e.target.image["files"][0])
+        if (e.target.image["files"][0]) {
+            reader.readAsDataURL(e.target.image["files"][0])
 
-        reader.onload = async function () {
-            await submitPost(e.target.post.value, reader.result)
+            reader.onload = async function () {
+                await submitPost(e.target.post.value, reader.result)
+            }
         }
+        else {
+            await submitPost(e.target.post.value)
+        }
+        setLoading(false)
 
-
     }
 
-    if (error) {
-        return (
-            <div>
-                <FeedBack message={error} status={"failure"} />
-                <PostBox submitPost={createPost} isCreate={true} />
-            </div>
-        )
-    }
-    else if (success) {
-        return (
-            <div>
-                <FeedBack message={success} status={"success"} />
-                <PostBox submitPost={createPost} isCreate={true} />
-            </div>
-        )
-    }
-    else {
-        return <PostBox submitPost={createPost} isCreate={true} />
-    }
+    return (
+        <div>
+            {loading && <Load />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            <PostBox submitPost={createPost} isCreate={true} />
+
+        </div>
+    )
 
 }

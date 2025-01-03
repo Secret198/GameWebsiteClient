@@ -4,16 +4,17 @@ import LoginBox from "../components/LoginBox";
 import { useState } from "react";
 import SetLocalSorage from "../components/localStorageHandle";
 import otherRequest from "../components/otherRequest";
+import Load from "../components/Load";
 
 function Login({ url, headers, setLoggedIn }) {
 
     const navigation = useNavigate()
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
-
+    const [loading, setLoading] = useState(false)
 
     async function loginUser(email, password) {
-
+        setLoading(true)
         const credentials = { email: email, password: password }
 
         const responseData = await otherRequest(url, headers, "user/login", credentials, "POST")
@@ -31,7 +32,7 @@ function Login({ url, headers, setLoggedIn }) {
         else {
             setError(responseData.result.message)
         }
-
+        setLoading(false)
     }
 
 
@@ -41,26 +42,13 @@ function Login({ url, headers, setLoggedIn }) {
 
     }
 
-    if (error) {
-        return <div>
-            <FeedBack message={error} status={"failure"} />
+    return (
+        <div>
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <LoginBox login={login} />
-
+            {loading && <Load />}
         </div>
-    }
-    else if (success) {
-        return <div>
-            <FeedBack message={success} status={"success"} />
-            <LoginBox login={login} />
-
-
-        </div>
-    }
-    else {
-        return <div>
-            <LoginBox login={login} />
-        </div>
-    }
+    )
 
 
 }
