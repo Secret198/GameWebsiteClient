@@ -19,6 +19,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
     const [dataMaxNum, setDataMaxNum] = useState(0)
 
     const fetchPosts = async () => {
+        setLoading(true)
         let responseData;
 
         if (search) {
@@ -106,7 +107,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
             {data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} deletePost={deletePost} admin={true} />
             ))}
-            {(loading && data.length < dataMaxNum) && <Load />}
+            {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
 
         </div>
 

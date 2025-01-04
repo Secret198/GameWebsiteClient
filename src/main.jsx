@@ -4,7 +4,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import './styles.css'
 import App from './App.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
-import AchievementList from './components/AchievementList.jsx'
+import AchievementList from './pages/AchievementList.jsx'
 import Layout from "./pages/Layout.jsx"
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'

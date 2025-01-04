@@ -1,9 +1,7 @@
 import handleAllDates from "./handleAllDates"
-import processDate from "./processDate"
 
 export default function PostList({ post, viewPost, editPost, deletePost, restorePost, likePost, likedPostsArr, admin }) {
     const processedDates = handleAllDates(post)
-
     if (admin && post.deleted_at) {
 
         return (

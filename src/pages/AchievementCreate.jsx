@@ -32,6 +32,7 @@ export default function AchievementCreate({ url, headers }) {
             setLoading(false)
 
             if (responseData.response.status == 200) {
+                setError("")
                 setSuccess(responseData.result.message)
                 setTimeout(() => {
                     navigation("/")

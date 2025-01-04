@@ -33,6 +33,7 @@ export default function Register({ url, headers, setLoggedIn }) {
         if (responseData.response.status == 200) {
             SetLocalSorage(responseData.result.user.token, responseData.result.user.id, responseData.result.user.privilege)
             setLoggedIn(true)
+            setError("")
             setSuccess(responseData.result.message)
             setTimeout(() => {
                 navigation("/")

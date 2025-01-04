@@ -20,6 +20,7 @@ export default function GetUsers({ url, headers }) {
     const [dataMaxNum, setDataMaxNum] = useState(0)
 
     const fetchUsers = async () => {
+        setLoading(true)
         let responseData;
         if (search) {
             responseData = await getRequest(url, headers, "user/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
@@ -29,6 +30,7 @@ export default function GetUsers({ url, headers }) {
         }
         // setData(responseData.result.posts.data)
 
+        console.log(responseData)
         setDataMaxNum(responseData.result.users.total)
         setData((prevData) => [...prevData, ...responseData.result.users.data])
         setLoading(false)
@@ -113,7 +115,7 @@ export default function GetUsers({ url, headers }) {
             {privilege == 1 && data.map((item) => (
                 <UserList key={item.id} user={item} viewUser={viewUser} admin={false} />
             ))}
-            {(loading && data.length < dataMaxNum) && <Load />}
+            {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
         </div>
 
     )

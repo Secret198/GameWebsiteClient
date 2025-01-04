@@ -9,7 +9,7 @@ import PostCreate from './pages/PostCreate.jsx';
 import PostUpdate from './pages/PostUpdate.jsx';
 import AchievementCreate from './pages/AchievementCreate.jsx';
 import AchievementUpdate from './pages/AchievementUpdate.jsx';
-import AchievementList from './components/AchievementList.jsx';
+import AchievementList from './pages/AchievementList.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import GetPosts from './pages/GetPosts.jsx';
 import GetPostData from './pages/GetPostData.jsx';
@@ -28,16 +28,17 @@ function App() {
     const [likedPosts, setLikedPosts] = useState([])
 
     const likePost = async (postId, newPost) => {
-        const responseData = await otherRequest(url, headers, "post/like/"+postId, newPost, "PATCH")
-        if(newPost.likes){
+        const responseData = await otherRequest(url, headers, "post/like/" + postId, newPost, "PATCH")
+        if (newPost.likes) {
             setLikedPosts([...likedPosts, postId])
+
         }
-        else{
+        else {
             let tempLikedPosts = [...likedPosts]
             tempLikedPosts.splice(tempLikedPosts.indexOf(postId), 1)
             setLikedPosts(tempLikedPosts)
-        }
 
+        }
         console.log(responseData)
     }
 

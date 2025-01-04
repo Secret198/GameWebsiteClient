@@ -21,6 +21,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
     // const [likedPosts, setLikedPosts] = useState([])
 
     const fetchPosts = async () => {
+        setLoading(true)
         let responseData
         if (search) {
             responseData = await getRequest(url, headers, "post/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
@@ -129,7 +130,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
             {privilege == 1 && data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
             ))}
-            {(loading && data.length < dataMaxNum) && <Load />}
+            {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
 
         </div>
 

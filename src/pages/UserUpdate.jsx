@@ -4,6 +4,7 @@ import FeedBack from "../components/FeedBack"
 import UserUpdateBox from "../components/UserUpdateBox"
 import otherRequest from "../components/otherRequest"
 import getRequest from "../components/getRequest"
+import Load from "../components/Load"
 
 
 export default function UserUpdate({ url, headers }) {
@@ -12,16 +13,21 @@ export default function UserUpdate({ url, headers }) {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
     const [user, setUser] = useState({})
+    const [loading, setLoading] = useState(false)
     const id = useParams().id
 
     useEffect(() => {
         const getUser = async () => {
-
+            setLoading(true)
             const returnData = await getRequest(url, headers, "user/" + id)
 
             if (returnData.response.status == 200) {
                 setUser(returnData.result.user)
             }
+            else {
+                setError(returnData.result.message)
+            }
+            setLoading(false)
         }
         getUser()
 
@@ -29,7 +35,7 @@ export default function UserUpdate({ url, headers }) {
 
     const updateUser = async (e) => {
         e.preventDefault()
-
+        setLoading(true)
         const newUser = {
             name: e.target.name.value,
             email: e.target.email.value
@@ -37,7 +43,9 @@ export default function UserUpdate({ url, headers }) {
 
         const returnData = await otherRequest(url, headers, "user/update/" + user.id, newUser, "PUT")
 
+        setLoading(false)
         if (returnData.response.status == 200) {
+            setError("")
             setSuccess(returnData.result.message)
             setTimeout(() => {
                 navigation("/")
@@ -50,6 +58,7 @@ export default function UserUpdate({ url, headers }) {
 
     return (
         <div>
+            {loading && <Load />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
         </div>

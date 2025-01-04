@@ -25,6 +25,9 @@ export default function PostUpdate({ url, headers }) {
             if (responseData.response.status == 200) {
                 setPost(responseData.result.post)
             }
+            else {
+                setError(responseData.result.message)
+            }
             setLoading(false)
         }
         getPost()
@@ -46,6 +49,7 @@ export default function PostUpdate({ url, headers }) {
             const responseData = await otherRequest(url, headers, "post/" + post.id, newPost, "PATCH")
             setLoading(false)
             if (responseData.response.status == 200) {
+                setError("")
                 setSuccess(responseData.result.message)
                 setTimeout(() => {
                     navigation("/")
@@ -68,6 +72,7 @@ export default function PostUpdate({ url, headers }) {
 
             setLoading(false)
             if (responseData.response.status == 200) {
+                setError("")
                 setSuccess(responseData.result.message)
                 setTimeout(() => {
                     navigation("/")

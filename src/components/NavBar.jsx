@@ -25,7 +25,7 @@ function NavBar({ loggedIn, setLoggedIn }) {
             <nav>
                 <ul>
                     <li><Link className="navElement" to={"/post"}>Posztok</Link></li>
-                    <li><Link className="navElement" to={"/user"}>Felhasználók</Link></li>
+                    <li><Link className="navElement" to={"/user&&&"}>Felhasználók</Link></li>
                     <li><Link className="navElement" to={"achievement"}>Achievementek</Link></li>
                     <li><Link className="navElement" to={"/login"}>Bejelentkezés</Link></li>
                     <li><Link className="navElement" to={"/register"}>Regisztráció</Link></li>

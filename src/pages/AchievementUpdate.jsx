@@ -24,6 +24,9 @@ export default function AchievementUpdate({ url, headers }) {
             if (responseData.response.status == 200) {
                 setAchievement(responseData.result.achievement)
             }
+            else {
+                setError(responseData.result.message)
+            }
             setLoading(false)
         }
         getAchievement()
@@ -45,6 +48,7 @@ export default function AchievementUpdate({ url, headers }) {
 
         setLoading(false)
         if (responseData.response.status == 200) {
+            setError("")
             setSuccess(responseData.result.message)
             setTimeout(() => {
                 navigation("/")

@@ -23,6 +23,7 @@ function Login({ url, headers, setLoggedIn }) {
             //This thing
             setLoggedIn(true)
 
+            setError("")
             setSuccess(responseData.result.message)
 
             setTimeout(() => {
