@@ -6,6 +6,7 @@ import deleteRequest from "../components/deleteRequest"
 import otherRequest from "../components/otherRequest"
 import FilterOptions from "../components/FilterOptions"
 import Load from "../components/Load"
+import FeedBack from "../components/FeedBack"
 
 export default function GetPosts({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -18,6 +19,8 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
     const privilege = localStorage.getItem("privilege")
     const [search, setSearch] = useState("")
     const [dataMaxNum, setDataMaxNum] = useState(0)
+    const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
     // const [likedPosts, setLikedPosts] = useState([])
 
     const fetchPosts = async () => {
@@ -29,10 +32,18 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         else {
             responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
-        setLikedPosts(responseData.result.likedPosts)
-        setDataMaxNum(responseData.result.posts.total)
-        // setData(responseData.result.posts.data)
-        setData((prevData) => [...prevData, ...responseData.result.posts.data])
+
+        if (responseData.response.status == 200) {
+            setLikedPosts(responseData.result.likedPosts)
+            setDataMaxNum(responseData.result.posts.total)
+            // setData(responseData.result.posts.data)
+            setData((prevData) => [...prevData, ...responseData.result.posts.data])
+        }
+        else {
+            setError(responseData.result.message)
+        }
+
+
         setLoading(false)
     }
 
@@ -83,16 +94,27 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         navigation("/post/update/" + postId)
     }
 
-    const deletePost = async (postId) => {
-        const responseData = await deleteRequest(url, headers, "post/" + postId)
-        //output is somehow
-        console.log(responseData)
-    }
+    // const deletePost = async (postId) => {
+    //     const responseData = await deleteRequest(url, headers, "post/" + postId)
+    //     if (responseData.response.status == 200) {
+    //         setError("")
+    //         setSuccess(responseData.result.message)
+    //     }
+    //     else {
+    //         setError(responseData.result.message)
+    //     }
+    // }
 
-    const restorePost = async (postId) => {
-        const responseData = await deleteRequest(url, headers, "post/restore/" + postId)
-        console.log(responseData)
-    }
+    // const restorePost = async (postId) => {
+    //     const responseData = await deleteRequest(url, headers, "post/restore/" + postId)
+    //     if (responseData.response.status == 200) {
+    //         setError("")
+    //         setSuccess(responseData.result.message)
+    //     }
+    //     else {
+    //         setError(responseData.result.message)
+    //     }
+    // }
 
     // const likePost = async (postId, newPost) => {
     //     const responseData = await otherRequest(url, headers, "post/like/"+postId, newPost, "PATCH")
@@ -123,16 +145,33 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
 
     return (
         <div>
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
             {privilege == 10 && data.map((item) => (
-                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} restorePost={restorePost} admin={true} />
+                <PostList key={item.id} post={item} url={url} headers={headers} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} admin={true} setError={setError} setSuccess={setSuccess} />
             ))}
             {privilege == 1 && data.map((item) => (
-                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
+                <PostList key={item.id} post={item} url={url} headers={headers} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
             ))}
             {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
 
         </div>
 
     )
+
+    // return (
+    //     <div>
+    //         {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+    //         <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
+    //         {privilege == 10 && data.map((item) => (
+    //             <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} restorePost={restorePost} admin={true} />
+    //         ))}
+    //         {privilege == 1 && data.map((item) => (
+    //             <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
+    //         ))}
+    //         {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
+
+    //     </div>
+
+    // )
 }

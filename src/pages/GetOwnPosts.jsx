@@ -17,6 +17,8 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
     const navigation = useNavigate()
     const [search, setSearch] = useState("")
     const [dataMaxNum, setDataMaxNum] = useState(0)
+    const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
 
     const fetchPosts = async () => {
         setLoading(true)
@@ -29,11 +31,18 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
             responseData = await getRequest(url, headers, "user/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
 
-        console.log(responseData.result)
-        setLikedPosts(responseData.result.likedPosts)
-        setDataMaxNum(responseData.result.posts.total)
+        if (responseData.response.status == 200) {
+            setLikedPosts(responseData.result.likedPosts)
+            setDataMaxNum(responseData.result.posts.total)
 
-        setData((prevData) => [...prevData, ...responseData.result.posts.data])
+            setData((prevData) => [...prevData, ...responseData.result.posts.data])
+        }
+        else {
+            setError(responseData.result.message)
+        }
+
+        console.log(responseData.result)
+
         setLoading(false)
     }
 
@@ -82,11 +91,11 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         navigation("/post/update/" + postId)
     }
 
-    const deletePost = async (postId) => {
-        const responseData = await deleteRequest(url, headers, "post/" + postId)
-        //output is somehow
-        console.log(responseData)
-    }
+    // const deletePost = async (postId) => {
+    //     const responseData = await deleteRequest(url, headers, "post/" + postId)
+    //     //output is somehow
+    //     console.log(responseData)
+    // }
 
     const searchPost = async (event) => {
         event.preventDefault();
@@ -105,7 +114,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         <div>
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
             {data.map((item) => (
-                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} deletePost={deletePost} admin={true} />
+                <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} url={url} headers={headers} setError={setError} setSuccess={setSuccess} admin={true} />
             ))}
             {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
 

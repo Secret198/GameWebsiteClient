@@ -3,6 +3,7 @@ import getRequest from "../components/getRequest";
 import Load from "../components/Load";
 import deleteRequest from "../components/deleteRequest";
 import AchievementItem from "../components/AchievementItem";
+import FeedBack from "../components/FeedBack";
 
 function AchievementList({ url, headers }) {
     const [data, setData] = useState([]);
@@ -32,29 +33,29 @@ function AchievementList({ url, headers }) {
         fetchAchievements();
     }, [])
 
-    const deleteAchievement = async (achievementId) => {
-        const responseData = await deleteRequest(url, headers, "achievement/" + achievementId)
-        if (responseData.response.status == 200) {
-            setError("")
-            setSuccess(responseData.result.message)
-        }
-        else {
-            setError(responseData.result.message)
-        }
-        console.log(responseData)
-    }
+    // const deleteAchievement = async (achievementId) => {
+    //     const responseData = await deleteRequest(url, headers, "achievement/" + achievementId)
+    //     if (responseData.response.status == 200) {
+    //         setError("")
+    //         setSuccess(responseData.result.message)
+    //     }
+    //     else {
+    //         setError(responseData.result.message)
+    //     }
+    //     console.log(responseData)
+    // }
 
-    const restoreAchievement = async (achievementId) => {
-        const responseData = await deleteRequest(url, headers, "achievement/restore/" + achievementId)
-        if (responseData.response.status == 200) {
-            setError("")
-            setSuccess(responseData.result.message)
-        }
-        else {
-            setError(responseData.result.message)
-        }
-        console.log(responseData)
-    }
+    // const restoreAchievement = async (achievementId) => {
+    //     const responseData = await deleteRequest(url, headers, "achievement/restore/" + achievementId)
+    //     if (responseData.response.status == 200) {
+    //         setError("")
+    //         setSuccess(responseData.result.message)
+    //     }
+    //     else {
+    //         setError(responseData.result.message)
+    //     }
+    //     console.log(responseData)
+    // }
 
     return (
         <div>
@@ -63,7 +64,7 @@ function AchievementList({ url, headers }) {
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <div>
                 {data.map((item) => (
-                    <AchievementItem key={item.id} achievement={item} deleteAchievement={deleteAchievement} restoreAchievement={restoreAchievement} />
+                    <AchievementItem key={item.id} achievement={item} setError={setError} setSuccess={setSuccess} url={url} headers={headers} />
                 ))}
             </div>
 

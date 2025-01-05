@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom"
 import deleteRequest from "../components/deleteRequest"
 import FilterOptions from "../components/FilterOptions"
 import Load from "../components/Load"
+import FeedBack from "../components/FeedBack"
 
-
-export default function GetUsers({ url, headers }) {
+export default function GetUsers({ url, headers, setLoggedIn }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const [page, setPage] = useState(1)
     const [sortBy, setSortBy] = useState("id")
@@ -18,6 +18,8 @@ export default function GetUsers({ url, headers }) {
     const privilege = localStorage.getItem("privilege")
     const [search, setSearch] = useState("")
     const [dataMaxNum, setDataMaxNum] = useState(0)
+    const [success, setSuccess] = useState("")
+    const [error, setError] = useState("")
 
     const fetchUsers = async () => {
         setLoading(true)
@@ -30,9 +32,16 @@ export default function GetUsers({ url, headers }) {
         }
         // setData(responseData.result.posts.data)
 
+        if (responseData.response.status == 200) {
+            setDataMaxNum(responseData.result.users.total)
+            setData((prevData) => [...prevData, ...responseData.result.users.data])
+        }
+        else {
+            setError(responseData.result.message)
+        }
+
         console.log(responseData)
-        setDataMaxNum(responseData.result.users.total)
-        setData((prevData) => [...prevData, ...responseData.result.users.data])
+
         setLoading(false)
     }
 
@@ -82,16 +91,27 @@ export default function GetUsers({ url, headers }) {
         navigation("/user/update/" + userId)
     }
 
-    const deleteUser = async (userId) => {
-        const responseData = await deleteRequest(url, headers, "user/" + userId)
-        //output is somehow
-        console.log(responseData)
-    }
+    // const deleteUser = async (userId) => {
+    //     const responseData = await deleteRequest(url, headers, "user/" + userId)
+    //     if (responseData.response.status == 200) {
+    //         setError("")
+    //         setSuccess(responseData.result.message)
+    //     }
+    //     else {
+    //         setError(responseData.result.message)
+    //     }
+    // }
 
-    const restoreUser = async (userId) => {
-        const responseData = await deleteRequest(url, headers, "user/restore/" + userId)
-        console.log(responseData)
-    }
+    // const restoreUser = async (userId) => {
+    //     const responseData = await deleteRequest(url, headers, "user/restore/" + userId)
+    //     if (responseData.response.status == 200) {
+    //         setError("")
+    //         setSuccess(responseData.result.message)
+    //     }
+    //     else {
+    //         setError(responseData.result.message)
+    //     }
+    // }
 
     const searchUser = async (event) => {
         event.preventDefault();
@@ -108,9 +128,10 @@ export default function GetUsers({ url, headers }) {
 
     return (
         <div>
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchUser} />
             {privilege == 10 && data.map((item) => (
-                <UserList key={item.id} user={item} viewUser={viewUser} restoreUser={restoreUser} editUser={editUser} deleteUser={deleteUser} admin={true} />
+                <UserList key={item.id} user={item} viewUser={viewUser} editUser={editUser} admin={true} url={url} headers={headers} setError={setError} setSuccess={setSuccess} setLoggedIn={setLoggedIn} />
             ))}
             {privilege == 1 && data.map((item) => (
                 <UserList key={item.id} user={item} viewUser={viewUser} admin={false} />

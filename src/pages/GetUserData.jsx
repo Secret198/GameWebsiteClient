@@ -19,16 +19,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
     const privilege = localStorage.getItem("privilege")
     const navigation = useNavigate()
 
-    const adminNum = localStorage.getItem("privilege")
-    let admin = false
-    switch (adminNum) {
-        case 10:
-            admin = true
-            break;
-        case 1:
-            admin = false;
-            break;
-    }
+
 
     useEffect(() => {
         setLoading(true)
@@ -54,12 +45,25 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
         if (responseData.response.status == 200) {
             setError("")
             setSuccess(responseData.result.message)
+            setUser(responseData.result.user)
         }
         else {
             setError(responseData.result.message)
         }
         setLoading(false)
 
+    }
+
+    const restoreUser = async (userId) => {
+        const responseData = await deleteRequest(url, headers, "user/restore/" + userId)
+        if (responseData.response.status == 200) {
+            setError("")
+            setSuccess(responseData.result.message)
+            setUser(responseData.result.user)
+        }
+        else {
+            setError(responseData.result.message)
+        }
     }
 
     const makeUserAdmin = async (userId) => {
@@ -71,6 +75,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
         if (responseData.response.status == 200) {
             setError("")
             setSuccess(responseData.result.message)
+            setUser(responseData.result.user)
         }
         else {
             setError(responseData.result.message)
@@ -78,14 +83,15 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
         setLoading(false)
     }
 
+
     return (
         <>
             {loading && <Load />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-            <UserDataShow user={user} achievements={achievements} admin={admin} />
-            {(id === localStorage.getItem("userId") || privilege == 10) && <Link to={"/user/update/" + id}>Szerkesztés</Link>}
-            {(privilege == 10) && <button onClick={() => deleteUser(id)}>Fiók törlése</button>}
-            {(privilege == 10 && user.privilege != 10) && <button onClick={() => makeUserAdmin(id)}>Adminná tevés</button>}
+            <UserDataShow user={user} achievements={achievements} admin={privilege == 10 ? true : false} />
+            {((id === localStorage.getItem("userId") || privilege == 10) && !error) && <Link to={"/user/update/" + id}>Szerkesztés</Link>}
+            {(privilege == 10 && !error) && <button onClick={user.deleted_at ? () => restoreUser(id) : () => deleteUser(id)}>{user.deleted_at ? "Vissaállítás" : "Fiók törlése"}</button>}
+            {(privilege == 10 && user.privilege != 10 && !error) && <button onClick={() => makeUserAdmin(id)}>Adminná tevés</button>}
         </>
 
     )

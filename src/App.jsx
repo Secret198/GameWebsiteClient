@@ -39,7 +39,7 @@ function App() {
             setLikedPosts(tempLikedPosts)
 
         }
-        console.log(responseData)
+        console.log(likedPosts)
     }
 
     return (<>
@@ -51,7 +51,7 @@ function App() {
                     <Route path='achievement/update/:id' element={loggedIn ? <AchievementUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='user/update/:id' element={loggedIn ? <UserUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='user/show/:id' element={loggedIn ? <GetUserData url={url} headers={headers} setLoggedIn={setLoggedIn} /> : <Navigate replace to={"/login"} />} />
-                    <Route path='user' element={loggedIn ? <GetUsers url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='user' element={loggedIn ? <GetUsers url={url} headers={headers} setLoggedIn={setLoggedIn} /> : <Navigate replace to={"/login"} />} />
                     <Route path='user/posts' element={loggedIn ? <GetOwnPosts url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/create' element={loggedIn ? <PostCreate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/update/:id' element={loggedIn ? <PostUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />

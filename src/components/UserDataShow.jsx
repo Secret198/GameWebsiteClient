@@ -1,10 +1,11 @@
 import ShowAchievement from "./ShowAchievement";
 
 
-export default function UserDataShow({user, achievements, admin}){
-    if(admin){
+export default function UserDataShow({ user, achievements, admin }) {
+    if (admin) {
         return (
             <div>
+                {user.privilege == 10 && <p>Admin</p>}
                 <p>Név: {user.name}</p>
                 <p>Email: {user.email}</p>
                 <p>Halálok: {user.deaths}</p>
@@ -13,8 +14,8 @@ export default function UserDataShow({user, achievements, admin}){
                 <p>idk: {user.boss1lvl}</p>
                 <p>idk: {user.boss2lvl}</p>
                 <p>idk: {user.boss3lvl}</p>
-                <p>deleted_at: {user.deleted_at}</p>
-                <p>modified_at: {user.modified_at}</p>
+                {user.deleted_at && <p>deleted_at: {user.deleted_at}</p>}
+                <p>updated_at: {user.updated_at}</p>
                 <p>Profil készítése: {user.created_at}</p>
                 <div>
                     {
@@ -24,11 +25,12 @@ export default function UserDataShow({user, achievements, admin}){
                     }
                 </div>
             </div>
-        )     
+        )
     }
-    else{
+    else {
         return (
             <div>
+                {user.privilege == 10 && <p>Admin</p>}
                 <p>Név: {user.name}</p>
                 <p>Email: {user.email}</p>
                 <p>Halálok: {user.deaths}</p>
@@ -48,5 +50,5 @@ export default function UserDataShow({user, achievements, admin}){
             </div>
         )
     }
-    
+
 }

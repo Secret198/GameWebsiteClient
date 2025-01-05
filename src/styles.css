@@ -134,7 +134,7 @@ input[type=number] {
 }
 
 .feedBack{
-    position: absolute;
+    position: fixed;
     /* right: 20px;
     bottom: 25px; */
     left: 50%;

@@ -42,6 +42,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost }) {
         if (responseData.response.status == 200) {
             setError("")
             setSuccess(responseData.result.message)
+            setPost(responseData.result.post)
         }
         else {
             setError(responseData.result.message)
@@ -56,6 +57,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost }) {
         if (responseData.response.status == 200) {
             setError("")
             setSuccess(responseData.result.message)
+            setPost(responseData.result.post)
         }
         else {
             setError(responseData.result.message)
@@ -64,6 +66,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost }) {
         setLoading(false)
     }
 
+    console.log(likedPosts)
     return (
         <div>
             {loading && <Load />}
