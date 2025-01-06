@@ -39,7 +39,7 @@ function App() {
             setLikedPosts(tempLikedPosts)
 
         }
-        console.log(likedPosts)
+        return responseData
     }
 
     return (<>
@@ -56,7 +56,7 @@ function App() {
                     <Route path='post/create' element={loggedIn ? <PostCreate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/update/:id' element={loggedIn ? <PostUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post' element={loggedIn ? <GetPosts url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
-                    <Route path='post/show/:id' element={loggedIn ? <GetPostData url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='post/show/:id' element={loggedIn ? <GetPostData url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
                 </Route>
                 <Route path='login' element={<Login url={url} headers={headers} setLoggedIn={setLoggedIn} />} />
                 <Route path='register' element={<Register url={url} headers={headers} setLoggedIn={setLoggedIn} />} />

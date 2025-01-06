@@ -33,6 +33,16 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
         }
     }
 
+    const startLikeProcess = async (postId, likes) => {
+        const responseData = await likePost(postId, likes)
+
+        if(responseData.response.status == 200){
+            setPostState(responseData.result.post)
+        }
+        else{
+            setError(responseData.result.message)
+        }
+    }
 
     if (admin) {
         if (privilege == 10 || !postState.deleted_at) {
@@ -40,14 +50,14 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                 <div>
 
                     <h2 onClick={() => viewPost(post.id)}>{post.post}</h2>
-                    <p>{post.likes}</p>
+                    <p>{postState.likes}</p>
                     <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
                     <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                     {postState.deleted_at && <p>{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
                     <button onClick={() => editPost(post.id)}>Szerkesztés</button>
                     <button onClick={postState.deleted_at ? () => restorePost(post.id) : () => deletePost(post.id)}>{postState.deleted_at ? "Visszaállítás" : "Törlés"}</button>
 
-                    {!likedPostsArr.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>}
+                    {!likedPostsArr.includes(post.id) ? <button onClick={() => startLikeProcess(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => startLikeProcess(post.id, { likes: false })}>Like</button>}
 
                 </div>
             )
@@ -59,10 +69,10 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
             <div>
 
                 <h2 onClick={() => viewPost(post.id)}>{post.post}</h2>
-                <p>{post.likes}</p>
+                <p>{postState.likes}</p>
                 <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
                 <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
-                {!likedPostsArr.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>}
+                {!likedPostsArr.includes(post.id) ? <button onClick={() => startLikeProcess(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => startLikeProcess(post.id, { likes: false })}>Like</button>}
 
             </div>
         )

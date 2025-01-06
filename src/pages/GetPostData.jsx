@@ -6,7 +6,7 @@ import deleteRequest from "../components/deleteRequest";
 import FeedBack from "../components/FeedBack";
 
 
-export default function GetPostData({ url, headers, likedPosts, likePost }) {
+export default function GetPostData({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const id = useParams().id
     const [error, setError] = useState("")
@@ -22,6 +22,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost }) {
             const returnData = await getRequest(url, headers, "post/" + id)
             if (returnData.response.status == 200) {
                 setPost(returnData.result.post)
+                setLikedPosts(returnData.result.likedPosts)
             }
             else {
                 setError(returnData.result.message)
@@ -66,7 +67,17 @@ export default function GetPostData({ url, headers, likedPosts, likePost }) {
         setLoading(false)
     }
 
-    console.log(likedPosts)
+    const startLikeProcess = async (postId, likes) => {
+        const responseData = await likePost(postId, likes)
+
+        if(responseData.response.status == 200){
+            setPost(responseData.result.post)
+        }
+        else{
+            setError(responseData.result.message)
+        }
+    }
+
     return (
         <div>
             {loading && <Load />}
@@ -75,10 +86,12 @@ export default function GetPostData({ url, headers, likedPosts, likePost }) {
             <img src={post.image} alt="" />
             <p>{post.post}</p>
             <p>{post.created_at}</p>
+            <p>{post.updated_at}</p>
+            {(privilege == 10 && post.deleted_at) && <p>{post.deleted_at}</p>}
             <p>{post.likes}</p>
-            {(privilege == 10 && !error) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
-            {(privilege == 10 && !error) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
-            {(!error) && <button className={!likedPosts.includes(post.id) ? "" : "liked"} onClick={() => likePost(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>Like</button>}
+            {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
+            {(privilege == 10 && !error && !loading) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
+            {(!error && !loading) && <button className={!likedPosts.includes(post.id) ? "" : "liked"} onClick={() => startLikeProcess(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>Like</button>}
 
             {/* {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>} */}
         </div>

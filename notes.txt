@@ -2,7 +2,6 @@ success redirect
 Figure out a way to handle routing errors
 maybe image preview when uploading images
 menu closing x and stuff quality of life stuff
-liking, restoring rerender
 make deleted things editable
 handle when there is no data
-like problem, api saveQuietly and timezone
+timezone
