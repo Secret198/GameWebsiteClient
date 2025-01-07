@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import PostBox from "../components/PostBox"
-import { useParams, useNavigate, redirect } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
 import otherRequest from "../components/otherRequest"
 import getRequest from "../components/getRequest"
@@ -52,7 +52,7 @@ export default function PostUpdate({ url, headers }) {
                 setError("")
                 setSuccess(responseData.result.message)
                 setTimeout(() => {
-                    navigation("/")
+                    navigation(-1)
                 }, 1000);
             }
             else {
@@ -75,7 +75,7 @@ export default function PostUpdate({ url, headers }) {
                 setError("")
                 setSuccess(responseData.result.message)
                 setTimeout(() => {
-                    navigation("/")
+                    navigation(-1)
                 }, 1000);
             }
             else {

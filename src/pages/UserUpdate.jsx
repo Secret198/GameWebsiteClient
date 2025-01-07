@@ -48,7 +48,7 @@ export default function UserUpdate({ url, headers }) {
             setError("")
             setSuccess(returnData.result.message)
             setTimeout(() => {
-                navigation("/")
+                navigation(-1)
             }, 1000);
         }
         else {

@@ -1,7 +1,4 @@
-success redirect
 Figure out a way to handle routing errors
 maybe image preview when uploading images
 menu closing x and stuff quality of life stuff
-make deleted things editable
-handle when there is no data
 timezone

@@ -49,7 +49,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
             return (
                 <div>
 
-                    <h2 onClick={() => viewPost(post.id)}>{post.post}</h2>
+                    <h2 onClick={() => viewPost(post.id)}>{postState.post}</h2>
                     <p>{postState.likes}</p>
                     <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
                     <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>

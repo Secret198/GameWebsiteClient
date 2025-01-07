@@ -11,7 +11,7 @@ export default function AchievementBox({ submitAchievement, selected, name, thre
                     <select name="field" id="field">
                         <option value="kills">Kills</option>
                         <option value="deaths">Deaths</option>
-                        <option value="points">Points</option>
+                        <option value="waves">waves</option>
                         <option value="boss1lvl">Boss 1 lvl</option>
                         <option value="boss2lvl">Boss 2 lvl</option>
                         <option value="boss3lvl">Boss 3 lvl</option>
@@ -33,7 +33,7 @@ export default function AchievementBox({ submitAchievement, selected, name, thre
                     <select name="field" id="field" defaultValue={selected}>
                         <option value="kills">Kills</option>
                         <option value="deaths">Deaths</option>
-                        <option value="points">Points</option>
+                        <option value="waves">waves</option>
                         <option value="boss1lvl">Boss 1 lvl</option>
                         <option value="boss2lvl">Boss 2 lvl</option>
                         <option value="boss3lvl">Boss 3 lvl</option>

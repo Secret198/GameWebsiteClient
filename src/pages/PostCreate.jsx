@@ -24,7 +24,7 @@ export default function PostCreate({ url, headers }) {
             setError("")
             setSuccess(responseData.result.message)
             setTimeout(() => {
-                navigation("/")
+                navigation("/post")
             }, 1000);
         }
         else {

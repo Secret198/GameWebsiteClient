@@ -35,11 +35,11 @@ export default function AchievementCreate({ url, headers }) {
                 setError("")
                 setSuccess(responseData.result.message)
                 setTimeout(() => {
-                    navigation("/")
+                    navigation("/achievement")
                 }, 1000);
             }
             else {
-                setError(responseData.result.error)
+                setError(responseData.result.message)
             }
         }
     }

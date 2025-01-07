@@ -51,7 +51,7 @@ export default function AchievementUpdate({ url, headers }) {
             setError("")
             setSuccess(responseData.result.message)
             setTimeout(() => {
-                navigation("/")
+                navigation("/achievement")
             }, 1000);
         }
         else {

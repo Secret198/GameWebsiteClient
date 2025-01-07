@@ -3,10 +3,10 @@ import getRequest from "../components/getRequest";
 import { useNavigate } from "react-router-dom"
 import PostList from "../components/PostList";
 import FilterOptions from "../components/FilterOptions";
-import deleteRequest from "../components/deleteRequest";
+import NoData from "../components/NoData";
 import Load from "../components/Load";
 
-export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLikedPosts }) {
+export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLikedPosts, scrollThreshold }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
 
     const [page, setPage] = useState(1)
@@ -57,7 +57,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         //     setLoading(true)
         // }
         setTimeout(() => {
-            if (document.body.scrollHeight - 300 < window.scrollY + window.innerHeight) {
+            if (document.body.scrollHeight - scrollThreshold < window.scrollY + window.innerHeight) {
                 setLoading(true)
             }
         }, 500);
@@ -113,6 +113,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
     return (
         <div>
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
+            {((success || data.length == 0) && !loading) && <NoData />}
             {data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} url={url} headers={headers} setError={setError} setSuccess={setSuccess} admin={true} />
             ))}

@@ -9,7 +9,7 @@ export default function UserDataShow({ user, achievements, admin }) {
                 <p>Név: {user.name}</p>
                 <p>Email: {user.email}</p>
                 <p>Halálok: {user.deaths}</p>
-                <p>Points: {user.points}</p>
+                <p>waves: {user.waves}</p>
                 <p>Kills: {user.kills}</p>
                 <p>idk: {user.boss1lvl}</p>
                 <p>idk: {user.boss2lvl}</p>
@@ -34,7 +34,7 @@ export default function UserDataShow({ user, achievements, admin }) {
                 <p>Név: {user.name}</p>
                 <p>Email: {user.email}</p>
                 <p>Halálok: {user.deaths}</p>
-                <p>Points: {user.points}</p>
+                <p>waves: {user.waves}</p>
                 <p>Kills: {user.kills}</p>
                 <p>idk: {user.boss1lvl}</p>
                 <p>idk: {user.boss2lvl}</p>

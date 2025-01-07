@@ -23,6 +23,7 @@ function App() {
         "Accept": "application/json",
         "Content-type": "application/json"
     }
+    const scrollThreshold = 100
 
     const [loggedIn, setLoggedIn] = useState((localStorage.getItem("token") ? true : false))
     const [likedPosts, setLikedPosts] = useState([])
@@ -51,11 +52,11 @@ function App() {
                     <Route path='achievement/update/:id' element={loggedIn ? <AchievementUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='user/update/:id' element={loggedIn ? <UserUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='user/show/:id' element={loggedIn ? <GetUserData url={url} headers={headers} setLoggedIn={setLoggedIn} /> : <Navigate replace to={"/login"} />} />
-                    <Route path='user' element={loggedIn ? <GetUsers url={url} headers={headers} setLoggedIn={setLoggedIn} /> : <Navigate replace to={"/login"} />} />
-                    <Route path='user/posts' element={loggedIn ? <GetOwnPosts url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='user' element={loggedIn ? <GetUsers url={url} headers={headers} setLoggedIn={setLoggedIn} scrollThreshold={scrollThreshold} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='user/posts' element={loggedIn ? <GetOwnPosts url={url} headers={headers} scrollThreshold={scrollThreshold} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/create' element={loggedIn ? <PostCreate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/update/:id' element={loggedIn ? <PostUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
-                    <Route path='post' element={loggedIn ? <GetPosts url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
+                    <Route path='post' element={loggedIn ? <GetPosts url={url} headers={headers} scrollThreshold={scrollThreshold} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
                     <Route path='post/show/:id' element={loggedIn ? <GetPostData url={url} headers={headers} likedPosts={likedPosts} likePost={likePost} setLikedPosts={setLikedPosts} /> : <Navigate replace to={"/login"} />} />
                 </Route>
                 <Route path='login' element={<Login url={url} headers={headers} setLoggedIn={setLoggedIn} />} />

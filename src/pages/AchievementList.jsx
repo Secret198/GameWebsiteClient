@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import getRequest from "../components/getRequest";
 import Load from "../components/Load";
-import deleteRequest from "../components/deleteRequest";
+import { Link } from "react-router-dom"
 import AchievementItem from "../components/AchievementItem";
 import FeedBack from "../components/FeedBack";
+import NoData from "../components/NoData";
 
 function AchievementList({ url, headers }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState("")
     const [error, setError] = useState("")
+    const privilege = localStorage.getItem("privilege")
 
     const token = localStorage.getItem("token")
     if (token) {
@@ -61,7 +63,9 @@ function AchievementList({ url, headers }) {
         <div>
             <h1>Achievements</h1>
             {loading && <Load />}
+            {privilege == 10 && <Link to={"/achievement/create"} >Új achievement</Link>}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(success || !data) && <NoData />}
             <div>
                 {data.map((item) => (
                     <AchievementItem key={item.id} achievement={item} setError={setError} setSuccess={setSuccess} url={url} headers={headers} />

@@ -2,13 +2,12 @@ import { useEffect, useState } from "react"
 import getRequest from "../components/getRequest"
 import PostList from "../components/PostList"
 import { useNavigate } from "react-router-dom"
-import deleteRequest from "../components/deleteRequest"
-import otherRequest from "../components/otherRequest"
+import NoData from "../components/NoData"
 import FilterOptions from "../components/FilterOptions"
 import Load from "../components/Load"
 import FeedBack from "../components/FeedBack"
 
-export default function GetPosts({ url, headers, likedPosts, likePost, setLikedPosts }) {
+export default function GetPosts({ url, headers, likedPosts, likePost, setLikedPosts, scrollThreshold }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const [page, setPage] = useState(1)
     const [sortBy, setSortBy] = useState("id")
@@ -30,9 +29,10 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
             responseData = await getRequest(url, headers, "post/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
         }
         else {
+            setPage(1)
             responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
-
+        console.log(responseData)
         if (responseData.response.status == 200) {
             setLikedPosts(responseData.result.likedPosts)
             setDataMaxNum(responseData.result.posts.total)
@@ -59,7 +59,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         //     setLoading(true)
         // }
         setTimeout(() => {
-            if (document.body.scrollHeight - 300 < window.scrollY + window.innerHeight) {
+            if (document.body.scrollHeight - scrollThreshold < window.scrollY + window.innerHeight) {
                 setLoading(true)
             }
         }, 500);
@@ -147,6 +147,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
+            {((success || data.length == 0) && !loading) && <NoData />}
             {privilege == 10 && data.map((item) => (
                 <PostList key={item.id} post={item} url={url} headers={headers} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} admin={true} setError={setError} setSuccess={setSuccess} />
             ))}

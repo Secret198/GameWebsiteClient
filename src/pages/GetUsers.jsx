@@ -2,12 +2,12 @@ import { useEffect, useState } from "react"
 import getRequest from "../components/getRequest"
 import UserList from "../components/UserList"
 import { useNavigate } from "react-router-dom"
-import deleteRequest from "../components/deleteRequest"
+import NoData from "../components/NoData"
 import FilterOptions from "../components/FilterOptions"
 import Load from "../components/Load"
 import FeedBack from "../components/FeedBack"
 
-export default function GetUsers({ url, headers, setLoggedIn }) {
+export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const [page, setPage] = useState(1)
     const [sortBy, setSortBy] = useState("id")
@@ -25,6 +25,7 @@ export default function GetUsers({ url, headers, setLoggedIn }) {
         setLoading(true)
         let responseData;
         if (search) {
+            setPage(1)
             responseData = await getRequest(url, headers, "user/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
         }
         else {
@@ -56,7 +57,7 @@ export default function GetUsers({ url, headers, setLoggedIn }) {
         //     setLoading(true)
         // }
         setTimeout(() => {
-            if (document.body.scrollHeight - 300 < window.scrollY + window.innerHeight) {
+            if (document.body.scrollHeight - scrollThreshold < window.scrollY + window.innerHeight) {
                 setLoading(true)
             }
         }, 500);
@@ -130,6 +131,7 @@ export default function GetUsers({ url, headers, setLoggedIn }) {
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchUser} />
+            {((success || data.length == 0) && !loading) && <NoData />}
             {privilege == 10 && data.map((item) => (
                 <UserList key={item.id} user={item} viewUser={viewUser} editUser={editUser} admin={true} url={url} headers={headers} setError={setError} setSuccess={setSuccess} setLoggedIn={setLoggedIn} />
             ))}
