@@ -70,10 +70,10 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
     const startLikeProcess = async (postId, likes) => {
         const responseData = await likePost(postId, likes)
 
-        if(responseData.response.status == 200){
+        if (responseData.response.status == 200) {
             setPost(responseData.result.post)
         }
-        else{
+        else {
             setError(responseData.result.message)
         }
     }
@@ -85,6 +85,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
 
             <img src={post.image} alt="" />
             <p>{post.post}</p>
+            <p>{post.user}</p>
             <p>{post.created_at}</p>
             <p>{post.updated_at}</p>
             {(privilege == 10 && post.deleted_at) && <p>{post.deleted_at}</p>}

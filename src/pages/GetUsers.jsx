@@ -25,10 +25,10 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
         setLoading(true)
         let responseData;
         if (search) {
-            setPage(1)
             responseData = await getRequest(url, headers, "user/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
         }
         else {
+            setPage(1)
             responseData = await getRequest(url, headers, "user/all/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
         // setData(responseData.result.posts.data)

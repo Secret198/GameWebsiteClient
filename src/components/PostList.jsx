@@ -36,10 +36,10 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
     const startLikeProcess = async (postId, likes) => {
         const responseData = await likePost(postId, likes)
 
-        if(responseData.response.status == 200){
+        if (responseData.response.status == 200) {
             setPostState(responseData.result.post)
         }
-        else{
+        else {
             setError(responseData.result.message)
         }
     }
@@ -50,6 +50,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                 <div>
 
                     <h2 onClick={() => viewPost(post.id)}>{postState.post}</h2>
+                    <p>{postState.name}</p>
                     <p>{postState.likes}</p>
                     <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
                     <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
@@ -69,6 +70,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
             <div>
 
                 <h2 onClick={() => viewPost(post.id)}>{post.post}</h2>
+                <p>{postState.name}</p>
                 <p>{postState.likes}</p>
                 <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
                 <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
