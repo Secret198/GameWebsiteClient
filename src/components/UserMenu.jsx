@@ -1,9 +1,13 @@
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import ConfirmWindow from "./ConfirmWindow"
 
 
 export default function UserMenu({ loggedIn, setLoggedIn }) {
     const navigation = useNavigate()
     const privilege = localStorage.getItem("privilege")
+    const [showConfirm, setShowConfirm] = useState(false)
+
 
     function logout() {
         localStorage.clear()
@@ -20,7 +24,8 @@ export default function UserMenu({ loggedIn, setLoggedIn }) {
             <Link to={"/post/create"}>Új poszt létrehozása</Link>
             <Link to={"/user/posts"}>Posztjaim</Link>
             {privilege == 10 && <Link to={"/achievement/create"}>Új achievement</Link>}
-            <button onClick={logout}>Kijelentkezés</button>
+            <button onClick={() => setShowConfirm(true)}>Kijelentkezés</button>
+            {(showConfirm) && <ConfirmWindow text={"Biztosan ki szeretne jelentkezni?"} functionToCall={logout} setShow={setShowConfirm} />}
         </div>
     )
 }

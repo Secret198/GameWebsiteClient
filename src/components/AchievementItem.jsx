@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import deleteRequest from "./deleteRequest"
+import ConfirmWindow from "./ConfirmWindow"
+import Load from "./Load"
 
 export default function AchievementItem({ achievement, setError, setSuccess, url, headers }) {
     const privilege = localStorage.getItem("privilege")
     const [achievementState, setAchievementState] = useState(achievement)
+    const [showConfirm, setShowConfirm] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const deleteAchievement = async (achievementId) => {
+        setLoading(true)
         const responseData = await deleteRequest(url, headers, "achievement/" + achievementId)
         if (responseData.response.status == 200) {
             setError("")
@@ -16,10 +21,13 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
         else {
             setError(responseData.result.message)
         }
+        setShowConfirm(false)
         console.log(responseData)
+        setLoading(false)
     }
 
     const restoreAchievement = async (achievementId) => {
+        setLoading(true)
         const responseData = await deleteRequest(url, headers, "achievement/restore/" + achievementId)
         if (responseData.response.status == 200) {
             setError("")
@@ -29,16 +37,20 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
         else {
             setError(responseData.result.message)
         }
+        setShowConfirm(false)
         console.log(responseData)
+        setLoading(false)
     }
 
     return (
         <div>
+            {loading && <Load />}
             <h2>{achievement.name}</h2>
             <p>{achievement.description}</p>
             {achievementState.deleted_at && <p>Deleted</p>}
             {privilege == 10 && <Link to={"/achievement/update/" + achievement.id}>Szerkesztés</Link>}
-            {privilege == 10 && <button onClick={achievementState.deleted_at ? () => restoreAchievement(achievement.id) : () => deleteAchievement(achievement.id)}>{achievementState.deleted_at ? "Visszaállítás" : "Törlés"}</button>}
+            {privilege == 10 && <button onClick={() => setShowConfirm(true)}>{achievementState.deleted_at ? "Visszaállítás" : "Törlés"}</button>}
+            {(showConfirm) && <ConfirmWindow text={achievementState.deleted_at ? "Biztosan vissza szeretné állítani az achievementet?" : "Biztosan törölni szeretné az achievementet?"} functionToCall={achievementState.deleted_at ? () => restoreAchievement(achievementState.id) : () => deleteAchievement(achievementState.id)} setShow={setShowConfirm} />}
         </div>
     )
 }

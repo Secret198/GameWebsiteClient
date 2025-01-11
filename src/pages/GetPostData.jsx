@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Load from "../components/Load";
 import deleteRequest from "../components/deleteRequest";
 import FeedBack from "../components/FeedBack";
+import ConfirmWindow from "../components/ConfirmWindow";
 
 
 export default function GetPostData({ url, headers, likedPosts, likePost, setLikedPosts }) {
@@ -15,6 +16,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
     const [loading, setLoading] = useState(false)
     const privilege = localStorage.getItem("privilege")
     const navigation = useNavigate()
+    const [showConfirm, setShowConfirm] = useState(false)
 
     useEffect(() => {
         setLoading(true)
@@ -48,13 +50,14 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
         else {
             setError(responseData.result.message)
         }
+        setShowConfirm(false)
         setLoading(false)
         console.log(responseData)
     }
 
     const restorePost = async (postId) => {
         setLoading(true)
-        const responseData = await deleteRequest(url, headers, "post/restore/" + postId)
+        const responseData = await deleteRequest(url, headers, "post/restore/" + post.id)
         if (responseData.response.status == 200) {
             setError("")
             setSuccess(responseData.result.message)
@@ -64,6 +67,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             setError(responseData.result.message)
         }
         console.log(responseData)
+        setShowConfirm(false)
         setLoading(false)
     }
 
@@ -90,10 +94,11 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             <p>{post.updated_at}</p>
             {(privilege == 10 && post.deleted_at) && <p>{post.deleted_at}</p>}
             <p>{post.likes}</p>
-            {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
+            {/* {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>} */}
+            {(privilege == 10 && !error && !loading) && <button onClick={() => setShowConfirm(true)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
             {(privilege == 10 && !error && !loading) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
             {(!error && !loading) && <button className={!likedPosts.includes(post.id) ? "" : "liked"} onClick={() => startLikeProcess(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>Like</button>}
-
+            {(showConfirm) && <ConfirmWindow text={post.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={post.deleted_at ? () => restorePost(post.id) : () => deletePost(post.id)} setShow={setShowConfirm} />}
             {/* {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>} */}
         </div>
     )

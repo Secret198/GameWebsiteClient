@@ -239,3 +239,10 @@ textarea{
 input:invalid[focused="true"] + .formError{
     display: block;
 }
+
+.confirmWindow{
+    width: 500px;
+    background-color: darkslateblue;
+    position: fixed;
+    
+}
