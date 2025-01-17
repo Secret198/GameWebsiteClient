@@ -10,6 +10,7 @@ import FeedBack from "../components/FeedBack"
 export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const [page, setPage] = useState(1)
+    const [searchPage, setSearchPage] = useState(1)
     const [sortBy, setSortBy] = useState("id")
     const [sortDir, setSortDir] = useState("asc")
     const [data, setData] = useState([])
@@ -25,10 +26,9 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
         setLoading(true)
         let responseData;
         if (search) {
-            responseData = await getRequest(url, headers, "user/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
+            responseData = await getRequest(url, headers, "user/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + searchPage)
         }
         else {
-            setPage(1)
             responseData = await getRequest(url, headers, "user/all/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
         // setData(responseData.result.posts.data)
@@ -50,7 +50,7 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
         if (data.length < dataMaxNum || data.length == 0) {
             fetchUsers()
         }
-    }, [page, sortBy, sortDir, search])
+    }, [page, searchPage, sortBy, sortDir, search])
 
     const handleScroll = () => {
         // if (document.body.scrollHeight - 200 < window.scrollY + window.innerHeight) {
@@ -68,9 +68,13 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
 
 
     useEffect(() => {
-        if (loading == true) {
-            setPage((prevPage) => prevPage + 1)
-            // setPage(page + 1)
+        if (loading == true && data.length > 0) {
+            if(search){
+                setSearchPage((prevPage) => prevPage + 1)
+            }
+            else{
+                setPage((prevPage) => prevPage + 1)
+            }
         }
     }, [loading])
 
@@ -118,10 +122,13 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
         event.preventDefault();
         if (event.target.searchBar.value != "") {
             setData([])
+            setPage(1)
+            setSearchPage(1)
             setSearch(event.target.searchBar.value)
         }
         else {
             setData([])
+            setSearchPage(1)
             setSearch("")
         }
         // fetchUsers(event.target.userSearch.value)

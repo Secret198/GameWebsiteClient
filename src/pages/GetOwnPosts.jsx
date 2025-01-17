@@ -10,6 +10,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
     headers.Authorization = "Bearer " + localStorage.getItem("token")
 
     const [page, setPage] = useState(1)
+    const [searchPage, setSearchPage] = useState(1)
     const [sortBy, setSortBy] = useState("id")
     const [sortDir, setSortDir] = useState("asc")
     const [data, setData] = useState([])
@@ -25,7 +26,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         let responseData;
 
         if (search) {
-            responseData = await getRequest(url, headers, "user/post/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + page)
+            responseData = await getRequest(url, headers, "user/post/search/" + sortBy + "/" + sortDir + "/" + search + "/?page=" + searchPage)
         }
         else {
             responseData = await getRequest(url, headers, "user/" + sortBy + "/" + sortDir + "/?page=" + page)
@@ -50,7 +51,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         if (data.length < dataMaxNum || data.length == 0) {
             fetchPosts()
         }
-    }, [page, sortBy, sortDir, search])
+    }, [page, searchPage, sortBy, sortDir, search])
 
     const handleScroll = () => {
         // if (document.body.scrollHeight - 200 < window.scrollY + window.innerHeight) {
@@ -67,9 +68,13 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
     window.addEventListener("scroll", handleScroll)
 
     useEffect(() => {
-        if (loading == true) {
-            setPage((prevPage) => prevPage + 1)
-            // setPage(page + 1)
+        if (loading == true && data.length > 0) {
+            if(search){
+                setSearchPage((prevPage) => prevPage + 1)
+            }
+            else{
+                setPage((prevPage) => prevPage + 1)
+            }
         }
     }, [loading])
 
@@ -101,10 +106,13 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         event.preventDefault();
         if (event.target.searchBar.value != "") {
             setData([])
+            setPage(1)
+            setSearchPage(1)
             setSearch(event.target.searchBar.value)
         }
         else {
             setData([])
+            setSearchPage(1)
             setSearch("")
         }
         // fetchUsers(event.target.userSearch.value)
