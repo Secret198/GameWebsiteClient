@@ -14,6 +14,14 @@ export default async function getRequest(url, headers, urlArgs)
         return returnData
     }
     catch (error) {
-        console.log(error); //Handle the error somehow
+        console.log(error)
+        return {
+            response : {
+                status: 503
+            },
+            result: {
+                message: error
+            }
+        }
     }
 }
