@@ -20,7 +20,7 @@ export default async function getRequest(url, headers, urlArgs)
                 status: 503
             },
             result: {
-                message: error
+                message: error.message
             }
         }
     }

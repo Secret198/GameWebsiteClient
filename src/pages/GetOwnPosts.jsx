@@ -5,6 +5,7 @@ import PostList from "../components/PostList";
 import FilterOptions from "../components/FilterOptions";
 import NoData from "../components/NoData";
 import Load from "../components/Load";
+import FeedBack from "../components/FeedBack";
 
 export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLikedPosts, scrollThreshold }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -41,8 +42,6 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         else {
             setError(responseData.result.message)
         }
-
-        console.log(responseData.result)
 
         setLoading(false)
     }
@@ -121,6 +120,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
     return (
         <div>
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             {((success || data.length == 0) && !loading) && <NoData />}
             {data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} url={url} headers={headers} setError={setError} setSuccess={setSuccess} admin={true} />
