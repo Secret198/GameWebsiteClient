@@ -66,7 +66,7 @@ export default function UserList({ user, viewUser, editUser, admin, url, headers
     }
     else {
         return (
-            <div>
+            <div className={userState.deleted_at ? "listBox deleteBox" : "listBox"}>
                 {user.privilege == 10 && <p>Admin</p>}
                 <h2 onClick={() => viewUser(user.id)}>{user.name}</h2>
             </div>
