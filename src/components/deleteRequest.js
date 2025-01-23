@@ -22,7 +22,8 @@ export default async function deleteRequest(url, headers, urlArgs){
                 status: 503
             },
             result: {
-                message: error
+                message: error.message
+
             }
         }
     }
