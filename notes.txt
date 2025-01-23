@@ -1,4 +1,3 @@
-Figure out a way to handle routing errors
 maybe image preview when uploading images
 menu closing x and stuff quality of life stuff
 timezone

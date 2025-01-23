@@ -152,7 +152,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
     return (
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-            <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
+            <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} mode={"post"} />
             {((success || data.length == 0) && !loading) && <NoData />}
             {privilege == 10 && data.map((item) => (
                 <PostList key={item.id} post={item} url={url} headers={headers} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} admin={true} setError={setError} setSuccess={setSuccess} />

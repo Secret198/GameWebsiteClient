@@ -119,7 +119,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
 
     return (
         <div>
-            <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
+            <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} mode={"post"} />
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             {((success || data.length == 0) && !loading) && <NoData />}
             {data.map((item) => (
