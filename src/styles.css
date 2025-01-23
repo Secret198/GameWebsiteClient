@@ -30,22 +30,30 @@ nav > ul{
     align-items: center;
     background-color: none;
     margin: 0;
+    padding: 0 5px;
 }
 
 nav>ul>li{
-    padding: 20px;
     cursor: pointer;
+    height: fit-content;
+    padding: 10px 5px;
+
 }
 
 
 .navElement{
+    display: block;
     text-decoration: none;
     font-size: 20px;
     color: var(--textColor);
+    padding: 15px 20px;
+    transition: 0.5s;
+    border-radius: 10px;
 }
 
-nav>ul>li:hover{
-    background-color: rgba(30, 70, 155, 0.527);
+.navElement:hover{
+    background-color: rgba(65, 102, 180, 0.527);
+    transition: 0.5s;
 }
 
 footer{
@@ -72,21 +80,31 @@ footer{
 }
 
 .coolBox{
-    background-color: rgba(20, 36, 105, 0.404);
     padding: 30px;
     padding-bottom: 40px;
     border-radius: 20px;
-    box-shadow: 0 0 20px 10px rgb(111, 198, 238) inset;
-    background-image: linear-gradient(135deg, rgba(20, 36, 105, 0.404), rgba(111, 198, 238, 0.514));
+    box-shadow: 0 0 15px 7px rgba(153, 184, 250, 0.527);
+    background-image: linear-gradient(45deg, rgb(19, 28, 75), rgb(18, 82, 112));
 }
 
 .coolBox > h1{
     text-align: center;
 }
 
-.coolBox > a{
-    text-align: left;
-    color: var(--textColor);
+.coolBox > p > a{
+    text-align: center;
+    color: rgba(127, 193, 236, 0.582);
+}
+.coolBox > p >a:visited{
+    color: rgba(122, 131, 138, 0.582);
+}
+.coolBox > p >a:hover{
+    color: rgba(159, 215, 252, 0.582);
+}
+
+.registerText{
+    display: block;
+    text-align: center;
 }
 
 .loginForm{
@@ -128,9 +146,12 @@ input[type=number] {
 
 .loginForm button, .postForm button{
     font-size: 120%;
-    background-color: rgb(127, 223, 143);
     border: 2px solid rgb(18, 39, 97);
+    width: 50%;
+    display: block;
     height: 50px;
+    margin: 20px auto;
+    margin-bottom: 2px;
 }
 
 .feedBack{
