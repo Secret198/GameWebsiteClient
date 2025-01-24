@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import getRequest from "../components/getRequest";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Load from "../components/Load";
 import deleteRequest from "../components/deleteRequest";
 import FeedBack from "../components/FeedBack";
 import ConfirmWindow from "../components/ConfirmWindow";
-
+import handleAllDates from "../components/handleAllDates";
 
 export default function GetPostData({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -17,6 +17,11 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
     const privilege = localStorage.getItem("privilege")
     const navigation = useNavigate()
     const [showConfirm, setShowConfirm] = useState(false)
+    const [processedDates, setProcessedDates] = useState({
+        created_at: "",
+        updated_at: "",
+        deleted_at: ""
+    })
 
     useEffect(() => {
         setLoading(true)
@@ -25,6 +30,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             if (returnData.response.status == 200) {
                 setPost(returnData.result.post)
                 setLikedPosts(returnData.result.likedPosts)
+                setProcessedDates(handleAllDates(returnData.result.post))
             }
             else {
                 setError(returnData.result.message)
@@ -34,6 +40,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
 
         getPost()
     }, [])
+
 
     const editPost = (postId) => {
         navigation("/post/update/" + postId)
@@ -81,19 +88,17 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             setError(responseData.result.message)
         }
     }
-
     return (
         <div>
             {loading && <Load />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-
             <img src={post.image} alt="" />
             <p>{post.post}</p>
             <p>{post.user}</p>
-            <p>{post.created_at}</p>
-            <p>{post.updated_at}</p>
             {(privilege == 10 && post.deleted_at) && <p>{post.deleted_at}</p>}
             <p>{post.likes}</p>
+            <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
+            <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
             {/* {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>} */}
             {(privilege == 10 && !error && !loading) && <button onClick={() => setShowConfirm(true)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
             {(privilege == 10 && !error && !loading) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
