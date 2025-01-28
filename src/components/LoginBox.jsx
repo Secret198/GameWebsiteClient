@@ -11,7 +11,7 @@ export default function LoginBox({ login }) {
                 <FormInput type={"password"} inputId={"password"} label={"Jelszó"} errorMessage={"Jelszó megadása kötelező"} />
                 <button type="submit">Bejelentkezés</button>
             </form>
-            <Link to={"../register"} >Regisztráció (ide kéne az az ikon)</Link>
+            <p className="registerText">Még nincsen fiókod? <Link to={"../register"} >Regisztráció</Link></p>
         </div>
     )
 }

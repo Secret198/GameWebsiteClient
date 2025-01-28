@@ -7,6 +7,7 @@ const containerStyle = {
   width: "3rem",
   height: "3rem",
   boxSizing: "border-box",
+  right: 30
 };
 
 const circleStyle = {
@@ -19,7 +20,7 @@ const circleStyle = {
   position: "absolute",
   boxSizing: "border-box",
   top: "8px",
-  left: "8px"
+  right: "8px"
 };
 
 const spinTransition = {
@@ -28,7 +29,7 @@ const spinTransition = {
   duration: 1
 };
 
-export default function Load() {
+export default function CircleLoader() {
   return (
     <div style={containerStyle}>
       <motion.span

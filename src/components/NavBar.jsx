@@ -17,11 +17,13 @@ function NavBar({ loggedIn, setLoggedIn }) {
                     </ul>
                 </nav>
                 {showBar === true && <UserMenu loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+                <hr/>
             </>
         )
     }
     else {
         return (
+            <>
             <nav>
                 <ul>
                     <li><Link className="navElement" to={"/post"}>Posztok</Link></li>
@@ -31,6 +33,8 @@ function NavBar({ loggedIn, setLoggedIn }) {
                     <li><Link className="navElement" to={"/register"}>Regisztráció</Link></li>
                 </ul>
             </nav>
+            <hr/>
+            </>
         )
     }
 

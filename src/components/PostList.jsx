@@ -3,6 +3,11 @@ import { useState } from "react"
 import deleteRequest from "./deleteRequest"
 import Load from "./Load"
 import ConfirmWindow from "./ConfirmWindow"
+import likeLogo from '../assets/heartWhite.png'
+import editLogo from '../assets/edit.png'
+import deleteLogo from '../assets/delete.png'
+import likeON from '../assets/heartON.png'
+import CircleLoader from "./CircleLoader";
 
 export default function PostList({ post, url, headers, viewPost, editPost, likePost, likedPostsArr, admin, setError, setSuccess }) {
     const privilege = localStorage.getItem("privilege")
@@ -69,19 +74,29 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
     if (admin) {
         if (privilege == 10 || !postState.deleted_at) {
             return (
-                <div>
-                    {(loading) && <Load />}
-                    <h2 onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
-                    <p>{postState.name}</p>
-                    <p>{postState.likes}</p>
-                    <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-                    <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
-                    {postState.deleted_at && <p>{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
-                    <button onClick={() => editPost(post.id)}>Szerkesztés</button>
-                    <button onClick={() => setShowConfirm(true)}>{postState.deleted_at ? "Visszaállítás" : "Törlés"}</button>
-                    {(showConfirm) && <ConfirmWindow text={postState.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={postState.deleted_at ? () => restorePost(postState.id) : () => deletePost(postState.id)} setShow={setShowConfirm} />}
-                    {!likedPostsArr.includes(post.id) ? <button onClick={() => startLikeProcess(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => startLikeProcess(post.id, { likes: false })}>Like</button>}
+                <div className="listBox">
 
+                    <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
+                    {(loading) && <CircleLoader position={5}/>}
+                    <p>{postState.name}</p>
+                    
+                    <div className="postBottom">
+                        
+                    
+
+                        <div className="likeNumber">
+                            <button className="circleButton edit" onClick={() => editPost(post.id)}><img src={editLogo} alt="szerkesztés" /></button>
+                            <button className="circleButton delete" onClick={() => setShowConfirm(true)}>{postState.deleted_at ? "Visszaállítás" :  <img src={deleteLogo} alt="törlés" />}</button>
+                            {!likedPostsArr.includes(post.id) ? <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: true })}><img src={likeLogo} alt="like" /></button> : <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: false })}><img src={likeON} alt="like" /></button>}<p>{postState.likes}</p>
+                        
+                        </div>
+                        <div className="dates">
+                            {postState.deleted_at && <p>{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
+                            <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
+                            <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                        </div>
+                    </div>                    
+                    {(showConfirm) && <ConfirmWindow text={postState.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={postState.deleted_at ? () => restorePost(postState.id) : () => deletePost(postState.id)} setShow={setShowConfirm} />}
                 </div>
             )
         }
@@ -89,15 +104,20 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
     }
     else {
         return (
-            <div>
-                {(loading) && <Load />}
+            <div className="listBox">
 
-                <h2 onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
+                <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post}</h2>
+                {(loading) && <CircleLoader/>}
                 <p>{postState.name}</p>
-                <p>{postState.likes}</p>
-                <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-                <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
-                {!likedPostsArr.includes(post.id) ? <button onClick={() => startLikeProcess(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => startLikeProcess(post.id, { likes: false })}>Like</button>}
+                
+                <div className="postBottom">
+                    
+                    <div className="likeNumber">{!likedPostsArr.includes(post.id) ? <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: true })}><img src={likeLogo} alt="like" /></button> : <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: false })}><img src={likeON} alt="like" /></button>}<p>{postState.likes}</p></div>
+                    <div className="dates">
+                        <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
+                        <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                    </div>
+                </div>
 
             </div>
         )

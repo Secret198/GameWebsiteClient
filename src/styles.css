@@ -1,6 +1,7 @@
 :root{
     --textColor: rgb(231, 231, 231);
     --textBoxcolor: rgba(143, 210, 255, 0.582);
+    --boxColor: rgb(18, 18, 66);
 }
 
 #root{
@@ -30,26 +31,34 @@ nav > ul{
     align-items: center;
     background-color: none;
     margin: 0;
+    padding: 0 5px;
 }
 
 nav>ul>li{
-    padding: 20px;
     cursor: pointer;
+    height: fit-content;
+    padding: 10px 5px;
+
 }
 
 
 .navElement{
+    display: block;
     text-decoration: none;
     font-size: 20px;
     color: var(--textColor);
+    padding: 15px 20px;
+    transition: 0.5s;
+    border-radius: 10px;
 }
 
-nav>ul>li:hover{
-    background-color: rgba(30, 70, 155, 0.527);
+.navElement:hover{
+    background-color: rgba(65, 102, 180, 0.527);
+    transition: 0.5s;
 }
 
 footer{
-    background-color: rgb(22, 17, 53);
+    background-color: var(--boxColor);
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -72,21 +81,31 @@ footer{
 }
 
 .coolBox{
-    background-color: rgba(20, 36, 105, 0.404);
     padding: 30px;
     padding-bottom: 40px;
     border-radius: 20px;
-    box-shadow: 0 0 20px 10px rgb(111, 198, 238) inset;
-    background-image: linear-gradient(135deg, rgba(20, 36, 105, 0.404), rgba(111, 198, 238, 0.514));
+    box-shadow: 0 0 15px 7px rgba(153, 184, 250, 0.527);
+    background-image: linear-gradient(45deg, rgb(19, 28, 75), rgb(18, 82, 112));
 }
 
 .coolBox > h1{
     text-align: center;
 }
 
-.coolBox > a{
-    text-align: left;
-    color: var(--textColor);
+.coolBox > p > a{
+    text-align: center;
+    color: rgba(127, 193, 236, 0.582);
+}
+.coolBox > p >a:visited{
+    color: rgba(122, 131, 138, 0.582);
+}
+.coolBox > p >a:hover{
+    color: rgba(159, 215, 252, 0.582);
+}
+
+.registerText{
+    display: block;
+    text-align: center;
 }
 
 .loginForm{
@@ -128,9 +147,12 @@ input[type=number] {
 
 .loginForm button, .postForm button{
     font-size: 120%;
-    background-color: rgb(127, 223, 143);
     border: 2px solid rgb(18, 39, 97);
+    width: 50%;
+    display: block;
     height: 50px;
+    margin: 20px auto;
+    margin-bottom: 2px;
 }
 
 .feedBack{
@@ -177,7 +199,7 @@ textarea{
 .menuBox{
     width: 300px;
     border-radius: 10px;
-    background-color: rgb(18, 18, 66);
+    background-color: var(--boxColor);
     border: 2px solid rgb(39, 75, 129);
     display: flex;
     flex-direction: column;
@@ -214,22 +236,96 @@ textarea{
     cursor: pointer;
 }
 
-.listBox{
-    border: 2px solid rgb(21, 27, 102);
-    border-radius: 10px;
-    padding: 10px;
-    margin: 20px 20px 0 20px;
-    background-color: rgb(35, 43, 131);
+.searchContainer{
+    margin-top: 20px;
+    
+}
+.searchForm{
+    
+    display: flex;
+    justify-content: center;
+    margin: auto;
 }
 
+.sortContainer{
+    display: flex;
+    justify-content: center;
+}
+
+#sortBy, #sortDir, #searchBar, .searchButton{
+    background: none;
+    color: var(--textColor);
+    font-size: 120%;
+    font-weight: 600;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: 0.3s;
+    border: none;
+    padding: 0 10px;
+    height: 50px;
+    border-bottom: 1px solid white;
+}
+
+#sortBy{
+    border-bottom-left-radius: 15px;
+    border-left: 1px solid white;
+}
+
+#sortDir{
+    border-bottom-right-radius: 15px;
+    border-right: 1px solid white;
+}
+
+.searchButton{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+}
+
+
+#searchBar{
+    width: 300px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    outline: none;
+    height: 48px;
+}
+
+option{
+    color: black;
+}
+
+#searchBar:focus, #sortDir:focus, #sortBy:focus{
+    box-shadow: inset 0 0 3px rgb(255, 255, 255);
+}
+
+.searchButton:hover, #searchBar:hover, #sortBy:hover, #sortDir:hover{
+    box-shadow: inset 0 0 5px rgb(255, 255, 255);
+}
+
+.listBox{
+    z-index: 1;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin: 20px 20px 0 20px;
+    background-image: linear-gradient(225deg, rgb(19, 28, 75), rgb(18, 82, 112));
+    cursor: pointer;
+    transition: 0.3s;
+}
+.listBox:hover{
+    box-shadow: inset 0 0 3px rgb(255, 255, 255);
+}
+hr{
+    padding: 0;
+    margin: 0;
+}
 .deleteBox{
     background-color: rgb(35, 35, 59); 
     /* Idk somehow gray it out */
 }
 
-.liked{
-    background-color: red;
-}
 
 .formError{
     color: red;
@@ -241,8 +337,98 @@ input:invalid[focused="true"] + .formError{
 }
 
 .confirmWindow{
+    border-radius: 15px;
     width: 500px;
-    background-color: darkslateblue;
+    background: var(--boxColor);
     position: fixed;
+    padding: 10px;
+    border: solid 1px var(--textColor);
+}
+.confirmWindow button{
+    margin: 10px;
+    margin-top: 20px;
+    font-size: 120%;
+    color: var(--textColor);
+    padding: 5px 10px;
+    background: none;
+}
+.confirmWindow hr{
+    width: 60%;
+    display: block;
+    margin: auto;
+}
+::placeholder {
+    color: rgb(19, 28, 75);
+}
+.circleButton{
+    margin: 0 -5px;
+    padding: 5px;
+    height: 40px;
+    width: 40px;
+    background: none;
+    border: none;
+    z-index: 2;
+
+}
+.circleButton img{
+    height: 100%;
+    width: 100%;
     
+}
+
+.smallPicture{
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.postTitle{
+    display: inline-block;
+}
+
+.postBottom{
+    display: grid;
+    position: relative;
+    grid-template-columns: 50% 50%;
+    vertical-align: middle;
+}
+
+.likeNumber{
+    height: 50px;
+    display: grid;
+    grid-template-columns: 50px 50px;
+    vertical-align: middle;
+}
+
+.likeNumber>button, .likeNumber>p{
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+}
+.likeNumber>p{
+    left: 50px;
+    margin: 10px -10px;
+}
+
+.likeNumber>button, .likeNumber>p{
+    display: inline-block;
+}
+
+.dates{
+    height: 85px;
+}
+.dates>p{
+    width: fit-content;
+    position: absolute;
+    right: 0;
+}
+.bottomDate{
+    top: 40px;
+}
+.edit{
+    left: 90px;
+}
+.delete{
+    left: 140px;
 }
