@@ -67,7 +67,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
     }
 
     let longPost = false
-    if(postState.post.length > 30){
+    if(postState.post.length > postTitleCharacterLimit){
         longPost = true
     }
 
