@@ -1,7 +1,9 @@
+import handleAllDates from "./handleAllDates";
 import ShowAchievement from "./ShowAchievement";
 
 
 export default function UserDataShow({ user, achievements, admin }) {
+    const processedDates = handleAllDates(user)
     if (admin) {
         return (
             <div>
@@ -14,9 +16,9 @@ export default function UserDataShow({ user, achievements, admin }) {
                 <p>idk: {user.boss1lvl}</p>
                 <p>idk: {user.boss2lvl}</p>
                 <p>idk: {user.boss3lvl}</p>
-                {user.deleted_at && <p>deleted_at: {user.deleted_at}</p>}
-                <p>updated_at: {user.updated_at}</p>
-                <p>Profil készítése: {user.created_at}</p>
+                {user.deleted_at && <p>deleted_at: {processedDates.deleted_at.year} {process.deleted_at.time}</p>}
+                <p>updated_at: {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                <p>Profil készítése: {processedDates.created_at.year} {processedDates.created_at.time}</p>
                 <div>
                     {
                         achievements.map((item) => (
@@ -39,7 +41,7 @@ export default function UserDataShow({ user, achievements, admin }) {
                 <p>idk: {user.boss1lvl}</p>
                 <p>idk: {user.boss2lvl}</p>
                 <p>idk: {user.boss3lvl}</p>
-                <p>Profil készítése: {user.created_at}</p>
+                <p>Profil készítése: {processedDates.created_at.year} {processedDates.created_at.time}</p>
                 <div>
                     {
                         achievements.map((item) => (
