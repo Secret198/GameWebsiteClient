@@ -10,6 +10,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
     const processedDates = handleAllDates(postState)
     const [showConfirm, setShowConfirm] = useState(false)
     const [loading, setLoading] = useState(false)
+    const postTitleCharacterLimit = 50
 
     const deletePost = async (postId) => {
         setLoading(true)
@@ -60,12 +61,17 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
 
     }
 
+    let longPost = false
+    if(postState.post.length > 30){
+        longPost = true
+    }
+
     if (admin) {
         if (privilege == 10 || !postState.deleted_at) {
             return (
                 <div>
                     {(loading) && <Load />}
-                    <h2 onClick={() => viewPost(post.id)}>{postState.post}</h2>
+                    <h2 onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
                     <p>{postState.name}</p>
                     <p>{postState.likes}</p>
                     <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
@@ -86,7 +92,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
             <div>
                 {(loading) && <Load />}
 
-                <h2 onClick={() => viewPost(post.id)}>{post.post}</h2>
+                <h2 onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
                 <p>{postState.name}</p>
                 <p>{postState.likes}</p>
                 <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
