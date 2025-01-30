@@ -15,6 +15,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
     const processedDates = handleAllDates(postState)
     const [showConfirm, setShowConfirm] = useState(false)
     const [loading, setLoading] = useState(false)
+    const postTitleCharacterLimit = 50
 
     const deletePost = async (postId) => {
         setLoading(true)
@@ -65,12 +66,17 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
 
     }
 
+    let longPost = false
+    if(postState.post.length > postTitleCharacterLimit){
+        longPost = true
+    }
+
     if (admin) {
         if (privilege == 10 || !postState.deleted_at) {
             return (
                 <div className="listBox">
 
-                    <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post}</h2>
+                    <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
                     {(loading) && <CircleLoader position={5}/>}
                     <p>{postState.name}</p>
                     

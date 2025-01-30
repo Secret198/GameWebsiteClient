@@ -17,6 +17,7 @@ import GetUsers from './pages/GetUsers.jsx';
 import otherRequest from './components/otherRequest.js';
 import GetOwnPosts from './pages/GetOwnPosts.jsx';
 
+
 function App() {
     const url = "http://localhost:8000/api/"
     const headers = {
@@ -42,11 +43,10 @@ function App() {
         }
         return responseData
     }
-
     return (<>
-        <BrowserRouter >
+        <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} >
+                <Route path='/' element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} url={url} headers={headers} />} >
                     <Route path='achievement' element={<AchievementList url={url} headers={headers} />} />
                     <Route path='achievement/create' element={loggedIn ? <AchievementCreate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />
                     <Route path='achievement/update/:id' element={loggedIn ? <AchievementUpdate url={url} headers={headers} /> : <Navigate replace to={"/login"} />} />

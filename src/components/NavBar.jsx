@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import UserMenu from "./UserMenu"
 
-function NavBar({ loggedIn, setLoggedIn }) {
+function NavBar({ loggedIn, setLoggedIn, url, headers }) {
     const [showBar, setShowBar] = useState(false)
 
     if (localStorage.getItem("token")) {
@@ -16,7 +16,7 @@ function NavBar({ loggedIn, setLoggedIn }) {
                         <li><a className="navElement" onClick={() => setShowBar(!showBar)}>Menü</a></li>
                     </ul>
                 </nav>
-                {showBar === true && <UserMenu loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+                {showBar === true && <UserMenu loggedIn={loggedIn} setLoggedIn={setLoggedIn} url={url} headers={headers} />}
                 <hr/>
             </>
         )
