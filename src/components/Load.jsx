@@ -28,7 +28,9 @@ const spinTransition = {
   duration: 1
 };
 
-export default function Load() {
+export default function Load({position}) {
+
+    
   return (
     <div style={containerStyle}>
       <motion.span

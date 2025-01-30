@@ -432,3 +432,70 @@ input:invalid[focused="true"] + .formError{
 .delete{
     left: 140px;
 }
+
+.userDataShow{
+    line-break: anywhere;
+    vertical-align: middle;
+    display: grid;
+    margin: 20px auto;
+    width: 300px;
+    grid-template-columns: 50% 50%;
+}
+
+.userDataShow > p{
+    margin-top: 5px;
+    text-align: left;
+    color: var(--textColor);
+    border-collapse: collapse;
+    border: 1px solid var(--textColor);
+    padding: 10px;
+    border-right: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.link{
+    text-align: center;
+    display: block;
+    margin: auto;
+    color: var(--textColor);
+}
+
+.userDataShow > :first-child {
+    grid-column: span 2;
+    margin-top: 30px;
+    text-align: center;
+    border-right: 1px solid var(--textColor) !important;
+    border-radius: 5px;
+}
+
+.userDataShow > :nth-child(2) {
+    margin-bottom: 50px;
+    grid-column: span 2;
+    text-align: center;
+    border-right: 1px solid var(--textColor) !important;
+    border-radius: 5px;
+}
+
+.userDataShow > :last-child {
+    text-align: center;
+    grid-column: span 2;
+    border-right: 1px solid var(--textColor) !important;
+    border-radius: 5px;
+}
+
+.link:visited{
+    color: rgba(122, 131, 138, 0.582);
+}
+.link:hover{
+    color: rgba(159, 215, 252, 0.582);
+}
+.right{
+    text-align: right !important;
+    border-right: 1px solid var(--textColor) !important;
+    border-left: none !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

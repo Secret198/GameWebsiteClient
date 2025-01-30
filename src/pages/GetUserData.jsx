@@ -121,7 +121,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
             {loading && <Load />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <UserDataShow user={user} achievements={achievements} admin={privilege == 10 ? true : false} />
-            {((id === localStorage.getItem("userId") || privilege == 10) && !error && !loading) && <Link to={"/user/update/" + id}>Szerkesztés</Link>}
+            {((id === localStorage.getItem("userId") || privilege == 10) && !error && !loading) && <Link className="link" to={"/user/update/" + id}>Szerkesztés</Link>}
             {/* {(privilege == 10 && !error && !loading) && <button onClick={user.deleted_at ? () => restoreUser(id) : () => deleteUser(id)}>{user.deleted_at ? "Vissaállítás" : "Fiók törlése"}</button>} */}
             {(privilege == 10 && !error && !loading) && <button onClick={user.deleted_at ? () => confirmSetup("restore", id) : () => confirmSetup("delete", id)}>{user.deleted_at ? "Vissaállítás" : "Fiók törlése"}</button>}
             {(privilege == 10 && user.privilege != 10 && !error && !loading) && <button onClick={() => confirmSetup("makeAdmin", id)}>Adminná tevés</button>}
