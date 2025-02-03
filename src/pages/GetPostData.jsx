@@ -94,7 +94,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <img src={post.image} alt="" />
             <p>{post.post}</p>
-            <p>{post.user}</p>
+            <p>{post.name}</p>
             {(privilege == 10 && post.deleted_at) && <p>{post.deleted_at}</p>}
             <p>{post.likes}</p>
             <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
