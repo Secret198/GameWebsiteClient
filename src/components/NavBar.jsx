@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import UserMenu from "./UserMenu"
+import userPic from '../assets/user.png'
 
 function NavBar({ loggedIn, setLoggedIn, url, headers }) {
     const [showBar, setShowBar] = useState(false)
@@ -10,10 +11,11 @@ function NavBar({ loggedIn, setLoggedIn, url, headers }) {
             <>
                 <nav>
                     <ul>
-                        <li onClick={() => setShowBar(false)}><Link className="navElement" to={"/post"}>Posztok</Link></li>
-                        <li onClick={() => setShowBar(false)}><Link className="navElement" to={"/user"}>Felhasználók</Link></li>
-                        <li onClick={() => setShowBar(false)}><Link className="navElement" to={"/achievement"}>Achievementek</Link></li>
-                        <li><a className="navElement" onClick={() => setShowBar(!showBar)}>Menü</a></li>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/post"}>Posztok</Link></li>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/user"}>Felhasználók</Link></li>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/achievement"}>Achievementek</Link></li>
+                        <li><img className="navElement userImage" onClick={() => setShowBar(!showBar)} src={userPic} alt="user" /> <p className="navElement profilP" onClick={() => setShowBar(!showBar)}>Profil</p> </li>
+
                     </ul>
                 </nav>
                 {showBar === true && <UserMenu loggedIn={loggedIn} setLoggedIn={setLoggedIn} url={url} headers={headers} />}

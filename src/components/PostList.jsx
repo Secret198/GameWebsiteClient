@@ -8,6 +8,7 @@ import editLogo from '../assets/edit.png'
 import deleteLogo from '../assets/delete.png'
 import likeON from '../assets/heartON.png'
 import CircleLoader from "./CircleLoader";
+import userPic from '../assets/user.png'
 
 export default function PostList({ post, url, headers, viewPost, editPost, likePost, likedPostsArr, admin, setError, setSuccess }) {
     const privilege = localStorage.getItem("privilege")
@@ -78,7 +79,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
 
                     <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
                     {(loading) && <CircleLoader position={5}/>}
-                    <p>{postState.name}</p>
+                    <div><img className="profileImage" src={userPic} alt="user" /><p className="userName">{postState.name}</p></div>
                     
                     <div className="postBottom">
                         
@@ -91,7 +92,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                         
                         </div>
                         <div className="dates">
-                            {postState.deleted_at && <p>{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
+                            {postState.deleted_at && <p className="topDate">{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
                             <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
                             <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                         </div>
@@ -108,7 +109,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
 
                 <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post}</h2>
                 {(loading) && <CircleLoader/>}
-                <p>{postState.name}</p>
+                <div><img className="profileImage" src={userPic} alt="user" /><p className="userName">{postState.name}</p></div>
                 
                 <div className="postBottom">
                     
