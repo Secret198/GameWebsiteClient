@@ -27,6 +27,7 @@ main{
 nav > ul{
     list-style-type: none;
     display: flex;
+    flex-direction: row;
     justify-content: right;
     align-items: center;
     background-color: none;
@@ -291,6 +292,7 @@ textarea{
     border-left: 1px solid white;
     outline: none;
     height: 48px;
+    transition: 0.3s;
 }
 
 option{
@@ -343,6 +345,7 @@ input:invalid[focused="true"] + .formError{
     position: fixed;
     padding: 10px;
     border: solid 1px var(--textColor);
+    text-align: center;
 }
 .confirmWindow button{
     margin: 10px;
@@ -385,26 +388,30 @@ input:invalid[focused="true"] + .formError{
 
 .postTitle{
     display: inline-block;
+    line-break: anywhere;
 }
 
 .postBottom{
-    display: grid;
+    display: flex;
+    flex-direction: row;
     position: relative;
-    grid-template-columns: 50% 50%;
     vertical-align: middle;
+
 }
 
 .likeNumber{
     height: 50px;
-    display: grid;
-    grid-template-columns: 50px 50px;
+    display: flex;
+    flex-direction: row;
     vertical-align: middle;
+
 }
 
 .likeNumber>button, .likeNumber>p{
     display: inline-block;
     position: absolute;
     bottom: 0;
+
 }
 .likeNumber>p{
     left: 50px;
@@ -417,20 +424,28 @@ input:invalid[focused="true"] + .formError{
 
 .dates{
     height: 85px;
+
 }
 .dates>p{
     width: fit-content;
     position: absolute;
     right: 0;
+    bottom: 10px;
+
 }
 .bottomDate{
-    top: 40px;
+    top: 45px;
+
 }
 .edit{
     left: 90px;
 }
 .delete{
     left: 140px;
+}
+
+.topDate{
+    top: 5px;
 }
 
 .userDataShow{
@@ -454,13 +469,6 @@ input:invalid[focused="true"] + .formError{
     border-bottom-left-radius: 5px;
 }
 
-.link{
-    text-align: center;
-    display: block;
-    margin: auto;
-    color: var(--textColor);
-}
-
 .userDataShow > :first-child {
     grid-column: span 2;
     margin-top: 30px;
@@ -480,16 +488,10 @@ input:invalid[focused="true"] + .formError{
 .userDataShow > :last-child {
     text-align: center;
     grid-column: span 2;
-    border-right: 1px solid var(--textColor) !important;
+    border: 1px solid var(--textColor) !important;
     border-radius: 5px;
 }
 
-.link:visited{
-    color: rgba(122, 131, 138, 0.582);
-}
-.link:hover{
-    color: rgba(159, 215, 252, 0.582);
-}
 .right{
     text-align: right !important;
     border-right: 1px solid var(--textColor) !important;
@@ -498,4 +500,170 @@ input:invalid[focused="true"] + .formError{
     border-top-left-radius: 0 !important;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.userImage{
+    height: 45px;
+    width: 45px;
+    vertical-align: middle;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+
+
+.profilP{
+    display: none;
+}
+.profileImage{
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    vertical-align: middle;
+    padding: 10px;
+    border-radius: 30px;
+}
+.userName{
+    display: inline-block;
+}
+
+.dataButton, .link{
+    color: var(--textColor);
+    font-size: 120%;
+    border-radius: 30px;
+    border: none;
+    width: fit-content;
+    display: block;
+    height: 50px;
+    padding: 7px;
+    margin: 20px auto;
+    margin-bottom: 2px;
+    background: none;
+}
+
+.link{
+    height: 36px;
+}
+
+.dataButtonAdmin{
+    color: var(--textColor);
+    font-size: 100%;
+    border-radius: 8px;
+    border: 2px solid var(--textColor);
+    height: fit-content;
+    width: fit-content;
+    display: block;
+    height: 40px;
+    margin: 20px auto;
+    margin-bottom: 2px;
+    background: none;
+}
+
+.dataButtonAdmin:hover, .dataButton:hover, .link:hover{
+    box-shadow: inset 0 0 5px rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.link>img, .dataButton>img{
+    height: 100%;
+    width: 100%;
+}
+@media only screen and (max-width: 800px) {
+    .navElement{
+        padding: 10px 5px;
+    }
+}
+
+@media only screen and (max-width: 680px){
+    .navElement{
+        font-size: large;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .profilP{
+        display: block;
+        margin: 0;
+    }
+    .userImage{
+        display: none;
+    }
+    nav > ul{
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+    }
+    nav>ul>li{
+        width: 100%;
+        padding: 0;
+    }
+    .navElement{
+        font-size: 20px;
+        padding: 20px 15px;
+        border-radius: 0;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .confirmWindow, .centerScreen{
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .listBox{
+        height: 350px;
+        position: relative
+    }
+    .postBottom{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        right: 0;
+        left: 0;
+        margin-inline: auto;
+        height: 120px;
+        margin-left: 20px;
+    }
+    .dates{
+        bottom: 0;
+    }
+    .dates>p{
+        width: fit-content;
+        bottom: 20px;
+        left: 0;
+        margin-right: 40px;
+    }
+    .bottomDate{    
+        top: 70px;
+    }
+    .likeNumber{
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        vertical-align: middle;
+    }
+    
+    .likeNumber>button, .likeNumber>p{
+        display: inline-block;
+        top: 0;
+        
+    }
+    .likeNumber>p{
+        left: 50px;
+        margin: 10px -10px;
+    }
+    .topDate{
+        top: 30px;
+    }
+    #searchBar{
+        width: 200px;
+    }
+    #sortBy{
+        font-size: medium;
+    }
+    #sortDir{
+        font-size: medium;
+    }
 }
