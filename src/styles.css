@@ -57,6 +57,12 @@ nav>ul>li{
     transition: 0.5s;
 }
 
+@media(max-width: 600px){
+    nav>ul{
+        flex-direction: column;
+    }
+}
+
 footer{
     background-color: var(--boxColor);
     position: absolute;
