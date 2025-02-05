@@ -61,6 +61,7 @@ nav>ul>li{
 @media(max-width: 600px){
     nav>ul{
         flex-direction: column;
+        justify-content: left;
     }
 }
 

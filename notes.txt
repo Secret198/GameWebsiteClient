@@ -1,3 +1,7 @@
 maybe image preview when uploading images
 menu closing x and stuff quality of life stuff
 timezone
+
+Főoldal gomb
+Footert kitalálni
+Főoldalt berendezni
