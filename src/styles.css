@@ -70,6 +70,61 @@ footer{
     position: absolute;
     bottom: 0;
     width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.icon{
+    width: 20px;
+    margin-right: 5px;
+    height: 100%;
+}
+
+.footerElement{
+    max-width: 30%;
+}
+
+.contactElement>p{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.contactElement{
+    display: flex;
+    align-items: center;
+}
+
+.centerText{
+    text-align: center;
+}
+
+.justifyText{
+    text-align: justify;
+}
+
+.showCase, .team{
+    padding: 20px;
+}
+
+.imgContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.imgContainer>img{
+    width: 30%;
+}
+
+figure>img{
+    width: 100%
+}
+
+
+.team{
+    background-color: rgb(45, 193, 212);
+    color: rgb(9, 14, 32);
+    width: 100%;
 }
 
 .centerScreen{

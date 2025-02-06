@@ -11,6 +11,7 @@ function NavBar({ loggedIn, setLoggedIn, url, headers }) {
             <>
                 <nav>
                     <ul>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/"}>Főoldal</Link></li>
                         <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/post"}>Posztok</Link></li>
                         <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/user"}>Felhasználók</Link></li>
                         <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/achievement"}>Achievementek</Link></li>
@@ -28,11 +29,12 @@ function NavBar({ loggedIn, setLoggedIn, url, headers }) {
             <>
             <nav>
                 <ul>
-                    <li onClick={() => setShowBar(false)}><Link className="navElement" to={"/post"}>Posztok</Link></li>
-                    <li onClick={() => setShowBar(false)}><Link className="navElement" to={"/user"}>Felhasználók</Link></li>
-                    <li onClick={() => setShowBar(false)}><Link className="navElement" to={"/achievement"}>Achievementek</Link></li>
-                    <li onClick={() => setShowBar(false)}><Link className="navElement" to={"/login"}>Bejelentkezés</Link></li>
-                    <li onClick={() => setShowBar(false)}><Link className="navElement" to={"/register"}>Regisztráció</Link></li>
+                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/"}>Főoldal</Link></li>
+                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/post"}>Posztok</Link></li>
+                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/user"}>Felhasználók</Link></li>
+                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/achievement"}>Achievementek</Link></li>
+                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/login"}>Bejelentkezés</Link></li>
+                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/register"}>Regisztráció</Link></li>
                 </ul>
             </nav>
             <hr/>
