@@ -4,14 +4,15 @@ import ConfirmWindow from "./ConfirmWindow"
 import otherRequest from "./otherRequest"
 import FeedBack from "./FeedBack"
 import Load from "./Load"
+import closeWhtie from "../assets/closeWhite.png"
 
-export default function UserMenu({ loggedIn, setLoggedIn, url, headers }) {
+export default function UserMenu({ loggedIn, setLoggedIn, url, headers, hidePanels }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const navigation = useNavigate()
     const privilege = localStorage.getItem("privilege")
     const [showConfirm, setShowConfirm] = useState(false)
     const [loading, setLoading] = useState(false)
-    
+
 
     async function logout() {
         setLoading(true)
@@ -19,23 +20,24 @@ export default function UserMenu({ loggedIn, setLoggedIn, url, headers }) {
         localStorage.clear()
         setLoggedIn(false)
         setLoading(false)
-        navigation("/")        
+        navigation("/")
 
     }
 
     const userId = localStorage.getItem("userId")
     return (
         <div className="menuBox">
+            <button className="circleButton xButton" onClick={() => hidePanels(1)}><img src={closeWhtie} alt="CloseButton" /></button>
             {loading && <Load />}
             <h1>Menü</h1>
             <hr />
-            <Link to={"/user/show/" + userId}>Adatok megjelenítése</Link>
-            <Link to={"/post/create"}>Új poszt létrehozása</Link>
-            <Link to={"/user/posts"}>Posztjaim</Link>
-            {privilege == 10 && <Link to={"/achievement/create"}>Új achievement</Link>}
+            <Link onClick={() => hidePanels(0)} to={"/user/show/" + userId}>Adatok megjelenítése</Link>
+            <Link onClick={() => hidePanels(0)} to={"/post/create"}>Új poszt létrehozása</Link>
+            <Link onClick={() => hidePanels(0)} to={"/user/posts"}>Posztjaim</Link>
+            {privilege == 10 && <Link onClick={() => hidePanels(0)} to={"/achievement/create"}>Új achievement</Link>}
             <button onClick={() => setShowConfirm(true)}>Kijelentkezés</button>
             {(showConfirm) && <ConfirmWindow text={"Biztosan ki szeretne jelentkezni?"} functionToCall={logout} setShow={setShowConfirm} />}
         </div>
-        
+
     )
 }

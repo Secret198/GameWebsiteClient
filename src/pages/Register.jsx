@@ -20,6 +20,10 @@ export default function Register({ url, headers, setLoggedIn }) {
     const [loading, setLoading] = useState(false)
 
 
+    const stepBack = () => {
+        navigation(-1)
+    }
+
     async function addUser(url, name, email, password) {
         setLoading(true)
         const userData = {
@@ -59,7 +63,7 @@ export default function Register({ url, headers, setLoggedIn }) {
     return (
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-            <RegisterBox register={register} password={values.password} onChange={onChange} />
+            <RegisterBox register={register} password={values.password} onChange={onChange} stepBack={stepBack} />
             {loading && <Load />}
 
         </div>

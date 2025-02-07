@@ -13,6 +13,10 @@ function Login({ url, headers, setLoggedIn }) {
     const [success, setSuccess] = useState("")
     const [loading, setLoading] = useState(false)
 
+    const stepBack = () => {
+        navigation(-1)
+    }
+
     async function loginUser(email, password) {
         setLoading(true)
         const credentials = { email: email, password: password }
@@ -47,7 +51,7 @@ function Login({ url, headers, setLoggedIn }) {
     return (
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-            <LoginBox login={login} />
+            <LoginBox login={login} stepBack={stepBack} />
             {loading && <Load />}
         </div>
     )

@@ -128,6 +128,7 @@ figcaption{
     color: rgb(9, 14, 32);
     position: relative;
     padding-bottom: 120px;
+    margin-top: 50px;
 }
 
 .waves {
@@ -165,7 +166,6 @@ figcaption{
 }
 
 .coolBox{
-    width: 50vw;
     padding: 30px;
     padding-bottom: 40px;
     border-radius: 20px;
@@ -317,7 +317,6 @@ textarea{
 }
 
 .menuBox * {
-    margin-top: 10px;
     text-align: center;
 }
 
@@ -326,6 +325,7 @@ textarea{
 }
 
 .menuBox > a{
+    padding-top: 10px;
     color: var(--textColor);
     text-decoration: none;
 }
@@ -336,10 +336,26 @@ textarea{
 }
 
 .menuBox > button{
+    padding-top: 10px;
+    font-size: 100%;
     background-color: transparent;
     color:  red;
     border: none;
     cursor: pointer;
+}
+
+.xButton{
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xButton>img{
+    max-width: 20px;
+    max-height: 20px;
 }
 
 .searchContainer{
@@ -484,6 +500,12 @@ input:invalid[focused="true"] + .formError{
     width: 100%;
     height: 40px;
     width: 40px;
+}
+
+.backButton{
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
 .smallPicture{
@@ -708,7 +730,10 @@ button>img{
     }
 
     .coolBox{
-        width: 100%;    
+        box-sizing: border-box;
+        width: 100%;  
+        margin-left: 0;
+        transform: translate(0, 0);  
     }
 }
 
@@ -732,6 +757,9 @@ button>img{
         border-radius: 0;
         text-align: center;
     }
+    .menuBox{
+        top: 40vh;
+    }
 }
 
 @media only screen and (max-width: 680px){
@@ -753,6 +781,9 @@ button>img{
         flex-direction: column;
         align-items: center;
     }
+    footer>*{
+        text-align: center;
+    }
     .footerElement{
         max-width: 100%;
     }
@@ -765,6 +796,21 @@ button>img{
 
     .listBox{
         margin: 20px 0;
+    }
+
+    .menuBox{
+        box-sizing: border-box;
+        width: 100%;
+        right: 0;
+        left: 0;
+    }
+    .menuBox>a, .menuBox>button{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .coolBox{
+       padding-right: 0;
+       padding-left: 0;
     }
 }
 

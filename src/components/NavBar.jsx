@@ -20,24 +20,24 @@ function NavBar({ loggedIn, setLoggedIn, url, headers }) {
                     </ul>
                 </nav>
                 {showBar === true && <UserMenu loggedIn={loggedIn} setLoggedIn={setLoggedIn} url={url} headers={headers} />}
-                <hr/>
+                <hr />
             </>
         )
     }
     else {
         return (
             <>
-            <nav>
-                <ul>
-                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/"}>Főoldal</Link></li>
-                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/post"}>Posztok</Link></li>
-                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/user"}>Felhasználók</Link></li>
-                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/achievement"}>Achievementek</Link></li>
-                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/login"}>Bejelentkezés</Link></li>
-                    <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/register"}>Regisztráció</Link></li>
-                </ul>
-            </nav>
-            <hr/>
+                <nav>
+                    <ul>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/"}>Főoldal</Link></li>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/post"}>Posztok</Link></li>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/user"}>Felhasználók</Link></li>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/achievement"}>Achievementek</Link></li>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/login"}>Bejelentkezés</Link></li>
+                        <li><Link onClick={() => setShowBar(false)} className="navElement" to={"/register"}>Regisztráció</Link></li>
+                    </ul>
+                </nav>
+                <hr />
             </>
         )
     }
