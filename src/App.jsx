@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useOutletContext } from 'react-router-dom';
 import { useState } from 'react';
 import Layout from './pages/Layout';
 import Register from './pages/Register';

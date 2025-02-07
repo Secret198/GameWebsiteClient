@@ -3,6 +3,8 @@ import { useState } from "react"
 import deleteRequest from "./deleteRequest"
 import ConfirmWindow from "./ConfirmWindow"
 import Load from "./Load"
+import editLogo from '../assets/edit.png'
+import deleteLogo from '../assets/delete.png'
 
 export default function AchievementItem({ achievement, setError, setSuccess, url, headers }) {
     const privilege = localStorage.getItem("privilege")
@@ -43,13 +45,13 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
     }
 
     return (
-        <div>
+        <div className={achievement.deleted_at ? "listBox deleteBox" : "listBox"}>
             {loading && <Load />}
             <h2>{achievement.name}</h2>
             <p>{achievement.description}</p>
-            {achievementState.deleted_at && <p>Deleted</p>}
-            {privilege == 10 && <Link to={"/achievement/update/" + achievement.id}>Szerkesztés</Link>}
-            {privilege == 10 && <button onClick={() => setShowConfirm(true)}>{achievementState.deleted_at ? "Visszaállítás" : "Törlés"}</button>}
+            {achievementState.deleted_at && <p>Törölve</p>}
+            {privilege == 10 && <Link className="circleButton edit" to={"/achievement/update/" + achievement.id}><img src={editLogo} alt="editButton" /></Link>}
+            {privilege == 10 && <button className="circleButton delete" onClick={() => setShowConfirm(true)}>{achievementState.deleted_at ? "Visszaállítás" : <img src={deleteLogo} alt="deleteButton" />}</button>}
             {(showConfirm) && <ConfirmWindow text={achievementState.deleted_at ? "Biztosan vissza szeretné állítani az achievementet?" : "Biztosan törölni szeretné az achievementet?"} functionToCall={achievementState.deleted_at ? () => restoreAchievement(achievementState.id) : () => deleteAchievement(achievementState.id)} setShow={setShowConfirm} />}
         </div>
     )

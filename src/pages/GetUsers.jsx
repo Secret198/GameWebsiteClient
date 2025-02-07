@@ -96,27 +96,6 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
         navigation("/user/update/" + userId)
     }
 
-    // const deleteUser = async (userId) => {
-    //     const responseData = await deleteRequest(url, headers, "user/" + userId)
-    //     if (responseData.response.status == 200) {
-    //         setError("")
-    //         setSuccess(responseData.result.message)
-    //     }
-    //     else {
-    //         setError(responseData.result.message)
-    //     }
-    // }
-
-    // const restoreUser = async (userId) => {
-    //     const responseData = await deleteRequest(url, headers, "user/restore/" + userId)
-    //     if (responseData.response.status == 200) {
-    //         setError("")
-    //         setSuccess(responseData.result.message)
-    //     }
-    //     else {
-    //         setError(responseData.result.message)
-    //     }
-    // }
 
     const searchUser = async (event) => {
         event.preventDefault();
@@ -138,7 +117,7 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchUser} mode={"user"} />
-            {((success || data.length == 0) && !loading) && <NoData />}
+            {( data.length == 0 && !loading) && <NoData />}
             {privilege == 10 && data.map((item) => (
                 <UserList key={item.id} user={item} viewUser={viewUser} editUser={editUser} admin={true} url={url} headers={headers} setError={setError} setSuccess={setSuccess} setLoggedIn={setLoggedIn} />
             ))}

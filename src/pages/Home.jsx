@@ -18,7 +18,7 @@ export default function Home(){
             </div>
             <div className="team">
                 <h2>Rólunk</h2>
-                <p>A csapatunk egy fiatal és dinamikus fejlesztőcsapat, akik szenvedéllyel dolgoznak azon, hogy egyedi és izgalmas játékélményeket hozzanak létre. Munkánk során fontos számunkra, hogy a legújabb technológiákat alkalmazzuk, és folyamatosan figyeljük a játékosok visszajelzéseit, hogy mindig a legjobb élményt nyújthassuk. Fejlesztőink különböző területeken szakosodtak, mint a grafika, a programozás és a játéktervezés, így minden részletre nagy figyelmet fordítunk, hogy egy teljes élményt nyújtsunk.</p>
+                <p className="justifyText">A csapatunk egy fiatal és dinamikus fejlesztőcsapat, akik szenvedéllyel dolgoznak azon, hogy egyedi és izgalmas játékélményeket hozzanak létre. Munkánk során fontos számunkra, hogy a legújabb technológiákat alkalmazzuk, és folyamatosan figyeljük a játékosok visszajelzéseit, hogy mindig a legjobb élményt nyújthassuk. Fejlesztőink különböző területeken szakosodtak, mint a grafika, a programozás és a játéktervezés, így minden részletre nagy figyelmet fordítunk, hogy egy teljes élményt nyújtsunk.</p>
                 <div className="imgContainer">
                     <figure>
                         <img src={personImg} alt="Roland" />
@@ -30,8 +30,13 @@ export default function Home(){
                     </figure>
                     <figure>
                         <img src={personImg} alt="Ákos" />
-                        <figure>Ákos</figure>    
+                        <figcaption>Ákos</figcaption>    
                     </figure>
+                    <div className="waves">
+                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="rgb(18, 18, 66)"></path>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>

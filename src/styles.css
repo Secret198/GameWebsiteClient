@@ -20,10 +20,6 @@ body{
     color: var(--textColor);
 }
 
-main{
-    padding-bottom: 250px;
-}
-
 nav > ul{
     list-style-type: none;
     display: flex;
@@ -39,7 +35,6 @@ nav>ul>li{
     cursor: pointer;
     height: fit-content;
     padding: 10px 5px;
-
 }
 
 
@@ -58,12 +53,7 @@ nav>ul>li{
     transition: 0.5s;
 }
 
-@media(max-width: 600px){
-    nav>ul{
-        flex-direction: column;
-        justify-content: left;
-    }
-}
+
 
 footer{
     background-color: var(--boxColor);
@@ -106,6 +96,10 @@ footer{
     padding: 20px;
 }
 
+.achievementMargin{
+    margin-left: 20px;
+}
+
 .imgContainer{
     display: flex;
     justify-content: space-between;
@@ -120,12 +114,39 @@ figure>img{
     width: 100%
 }
 
+figure{
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+figcaption{
+    text-align: center;
+}
 
 .team{
-    background-color: rgb(45, 193, 212);
+    background-color: rgb(37, 153, 168);
     color: rgb(9, 14, 32);
-    width: 100%;
+    position: relative;
+    padding-bottom: 120px;
 }
+
+.waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.waves svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+}
+
 
 .centerScreen{
     position: absolute;
@@ -144,12 +165,34 @@ figure>img{
 }
 
 .coolBox{
+    width: 50vw;
     padding: 30px;
     padding-bottom: 40px;
     border-radius: 20px;
     box-shadow: 0 0 15px 7px rgba(153, 184, 250, 0.527);
     background-image: linear-gradient(45deg, rgb(19, 28, 75), rgb(18, 82, 112));
 }
+
+.linkButton,
+.linkButton:visited,
+.linkButton:active{
+    text-decoration: none;
+    color: var(--textColor);
+    border: 1px solid var(--textColor);
+    padding: 10px 10px;
+    border-radius: 10px;
+    margin: 20px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    max-width: 180px;
+}
+
+.linkButton:hover{
+    background-color: rgba(127, 193, 236, 0.582);
+    transition: 0.3s;
+}
+
 
 .coolBox > h1{
     text-align: center;
@@ -375,7 +418,6 @@ option{
     padding: 10px 20px;
     margin: 20px 20px 0 20px;
     background-image: linear-gradient(225deg, rgb(19, 28, 75), rgb(18, 82, 112));
-    cursor: pointer;
     transition: 0.3s;
 }
 .listBox:hover{
@@ -386,6 +428,7 @@ hr{
     margin: 0;
 }
 .deleteBox{
+    background-image: none;
     background-color: rgb(35, 35, 59); 
     /* Idk somehow gray it out */
 }
@@ -408,6 +451,7 @@ input:invalid[focused="true"] + .formError{
     padding: 10px;
     border: solid 1px var(--textColor);
     text-align: center;
+    z-index: 10;
 }
 .confirmWindow button{
     margin: 10px;
@@ -433,12 +477,13 @@ input:invalid[focused="true"] + .formError{
     background: none;
     border: none;
     z-index: 2;
-
+    cursor: pointer;
 }
 .circleButton img{
     height: 100%;
     width: 100%;
-    
+    height: 40px;
+    width: 40px;
 }
 
 .smallPicture{
@@ -451,6 +496,12 @@ input:invalid[focused="true"] + .formError{
 .postTitle{
     display: inline-block;
     line-break: anywhere;
+    cursor: pointer;
+
+}
+
+.flare{
+    margin-bottom: 0;
 }
 
 .postBottom{
@@ -504,6 +555,14 @@ input:invalid[focused="true"] + .formError{
 }
 .delete{
     left: 140px;
+}
+
+.editNoLike{
+    left: 0;
+}
+
+.deleteNoLike{
+    left: 50px;
 }
 
 .topDate{
@@ -607,6 +666,10 @@ input:invalid[focused="true"] + .formError{
     height: 36px;
 }
 
+button>img{
+    cursor: pointer;
+}
+
 .dataButtonAdmin{
     color: var(--textColor);
     font-size: 100%;
@@ -630,9 +693,44 @@ input:invalid[focused="true"] + .formError{
     height: 100%;
     width: 100%;
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
     .navElement{
         padding: 10px 5px;
+    }
+
+    .imgContainer{
+        flex-direction: column;
+        align-items: center;
+    }
+    .imgContainer>img{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .coolBox{
+        width: 100%;    
+    }
+}
+
+@media(max-width: 750px){
+
+    nav > ul{
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+    }
+    nav>ul>li{
+        width: 100%;
+        padding: 0;
+    }
+    .navElement{
+        padding: 20px;
+    }
+    .navElement{
+        font-size: 20px;
+        padding: 20px 15px;
+        border-radius: 0;
+        text-align: center;
     }
 }
 
@@ -650,26 +748,23 @@ input:invalid[focused="true"] + .formError{
     .userImage{
         display: none;
     }
-    nav > ul{
+
+    footer{
         flex-direction: column;
-        justify-content: center;
-        padding: 0;
+        align-items: center;
     }
-    nav>ul>li{
-        width: 100%;
-        padding: 0;
-    }
-    .navElement{
-        font-size: 20px;
-        padding: 20px 15px;
-        border-radius: 0;
-        text-align: center;
+    .footerElement{
+        max-width: 100%;
     }
 }
 
 @media only screen and (max-width: 550px) {
     .confirmWindow, .centerScreen{
         width: 300px;
+    }
+
+    .listBox{
+        margin: 20px 0;
     }
 }
 

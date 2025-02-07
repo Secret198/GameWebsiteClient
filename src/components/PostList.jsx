@@ -75,7 +75,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
     if (admin) {
         if (privilege == 10 || !postState.deleted_at) {
             return (
-                <div className="listBox">
+                <div className={postState.deleted_at ? "listBox deleteBox" : "listBox"}>
 
                     <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
                     {(loading) && <CircleLoader position={5}/>}
@@ -88,7 +88,8 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                         <div className="likeNumber">
                             <button className="circleButton edit" onClick={() => editPost(post.id)}><img src={editLogo} alt="szerkesztés" /></button>
                             <button className="circleButton delete" onClick={() => setShowConfirm(true)}>{postState.deleted_at ? "Visszaállítás" :  <img src={deleteLogo} alt="törlés" />}</button>
-                            {!likedPostsArr.includes(post.id) ? <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: true })}><img src={likeLogo} alt="like" /></button> : <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: false })}><img src={likeON} alt="like" /></button>}<p>{postState.likes}</p>
+                            <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: (!likedPostsArr.includes(post.id) ? true : false) })}><img src={(!likedPostsArr.includes(post.id) ? likeLogo : likeON)} alt="likeButton" /></button>
+                            <p>{postState.likes}</p>
                         
                         </div>
                         <div className="dates">
@@ -113,7 +114,10 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                 
                 <div className="postBottom">
                     
-                    <div className="likeNumber">{!likedPostsArr.includes(post.id) ? <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: true })}><img src={likeLogo} alt="like" /></button> : <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: false })}><img src={likeON} alt="like" /></button>}<p>{postState.likes}</p></div>
+                    <div className="likeNumber">
+                        <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: (!likedPostsArr.includes(post.id) ? true : false) })}><img src={(!likedPostsArr.includes(post.id) ? likeLogo : likeON)} alt="likeButton" /></button>
+                        <p>{postState.likes}</p>
+                    </div>
                     <div className="dates">
                         <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
                         <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>

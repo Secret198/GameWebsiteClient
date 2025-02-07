@@ -1,9 +1,28 @@
+import { useRef, useEffect, useState } from "react";
 import mailLogo from "../assets/mailWhite.png"
 import phoneLogo from "../assets/phoneWhite.png"
 
-function Footer() {
+function Footer({onHeightChange}) {
+    const footerRef = useRef(null);
+
+    useEffect(() =>{
+        const updateFooterHeight = () => {
+            if(footerRef.current){
+                onHeightChange(footerRef.current.offsetHeight)
+            }
+        }
+
+        updateFooterHeight()
+        window.addEventListener("resize", updateFooterHeight)
+
+        return () => {
+            window.removeEventListener('resize', updateFooterHeight)
+        }
+        
+    }, [])
+   
     return (
-        <footer>
+        <footer ref={footerRef}>
             <div className="footerElement">
                 <h2 className="centerText">R.O.L.A.N.D</h2>
                 <p className="centerText">Egy brutális játék melyben a cél a hullámokban érkező ellenségek legyőzése, egy ellenséges, folyton változó kazamatákban.</p>

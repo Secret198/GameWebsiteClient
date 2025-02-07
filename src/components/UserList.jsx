@@ -4,6 +4,9 @@ import deleteRequest from "./deleteRequest"
 import { useNavigate } from "react-router-dom"
 import ConfirmWindow from "./ConfirmWindow"
 import Load from "./Load"
+import editLogo from '../assets/edit.png'
+import deleteLogo from '../assets/delete.png'
+
 
 export default function UserList({ user, viewUser, editUser, admin, url, headers, setError, setSuccess, setLoggedIn }) {
     const [userState, setUserState] = useState(user)
@@ -53,21 +56,29 @@ export default function UserList({ user, viewUser, editUser, admin, url, headers
         return (
             <div className={userState.deleted_at ? "listBox deleteBox" : "listBox"}>
                 {(loading) && <Load />}
-                {user.privilege == 10 && <p>Admin</p>}
-                <h2 onClick={() => viewUser(user.id)}>{user.name}</h2>
-                <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-                <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
-                {userState.deleted_at && <p>{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
-                <button onClick={() => editUser(user.id)}>Szerkesztés</button>
-                <button onClick={() => setShowConfirm(true)}>{userState.deleted_at ? "Visszaállítás" : "Törlés"}</button>
+                {user.privilege == 10 && <p className="flare">Admin</p>}
+                <h2 className="postTitle" onClick={() => viewUser(user.id)}>{user.name}</h2>
+                
+
+                <div className="postBottom">
+                    <div className="likeNumber">
+                    <button className="circleButton editNoLike" onClick={() => editUser(user.id)}> <img src={editLogo} alt="editButton" /> </button>
+                    <button className="circleButton deleteNoLike" onClick={() => setShowConfirm(true)}>{userState.deleted_at ? "Visszaállítás" : <img src={deleteLogo} alt="deleteButton" />}</button>
+                </div>
+                    <div className="dates">
+                        {userState.deleted_at && <p className="topDate">{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
+                        <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
+                        <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                    </div>
+                </div>
                 {(showConfirm) && <ConfirmWindow text={userState.deleted_at ? "Biztosan vissza szeretné állítani a felhasználót" : "Biztosan törölni szeretné a felhasználót"} functionToCall={userState.deleted_at ? () => restoreUser(userState.id) : () => deleteUser(userState.id)} setShow={setShowConfirm} />}
             </div>
         )
     }
     else {
         return (
-            <div className={userState.deleted_at ? "listBox deleteBox" : "listBox"}>
-                {user.privilege == 10 && <p>Admin</p>}
+            <div className="listBox">
+                {user.privilege == 10 && <p className="flare">Admin</p>}
                 <h2 onClick={() => viewUser(user.id)}>{user.name}</h2>
             </div>
         )

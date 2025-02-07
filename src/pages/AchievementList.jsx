@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import AchievementItem from "../components/AchievementItem";
 import FeedBack from "../components/FeedBack";
 import NoData from "../components/NoData";
+import plusLogo from '../assets/plusWhite.png'
 
 function AchievementList({ url, headers }) {
     const [data, setData] = useState([]);
@@ -35,37 +36,14 @@ function AchievementList({ url, headers }) {
         fetchAchievements();
     }, [])
 
-    // const deleteAchievement = async (achievementId) => {
-    //     const responseData = await deleteRequest(url, headers, "achievement/" + achievementId)
-    //     if (responseData.response.status == 200) {
-    //         setError("")
-    //         setSuccess(responseData.result.message)
-    //     }
-    //     else {
-    //         setError(responseData.result.message)
-    //     }
-    //     console.log(responseData)
-    // }
-
-    // const restoreAchievement = async (achievementId) => {
-    //     const responseData = await deleteRequest(url, headers, "achievement/restore/" + achievementId)
-    //     if (responseData.response.status == 200) {
-    //         setError("")
-    //         setSuccess(responseData.result.message)
-    //     }
-    //     else {
-    //         setError(responseData.result.message)
-    //     }
-    //     console.log(responseData)
-    // }
 
     return (
         <div>
-            <h1>Achievements</h1>
+            <h1 className="achievementMargin">Achievements</h1>
             {loading && <Load />}
-            {privilege == 10 && <Link to={"/achievement/create"} >Új achievement</Link>}
+            {privilege == 10 && <Link className="linkButton" to={"/achievement/create"} ><img className="smallPicture" src={plusLogo} alt="newButton" />Új achievement</Link>}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-            {(success || !data) && <NoData />}
+            {(!data && !loading) && <NoData />}
             <div>
                 {data.map((item) => (
                     <AchievementItem key={item.id} achievement={item} setError={setError} setSuccess={setSuccess} url={url} headers={headers} />

@@ -52,27 +52,4 @@ export default function AchievementCreate({ url, headers }) {
         </div>
     )
 
-    // if (error) {
-    //     return (
-    //         <div>
-    //             <FeedBack message={error} status={"failure"} />
-    //             <AchievementBox submitAchievement={submitAchievement} selected={"kills"} isCreate={true} />
-    //         </div>
-    //     )
-    // }
-    // else if (success) {
-    //     return (
-    //         <div>
-    //             <FeedBack message={success} status={"success"} />
-    //             <AchievementBox submitAchievement={submitAchievement} selected={"kills"} isCreate={true} />
-    //         </div>
-    //     )
-    // }
-    // else {
-    //     return <div>
-    //         {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-    //         <AchievementBox submitAchievement={submitAchievement} selected={"kills"} isCreate={true} />
-    //     </div>
-
-    // }
 }

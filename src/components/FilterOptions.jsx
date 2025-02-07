@@ -11,7 +11,7 @@ export default function FilterOptions({changeSortBy, changeSortDir, search, mode
         
                 <div className="sortContainer">
                     <select name="sortBy" id="sortBy" onChange={changeSortBy} defaultValue={"id"}>
-                        <option value="id">Relevencia idk??</option>
+                        <option value="id">Rendezés szerint</option>
                         <option value="created_at">Dátum</option>
                         {mode == "post" && <option value="likes">Like</option>}
                     </select>

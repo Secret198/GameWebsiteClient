@@ -1,11 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import getRequest from "../components/getRequest";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import Load from "../components/Load";
 import deleteRequest from "../components/deleteRequest";
 import FeedBack from "../components/FeedBack";
 import ConfirmWindow from "../components/ConfirmWindow";
 import handleAllDates from "../components/handleAllDates";
+import likeLogo from '../assets/heartWhite.png'
+import likeON from '../assets/heartON.png'
+
 
 export default function GetPostData({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -102,7 +105,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             {/* {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>} */}
             {(privilege == 10 && !error && !loading) && <button onClick={() => setShowConfirm(true)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
             {(privilege == 10 && !error && !loading) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
-            {(!error && !loading) && <button className={!likedPosts.includes(post.id) ? "" : "liked"} onClick={() => startLikeProcess(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>Like</button>}
+            {(!error && !loading) && <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>{!likedPosts.includes(post.id) ? <img src={likeLogo} alt="likeButton" /> : <img src={likeON} alt="likeButton" />}</button>}
             {(showConfirm) && <ConfirmWindow text={post.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={post.deleted_at ? () => restorePost(post.id) : () => deletePost(post.id)} setShow={setShowConfirm} />}
             {/* {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>} */}
         </div>

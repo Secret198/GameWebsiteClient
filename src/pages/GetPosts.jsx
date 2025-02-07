@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import getRequest from "../components/getRequest"
 import PostList from "../components/PostList"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import NoData from "../components/NoData"
 import FilterOptions from "../components/FilterOptions"
 import Load from "../components/Load"
 import FeedBack from "../components/FeedBack"
+import plusLogo from '../assets/plusWhite.png'
+
 
 export default function GetPosts({ url, headers, likedPosts, likePost, setLikedPosts, scrollThreshold }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -153,7 +155,8 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} mode={"post"} />
-            {((success || data.length == 0) && !loading) && <NoData />}
+            <Link className="linkButton" to={"/post/create"} ><img className="smallPicture" src={plusLogo} alt="newButton" />Új poszt</Link>
+            {(data.length == 0 && !loading) && <NoData />}
             {privilege == 10 && data.map((item) => (
                 <PostList key={item.id} post={item} url={url} headers={headers} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} admin={true} setError={setError} setSuccess={setSuccess} />
             ))}
