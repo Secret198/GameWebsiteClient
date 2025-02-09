@@ -5,4 +5,3 @@ timezone
 spinning thing stops after 1
 listBox height
 post data style
-back button
