@@ -88,7 +88,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                         <div className="likeNumber">
                             <button className="circleButton edit" onClick={() => editPost(post.id)}><img src={editLogo} alt="szerkesztés" /></button>
                             <button className="circleButton delete" onClick={() => setShowConfirm(true)}>{postState.deleted_at ? "Visszaállítás" :  <img src={deleteLogo} alt="törlés" />}</button>
-                            <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: (!likedPostsArr.includes(post.id) ? true : false) })}><img src={(!likedPostsArr.includes(post.id) ? likeLogo : likeON)} alt="likeButton" /></button>
+                            <button className="circleButton like" onClick={() => startLikeProcess(post.id, { likes: (!likedPostsArr.includes(post.id) ? true : false) })}><img src={(!likedPostsArr.includes(post.id) ? likeLogo : likeON)} alt="likeButton" /></button>
                             <p>{postState.likes}</p>
                         
                         </div>
@@ -115,7 +115,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                 <div className="postBottom">
                     
                     <div className="likeNumber">
-                        <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: (!likedPostsArr.includes(post.id) ? true : false) })}><img src={(!likedPostsArr.includes(post.id) ? likeLogo : likeON)} alt="likeButton" /></button>
+                        <button className="circleButton like" onClick={() => startLikeProcess(post.id, { likes: (!likedPostsArr.includes(post.id) ? true : false) })}><img src={(!likedPostsArr.includes(post.id) ? likeLogo : likeON)} alt="likeButton" /></button>
                         <p>{postState.likes}</p>
                     </div>
                     <div className="dates">

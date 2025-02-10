@@ -50,7 +50,7 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
             <h2>{achievement.name}</h2>
             <p>{achievement.description}</p>
             {achievementState.deleted_at && <p>Törölve</p>}
-            {privilege == 10 && <Link className="circleButton edit" to={"/achievement/update/" + achievement.id}><img src={editLogo} alt="editButton" /></Link>}
+            {privilege == 10 && <Link className="link" to={"/achievement/update/" + achievement.id}><img src={editLogo} alt="editButton" /></Link>}
             {privilege == 10 && <button className="circleButton delete" onClick={() => setShowConfirm(true)}>{achievementState.deleted_at ? "Visszaállítás" : <img src={deleteLogo} alt="deleteButton" />}</button>}
             {(showConfirm) && <ConfirmWindow text={achievementState.deleted_at ? "Biztosan vissza szeretné állítani az achievementet?" : "Biztosan törölni szeretné az achievementet?"} functionToCall={achievementState.deleted_at ? () => restoreAchievement(achievementState.id) : () => deleteAchievement(achievementState.id)} setShow={setShowConfirm} />}
         </div>

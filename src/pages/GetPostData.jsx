@@ -8,7 +8,10 @@ import ConfirmWindow from "../components/ConfirmWindow";
 import handleAllDates from "../components/handleAllDates";
 import likeLogo from '../assets/heartWhite.png'
 import likeON from '../assets/heartON.png'
-
+import editLogo from '../assets/edit.png'
+import deleteLogo from '../assets/delete.png'
+import CircleLoader from "../components/CircleLoader";
+import userPic from '../assets/user.png'
 
 export default function GetPostData({ url, headers, likedPosts, likePost, setLikedPosts }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -92,46 +95,35 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
         }
     }
     return (
-        <div>
-            {loading && <Load />}
+        <div className="listBox">
+            {loading && <CircleLoader/>}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <img src={post.image} alt="" />
+            
             <p>{post.post}</p>
-            <p>{post.name}</p>
-            {(privilege == 10 && post.deleted_at) && <p>{post.deleted_at}</p>}
-            <p>{post.likes}</p>
-            <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-            <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+            <div><img className="profileImage" src={userPic} alt="user" /><p className="userName">{post.name}</p></div>
+            
+            <div className="postBottom">
+                <div className="likeNumber">
+                    {(privilege == 10 && !error && !loading) && <button className="circleButton edit" onClick={() => editPost(post.id)}><img src={editLogo} alt="szerkesztés" /></button>}
+                    {(privilege == 10 && !error && !loading) && <button className="circleButton delete" onClick={() => setShowConfirm(true)}>{(post.deleted_at) ? "Visszaállítás" : <img src={deleteLogo} alt="törlés" />}</button>}
+                    {(!error && !loading) && <button className="circleButton like" onClick={() => startLikeProcess(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>{!likedPosts.includes(post.id) ? <img src={likeLogo} alt="likeButton" /> : <img src={likeON} alt="likeButton" />}</button>}
+                    <p>{post.likes}</p>
+                </div>
+
+
+                <div className="dates">
+                    {(privilege == 10 && post.deleted_at) && <p className="topDate">{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
+                    <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
+                    <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                </div>
+            </div>
             {/* {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>} */}
-            {(privilege == 10 && !error && !loading) && <button onClick={() => setShowConfirm(true)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
-            {(privilege == 10 && !error && !loading) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
-            {(!error && !loading) && <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>{!likedPosts.includes(post.id) ? <img src={likeLogo} alt="likeButton" /> : <img src={likeON} alt="likeButton" />}</button>}
+            
             {(showConfirm) && <ConfirmWindow text={post.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={post.deleted_at ? () => restorePost(post.id) : () => deletePost(post.id)} setShow={setShowConfirm} />}
             {/* {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>} */}
         </div>
     )
-
-    // if (error || success) {
-    //     return (
-    //         <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />
-    //     )
-    // }
-    // else {
-    //     return (
-    //         <div>
-    //             {loading && <Load />}
-    //             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-
-    //             <img src={post.image} alt="" />
-    //             <p>{post.post}</p>
-    //             <p>{post.created_at}</p>
-    //             <p>{post.likes}</p>
-    //             {(privilege == 10) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
-    //             {(privilege == 10) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
-    //             {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>}
-    //         </div>
-    //     )
-    // }
 
 
 }
