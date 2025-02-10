@@ -4,7 +4,7 @@ import UserDataShow from "../components/UserDataShow"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import deleteRequest from "../components/deleteRequest"
 import otherRequest from "../components/otherRequest"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 import FeedBack from "../components/FeedBack"
 import ConfirmWindow from "../components/ConfirmWindow"
 import deleteLogo from '../assets/delete.png'
@@ -120,7 +120,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
 
     return (
         <>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <UserDataShow user={user} achievements={achievements} admin={privilege == 10 ? true : false} />
             {((id === localStorage.getItem("userId") || privilege == 10) && !error && !loading) && <Link className="link" to={"/user/update/" + id}> <img src={editLogo} alt="Edit" /> </Link>}

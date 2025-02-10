@@ -4,7 +4,7 @@ import FeedBack from "../components/FeedBack"
 import UserUpdateBox from "../components/UserUpdateBox"
 import otherRequest from "../components/otherRequest"
 import getRequest from "../components/getRequest"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 
 
 export default function UserUpdate({ url, headers }) {
@@ -58,7 +58,7 @@ export default function UserUpdate({ url, headers }) {
 
     return (
         <div>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
         </div>

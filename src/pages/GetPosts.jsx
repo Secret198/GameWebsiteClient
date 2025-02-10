@@ -4,7 +4,7 @@ import PostList from "../components/PostList"
 import { Link, useNavigate } from "react-router-dom"
 import NoData from "../components/NoData"
 import FilterOptions from "../components/FilterOptions"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 import FeedBack from "../components/FeedBack"
 import plusLogo from '../assets/plusWhite.png'
 
@@ -163,7 +163,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
             {privilege == 1 && data.map((item) => (
                 <PostList key={item.id} post={item} url={url} headers={headers} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
             ))}
-            {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
+            {(loading && (data.length < dataMaxNum || data.length == 0)) && <CircleLoader />}
 
         </div>
 
@@ -179,7 +179,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
     //         {privilege == 1 && data.map((item) => (
     //             <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
     //         ))}
-    //         {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
+    //         {(loading && (data.length < dataMaxNum || data.length == 0)) && <CircleLoader />}
 
     //     </div>
 

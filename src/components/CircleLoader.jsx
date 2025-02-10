@@ -1,14 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const containerStyle = {
-  position: "absolute",
-  display: "inline-block",
-  width: "3rem",
-  height: "3rem",
-  boxSizing: "border-box",
-  right: 30
-};
 
 const circleStyle = {
   display: "block",
@@ -24,14 +16,14 @@ const circleStyle = {
 };
 
 const spinTransition = {
-  loop: Infinity,
-  ease: "linear",
-  duration: 1
+  repeat: Infinity,
+  duration: 1,
+  ease: "linear"
 };
 
 export default function CircleLoader() {
   return (
-    <div style={containerStyle}>
+    <div className="loaderContainer">
       <motion.span
         style={circleStyle}
         animate={{ rotate: 360 }}

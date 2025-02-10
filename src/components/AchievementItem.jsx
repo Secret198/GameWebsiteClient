@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 import deleteRequest from "./deleteRequest"
 import ConfirmWindow from "./ConfirmWindow"
-import Load from "./Load"
+import CircleLoader from "./CircleLoader"
 import editLogo from '../assets/edit.png'
 import deleteLogo from '../assets/delete.png'
 
@@ -46,7 +46,7 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
 
     return (
         <div className={achievement.deleted_at ? "listBox deleteBox" : "listBox"}>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             <h2>{achievement.name}</h2>
             <p>{achievement.description}</p>
             {achievementState.deleted_at && <p>Törölve</p>}

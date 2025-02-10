@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import PostList from "../components/PostList";
 import FilterOptions from "../components/FilterOptions";
 import NoData from "../components/NoData";
-import Load from "../components/Load";
+import CircleLoader from "../components/CircleLoader";
 import FeedBack from "../components/FeedBack";
 
 export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLikedPosts, scrollThreshold }) {
@@ -125,7 +125,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
             {data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} url={url} headers={headers} setError={setError} setSuccess={setSuccess} admin={true} />
             ))}
-            {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
+            {(loading && (data.length < dataMaxNum || data.length == 0)) && <CircleLoader />}
 
         </div>
 

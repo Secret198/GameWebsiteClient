@@ -4,7 +4,7 @@ import UserList from "../components/UserList"
 import { useNavigate } from "react-router-dom"
 import NoData from "../components/NoData"
 import FilterOptions from "../components/FilterOptions"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 import FeedBack from "../components/FeedBack"
 
 export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold }) {
@@ -100,15 +100,15 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
     const searchUser = async (event) => {
         event.preventDefault();
         if (event.target.searchBar.value != "") {
-            setData([])
             setPage(1)
             setSearchPage(1)
             setSearch(event.target.searchBar.value)
+            setData([])
         }
         else {
-            setData([])
             setSearchPage(1)
             setSearch("")
+            setData([])
         }
         // fetchUsers(event.target.userSearch.value)
     }
@@ -117,14 +117,14 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchUser} mode={"user"} />
-            {( data.length == 0 && !loading) && <NoData />}
+            {(data.length == 0 && !loading) && <NoData />}
             {privilege == 10 && data.map((item) => (
                 <UserList key={item.id} user={item} viewUser={viewUser} editUser={editUser} admin={true} url={url} headers={headers} setError={setError} setSuccess={setSuccess} setLoggedIn={setLoggedIn} />
             ))}
             {privilege == 1 && data.map((item) => (
                 <UserList key={item.id} user={item} viewUser={viewUser} admin={false} />
             ))}
-            {(loading && (data.length < dataMaxNum || data.length == 0)) && <Load />}
+            {(loading && (data.length < dataMaxNum || data.length == 0)) && <CircleLoader />}
         </div>
 
     )

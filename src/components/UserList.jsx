@@ -3,7 +3,7 @@ import handleAllDates from "./handleAllDates"
 import deleteRequest from "./deleteRequest"
 import { useNavigate } from "react-router-dom"
 import ConfirmWindow from "./ConfirmWindow"
-import Load from "./Load"
+import CircleLoader from "./CircleLoader"
 import editLogo from '../assets/edit.png'
 import deleteLogo from '../assets/delete.png'
 
@@ -55,7 +55,7 @@ export default function UserList({ user, viewUser, editUser, admin, url, headers
     if (admin) {
         return (
             <div className={userState.deleted_at ? "listBox deleteBox" : "listBox"}>
-                {(loading) && <Load />}
+                {(loading) && <CircleLoader />}
                 {user.privilege == 10 && <p className="flare">Admin</p>}
                 <h2 className="postTitle" onClick={() => viewUser(user.id)}>{user.name}</h2>
                 

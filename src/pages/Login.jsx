@@ -4,7 +4,7 @@ import LoginBox from "../components/LoginBox";
 import { useState } from "react";
 import SetLocalSorage from "../components/localStorageHandle";
 import otherRequest from "../components/otherRequest";
-import Load from "../components/Load";
+import CircleLoader from "../components/CircleLoader";
 
 function Login({ url, headers, setLoggedIn }) {
 
@@ -52,7 +52,7 @@ function Login({ url, headers, setLoggedIn }) {
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <LoginBox login={login} stepBack={stepBack} />
-            {loading && <Load />}
+            {loading && <CircleLoader />}
         </div>
     )
 

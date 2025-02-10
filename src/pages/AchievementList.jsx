@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import getRequest from "../components/getRequest";
-import Load from "../components/Load";
+import CircleLoader from "../components/CircleLoader";
 import { Link } from "react-router-dom"
 import AchievementItem from "../components/AchievementItem";
 import FeedBack from "../components/FeedBack";
@@ -40,7 +40,7 @@ function AchievementList({ url, headers }) {
     return (
         <div>
             <h1 className="achievementMargin">Achievements</h1>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             {privilege == 10 && <Link className="linkButton" to={"/achievement/create"} ><img className="smallPicture" src={plusLogo} alt="newButton" />Új achievement</Link>}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             {(!data && !loading) && <NoData />}

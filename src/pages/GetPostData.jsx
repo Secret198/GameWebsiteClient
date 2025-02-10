@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import getRequest from "../components/getRequest";
 import { useEffect, useState } from "react";
-import Load from "../components/Load";
+import CircleLoader from "../components/CircleLoader";
 import deleteRequest from "../components/deleteRequest";
 import FeedBack from "../components/FeedBack";
 import ConfirmWindow from "../components/ConfirmWindow";
@@ -29,14 +29,14 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
     useEffect(() => {
         setLoading(true)
         const getPost = async () => {
-            const returnData = await getRequest(url, headers, "post/" + id)
-            if (returnData.response.status == 200) {
-                setPost(returnData.result.post)
-                setLikedPosts(returnData.result.likedPosts)
-                setProcessedDates(handleAllDates(returnData.result.post))
+            const responseData = await getRequest(url, headers, "post/" + id)
+            if (responseData.response.status == 200) {
+                setPost(responseData.result.post)
+                setLikedPosts(responseData.result.likedPosts)
+                setProcessedDates(handleAllDates(responseData.result.post))
             }
             else {
-                setError(returnData.result.message)
+                setError(responseData.result.message)
             }
             setLoading(false)
         }
@@ -56,6 +56,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             setError("")
             setSuccess(responseData.result.message)
             setPost(responseData.result.post)
+            setProcessedDates(handleAllDates(responseData.result.post))
         }
         else {
             setError(responseData.result.message)
@@ -72,6 +73,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             setError("")
             setSuccess(responseData.result.message)
             setPost(responseData.result.post)
+            setProcessedDates(handleAllDates(responseData.result.post))
         }
         else {
             setError(responseData.result.message)
@@ -92,23 +94,26 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
         }
     }
     return (
-        <div>
-            {loading && <Load />}
+        <>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-            <img src={post.image} alt="" />
-            <p>{post.post}</p>
-            <p>{post.name}</p>
-            {(privilege == 10 && post.deleted_at) && <p>{post.deleted_at}</p>}
-            <p>{post.likes}</p>
-            <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-            <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
-            {/* {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>} */}
-            {(privilege == 10 && !error && !loading) && <button onClick={() => setShowConfirm(true)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
-            {(privilege == 10 && !error && !loading) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
-            {(!error && !loading) && <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>{!likedPosts.includes(post.id) ? <img src={likeLogo} alt="likeButton" /> : <img src={likeON} alt="likeButton" />}</button>}
-            {(showConfirm) && <ConfirmWindow text={post.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={post.deleted_at ? () => restorePost(post.id) : () => deletePost(post.id)} setShow={setShowConfirm} />}
-            {/* {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>} */}
-        </div>
+            <div className="coolBox">
+                {loading && <CircleLoader />}
+                <img src={post.image} alt="" />
+                <p>{post.post}</p>
+                <p>{post.name}</p>
+                <p>{post.likes}</p>
+                {(privilege == 10 && post.deleted_at) && <p>{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
+                <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
+                <p>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                {/* {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>} */}
+                {(privilege == 10 && !error && !loading) && <button onClick={() => setShowConfirm(true)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>}
+                {(privilege == 10 && !error && !loading) && <button onClick={() => editPost(post.id)}>Szerkesztés</button>}
+                {(!error && !loading) && <button className="circleButton" onClick={() => startLikeProcess(post.id, { likes: (!likedPosts.includes(post.id) ? true : false) })}>{!likedPosts.includes(post.id) ? <img src={likeLogo} alt="likeButton" /> : <img src={likeON} alt="likeButton" />}</button>}
+                {(showConfirm) && <ConfirmWindow text={post.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={post.deleted_at ? () => restorePost(post.id) : () => deletePost(post.id)} setShow={setShowConfirm} />}
+                {/* {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>} */}
+            </div>
+        </>
+        
     )
 
     // if (error || success) {
@@ -119,7 +124,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
     // else {
     //     return (
     //         <div>
-    //             {loading && <Load />}
+    //             {loading && <CircleLoader />}
     //             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
 
     //             <img src={post.image} alt="" />

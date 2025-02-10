@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import FeedBack from "../components/FeedBack"
 import otherRequest from "../components/otherRequest"
 import getRequest from "../components/getRequest"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 
 
 export default function PostUpdate({ url, headers }) {
@@ -88,7 +88,7 @@ export default function PostUpdate({ url, headers }) {
 
     return (
         <div>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
         </div>

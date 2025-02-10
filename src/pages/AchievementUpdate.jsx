@@ -4,7 +4,7 @@ import FeedBack from "../components/FeedBack"
 import AchievementBox from "../components/AchievementBox"
 import getRequest from "../components/getRequest"
 import otherRequest from "../components/otherRequest"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 
 export default function AchievementUpdate({ url, headers }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
@@ -61,7 +61,7 @@ export default function AchievementUpdate({ url, headers }) {
 
     return (
         <div>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <AchievementBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} isCreate={false} />
         </div>

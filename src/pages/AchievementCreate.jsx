@@ -3,7 +3,7 @@ import FeedBack from "../components/FeedBack"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import otherRequest from "../components/otherRequest"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 
 
 export default function AchievementCreate({ url, headers }) {
@@ -46,7 +46,7 @@ export default function AchievementCreate({ url, headers }) {
 
     return (
         <div>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <AchievementBox submitAchievement={submitAchievement} selected={"kills"} isCreate={true} />
         </div>

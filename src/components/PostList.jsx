@@ -1,13 +1,12 @@
 import handleAllDates from "./handleAllDates"
 import { useState } from "react"
 import deleteRequest from "./deleteRequest"
-import Load from "./Load"
+import CircleLoader from "./CircleLoader"
 import ConfirmWindow from "./ConfirmWindow"
 import likeLogo from '../assets/heartWhite.png'
 import editLogo from '../assets/edit.png'
 import deleteLogo from '../assets/delete.png'
 import likeON from '../assets/heartON.png'
-import CircleLoader from "./CircleLoader";
 import userPic from '../assets/user.png'
 
 export default function PostList({ post, url, headers, viewPost, editPost, likePost, likedPostsArr, admin, setError, setSuccess }) {

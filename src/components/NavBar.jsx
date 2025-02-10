@@ -6,6 +6,10 @@ import userPic from '../assets/user.png'
 function NavBar({ loggedIn, setLoggedIn, url, headers }) {
     const [showBar, setShowBar] = useState(false)
 
+    const disableMenu = () => {
+        setShowBar(false)
+    }
+
     if (localStorage.getItem("token")) {
         return (
             <>
@@ -19,7 +23,7 @@ function NavBar({ loggedIn, setLoggedIn, url, headers }) {
 
                     </ul>
                 </nav>
-                {showBar === true && <UserMenu loggedIn={loggedIn} setLoggedIn={setLoggedIn} url={url} headers={headers} />}
+                {showBar === true && <UserMenu loggedIn={loggedIn} setLoggedIn={setLoggedIn} url={url} headers={headers} hidePanels={disableMenu} />}
                 <hr />
             </>
         )

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import RegisterBox from "../components/RegisterBox"
 import SetLocalSorage from "../components/localStorageHandle"
 import otherRequest from "../components/otherRequest"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 
 export default function Register({ url, headers, setLoggedIn }) {
 
@@ -64,7 +64,7 @@ export default function Register({ url, headers, setLoggedIn }) {
         <div>
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <RegisterBox register={register} password={values.password} onChange={onChange} stepBack={stepBack} />
-            {loading && <Load />}
+            {loading && <CircleLoader />}
 
         </div>
     )

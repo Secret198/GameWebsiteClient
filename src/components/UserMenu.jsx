@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import ConfirmWindow from "./ConfirmWindow"
 import otherRequest from "./otherRequest"
 import FeedBack from "./FeedBack"
-import Load from "./Load"
+import CircleLoader from "./CircleLoader"
 import closeWhtie from "../assets/closeWhite.png"
 
 export default function UserMenu({ loggedIn, setLoggedIn, url, headers, hidePanels }) {
@@ -28,7 +28,7 @@ export default function UserMenu({ loggedIn, setLoggedIn, url, headers, hidePane
     return (
         <div className="menuBox">
             <button className="circleButton xButton" onClick={() => hidePanels(1)}><img src={closeWhtie} alt="CloseButton" /></button>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             <h1>Menü</h1>
             <hr />
             <Link onClick={() => hidePanels(0)} to={"/user/show/" + userId}>Adatok megjelenítése</Link>

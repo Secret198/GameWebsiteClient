@@ -173,6 +173,10 @@ figcaption{
     background-image: linear-gradient(45deg, rgb(19, 28, 75), rgb(18, 82, 112));
 }
 
+.coolBox>img{
+    max-width: 100%;
+}
+
 .linkButton,
 .linkButton:visited,
 .linkButton:active{
@@ -485,6 +489,18 @@ input:invalid[focused="true"] + .formError{
 ::placeholder {
     color: rgb(19, 28, 75);
 }
+
+.loaderContainer{
+    position: "fixed";
+    display: "inline-block";
+    width: "3rem";
+    height: "3rem";
+    box-sizing: "border-box";
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+}
+
 .circleButton{
     margin: 0 -5px;
     padding: 5px;

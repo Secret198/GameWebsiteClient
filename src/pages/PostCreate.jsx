@@ -3,7 +3,7 @@ import PostBox from "../components/PostBox"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import otherRequest from "../components/otherRequest"
-import Load from "../components/Load"
+import CircleLoader from "../components/CircleLoader"
 
 export default function PostCreate({ url, headers }) {
     headers.Authorization = 'Bearer ' + localStorage.getItem("token")
@@ -55,7 +55,7 @@ export default function PostCreate({ url, headers }) {
 
     return (
         <div>
-            {loading && <Load />}
+            {loading && <CircleLoader />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <PostBox submitPost={createPost} isCreate={true} />
 
