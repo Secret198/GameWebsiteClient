@@ -28,6 +28,7 @@ export default function UserDataShow({ user, achievements, admin }) {
 
                 </div>
                 <div>
+                    <h2 className="achievementTitle">Achievements:</h2>
                     {
                         achievements.map((item) => (
                             <ShowAchievement key={item.id} name={item.name} description={item.description} />
@@ -56,6 +57,7 @@ export default function UserDataShow({ user, achievements, admin }) {
 
                 </div>
                 <div>
+                    <h2 className="achievementTitle">Achievements:</h2>
                     {
                         achievements.map((item) => (
                             <ShowAchievement key={item.id} name={item.name} description={item.description} />

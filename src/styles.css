@@ -749,6 +749,51 @@ button>img{
     height: 100%;
     width: 100%;
 }
+
+.achievementTitle{
+    text-align: center;
+    margin: 30px;
+}
+
+.achievement{
+    text-align: left;
+    display: grid !important;
+    grid-template-columns: 1fr 2fr;
+    display: block;
+    margin: 15px auto;
+    width: 300px;
+    border-radius: 10px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background: linear-gradient(225deg, rgb(19, 28, 75), rgb(18, 82, 112));
+    justify-content: center;
+    align-items: center;
+}
+.achievement>img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: auto;
+}
+
+.achievement>div{
+    width: 100%;
+    height: fit-content;
+    display: block;
+    margin: auto;
+}
+
+.achievement>div>p{
+    margin: 0 10px;
+    text-align: left;
+    line-break: anywhere;
+}
+.achievement>div>p:first-child{
+    font-weight: 600;
+    font-size: large;
+}
+
+
 @media only screen and (max-width: 900px) {
     .navElement{
         padding: 10px 5px;
