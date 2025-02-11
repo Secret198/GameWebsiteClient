@@ -38,9 +38,6 @@ export default function UserDataShow({ user, achievements, admin }) {
         return (
             <>
                 <div className="userDataShow">
-
-
-
                     <p>Név: {user.name} {user.privilege == 10 && <span>Admin</span>}</p>
                     <p>Email: {user.email}</p>
                     <p>Halálok: </p><p className="right">{user.deaths}</p>

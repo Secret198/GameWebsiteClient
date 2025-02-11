@@ -720,7 +720,6 @@ input:invalid[focused="true"] + .formError{
 }
 
 .link{
-    display: inline-block;
     height: 36px;
 }
 
@@ -750,6 +749,11 @@ button>img{
     height: 100%;
     width: 100%;
 }
+
+.inlineDisplay{
+    display: inline-block;
+}
+
 @media only screen and (max-width: 900px) {
     .navElement{
         padding: 10px 5px;
