@@ -21,7 +21,6 @@ export default function UserMenu({ loggedIn, setLoggedIn, url, headers, hidePane
         setLoggedIn(false)
         setLoading(false)
         navigation("/")
-
     }
 
     const userId = localStorage.getItem("userId")

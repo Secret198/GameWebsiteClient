@@ -10,7 +10,6 @@ import likeLogo from '../assets/heartWhite.png'
 import likeON from '../assets/heartON.png'
 import editLogo from '../assets/edit.png'
 import deleteLogo from '../assets/delete.png'
-import CircleLoader from "../components/CircleLoader";
 import userPic from '../assets/user.png'
 
 export default function GetPostData({ url, headers, likedPosts, likePost, setLikedPosts }) {
