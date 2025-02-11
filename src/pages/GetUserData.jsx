@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import getRequest from "../components/getRequest"
 import UserDataShow from "../components/UserDataShow"
-import { Link, useParams, useNavigate } from "react-router-dom"
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom"
 import deleteRequest from "../components/deleteRequest"
 import otherRequest from "../components/otherRequest"
 import CircleLoader from "../components/CircleLoader"
@@ -23,6 +23,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
     const navigation = useNavigate()
     const [showConfirm, setShowConfirm] = useState(false)
     const [confirmData, setConfirmData] = useState({})
+    const location = useLocation()
 
     useEffect(() => {
         setLoading(true)
@@ -40,7 +41,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
         }
 
         getUserData()
-    }, [])
+    }, [location])
 
     const deleteUser = async (userId) => {
         setLoading(true)
