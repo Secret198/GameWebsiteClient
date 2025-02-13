@@ -4,7 +4,7 @@ import { useRouteError } from "react-router-dom";
 function ErrorPage() {
 
     return (
-        <h1>404 Not found</h1>
+        <h1 className="centerScreen">404 A keresett oldal nem található</h1>
     )
     // const error = useRouteError()
 
