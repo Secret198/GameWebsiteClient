@@ -127,7 +127,7 @@ figcaption{
     background-color: rgb(37, 153, 168);
     color: rgb(9, 14, 32);
     position: relative;
-    padding-bottom: 120px;
+    padding-bottom: 200px;
     margin-top: 50px;
 }
 
@@ -795,6 +795,28 @@ button>img{
 
 .inlineDisplay{
     display: inline-block;
+}
+
+.leaderBoard{
+    width: 100%;
+    border: 3px solid rgb(7, 4, 20);
+    border-collapse: collapse;
+    border-radius: 20px;
+    background-color: rgb(175, 182, 187);
+}
+
+.leaderBoard th, .leaderBoard td{
+    text-align: left;
+    border: 1px solid rgb(7, 4, 20);
+}
+
+.leaderBoard th{
+    border: 3px solid rgb(7, 4, 20);
+}
+
+.leaderBoard thead{
+    height: 50px;
+    background-color: rgb(107, 120, 155);
 }
 
 @media only screen and (max-width: 900px) {
