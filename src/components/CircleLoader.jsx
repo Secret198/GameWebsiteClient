@@ -23,7 +23,7 @@ const spinTransition = {
 
 export default function CircleLoader() {
   return (
-    <div className="loaderContainer">
+    <div className="loaderContainer centerScreen">
       <motion.span
         style={circleStyle}
         animate={{ rotate: 360 }}

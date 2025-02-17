@@ -165,6 +165,7 @@ figcaption{
     width: 400px;
 }
 
+
 .coolBox{
     padding: 30px;
     padding-bottom: 40px;
@@ -197,6 +198,15 @@ figcaption{
     transition: 0.3s;
 }
 
+.dropDownStyle{
+    background: none;
+    border: 1px solid black;
+    color: black;
+    width: 140px;
+    height: 40px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
 
 .coolBox > h1{
     text-align: center;
@@ -499,14 +509,12 @@ input:invalid[focused="true"] + .formError{
 }
 
 .loaderContainer{
-    position: "fixed";
+    position: fixed;
     display: "inline-block";
     width: "3rem";
     height: "3rem";
     box-sizing: "border-box";
-    left: 50vw;
-    top: 50vh;
-    transform: translate(-50%, -50%);
+    z-index: 10;
 }
 
 .circleButton{
@@ -799,10 +807,9 @@ button>img{
 
 .leaderBoard{
     width: 100%;
-    border: 3px solid rgb(7, 4, 20);
+    /* border: 3px solid rgb(7, 4, 20); */
     border-collapse: collapse;
-    border-radius: 20px;
-    background-color: rgb(175, 182, 187);
+    background-color: rgb(141, 147, 151);
 }
 
 .leaderBoard th, .leaderBoard td{
@@ -810,8 +817,12 @@ button>img{
     border: 1px solid rgb(7, 4, 20);
 }
 
-.leaderBoard th{
-    border: 3px solid rgb(7, 4, 20);
+.leaderBoard tbody tr:nth-child(odd){
+    background-color: rgb(175, 182, 187);
+}
+
+.leaderBoard td{
+    height: 30px;
 }
 
 .leaderBoard thead{
@@ -915,6 +926,11 @@ button>img{
     .coolBox{
        padding-right: 0;
        padding-left: 0;
+    }
+
+    .team {
+        padding-left: 5px;
+        padding-right: 5px;
     }
 }
 

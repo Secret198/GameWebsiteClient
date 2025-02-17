@@ -38,10 +38,6 @@ function Footer({onHeightChange}) {
                     <p>+36 70 359 1818</p>
                 </div>
             </div>
-            <div className="footerElement">
-                <p>Terms of services</p>
-                <p>Copyright© 2025</p>
-            </div>
         </footer>
     )
 }

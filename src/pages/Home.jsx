@@ -50,7 +50,7 @@ export default function Home({ url, headers }) {
                 </div>
                 <div className="team">
                     <h2>Ranglista</h2>
-                    <select name="leaderBy" id="leaderBy" onChange={changeSortBy} defaultValue={"waves"}>
+                    <select name="leaderBy" id="leaderBy" className="dropDownStyle" onChange={changeSortBy} defaultValue={"waves"}>
                         <option value="kills">Ölések</option>
                         <option value="deaths">Halálok</option>
                         <option value="waves" >Hullámok</option>
