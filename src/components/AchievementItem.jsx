@@ -24,7 +24,6 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
             setError(responseData.result.message)
         }
         setShowConfirm(false)
-        console.log(responseData)
         setLoading(false)
     }
 
@@ -40,7 +39,6 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
             setError(responseData.result.message)
         }
         setShowConfirm(false)
-        console.log(responseData)
         setLoading(false)
     }
 

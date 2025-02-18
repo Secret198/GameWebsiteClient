@@ -17,7 +17,6 @@ export default function Home({ url, headers }) {
         setLoading(true)
         const getLeaderBoard = async () => {
             const responseData = await getRequest(url, headers, "user/leader/" + sortBy)
-            console.log(responseData)
             if (responseData.response.status == 200) {
                 setLeaderData(responseData.result.users)
             }

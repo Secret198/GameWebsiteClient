@@ -20,7 +20,6 @@ export default function AchievementUpdate({ url, headers }) {
         const getAchievement = async () => {
 
             const responseData = await getRequest(url, headers, "achievement/" + id)
-            console.log(responseData)
             if (responseData.response.status == 200) {
                 setAchievement(responseData.result.achievement)
             }

@@ -22,7 +22,6 @@ function Login({ url, headers, setLoggedIn }) {
         const credentials = { email: email, password: password }
 
         const responseData = await otherRequest(url, headers, "user/login", credentials, "POST")
-        console.log(responseData)
         if (responseData.response.status == 200) {
             SetLocalSorage(responseData.result.user.token, responseData.result.user.id, responseData.result.user.privilege)
             //This thing

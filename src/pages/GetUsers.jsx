@@ -41,7 +41,6 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
             setError(responseData.result.message)
         }
 
-        console.log(responseData)
 
         setLoading(false)
     }
@@ -69,10 +68,10 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
 
     useEffect(() => {
         if (loading == true && data.length > 0) {
-            if(search){
+            if (search) {
                 setSearchPage((prevPage) => prevPage + 1)
             }
-            else{
+            else {
                 setPage((prevPage) => prevPage + 1)
             }
         }

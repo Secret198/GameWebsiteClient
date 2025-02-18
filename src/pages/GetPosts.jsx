@@ -34,7 +34,6 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         else {
             responseData = await getRequest(url, headers, "post/" + sortBy + "/" + sortDir + "/?page=" + page)
         }
-        console.log(responseData)
         if (responseData.response.status == 200) {
             setLikedPosts(responseData.result.likedPosts)
             setDataMaxNum(responseData.result.posts.total)
@@ -72,10 +71,10 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
 
     useEffect(() => {
         if (loading == true && data.length > 0) {
-            if(search){
+            if (search) {
                 setSearchPage((prevPage) => prevPage + 1)
             }
-            else{
+            else {
                 setPage((prevPage) => prevPage + 1)
             }
         }
@@ -99,41 +98,6 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
         navigation("/post/update/" + postId)
     }
 
-    // const deletePost = async (postId) => {
-    //     const responseData = await deleteRequest(url, headers, "post/" + postId)
-    //     if (responseData.response.status == 200) {
-    //         setError("")
-    //         setSuccess(responseData.result.message)
-    //     }
-    //     else {
-    //         setError(responseData.result.message)
-    //     }
-    // }
-
-    // const restorePost = async (postId) => {
-    //     const responseData = await deleteRequest(url, headers, "post/restore/" + postId)
-    //     if (responseData.response.status == 200) {
-    //         setError("")
-    //         setSuccess(responseData.result.message)
-    //     }
-    //     else {
-    //         setError(responseData.result.message)
-    //     }
-    // }
-
-    // const likePost = async (postId, newPost) => {
-    //     const responseData = await otherRequest(url, headers, "post/like/"+postId, newPost, "PATCH")
-    //     if(newPost.likes){
-    //         setLikedPosts([...likedPosts, postId])
-    //     }
-    //     else{
-    //         let tempLikedPosts = [...likedPosts]
-    //         tempLikedPosts.splice(tempLikedPosts.indexOf(postId), 1)
-    //         setLikedPosts(tempLikedPosts)
-    //     }
-
-    //     console.log(responseData)
-    // }
 
     const searchPost = async (event) => {
         event.preventDefault();
@@ -148,7 +112,6 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
             setSearchPage(1)
             setSearch("")
         }
-        // fetchPosts(event.target.postSearch.value)
     }
 
     return (

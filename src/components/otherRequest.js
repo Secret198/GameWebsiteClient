@@ -16,7 +16,6 @@ export default async function otherRequest(url, headers, urlArgs, body, method){
 
         return returnData
     }catch(error){
-        console.log(error)
         return {
             response : {
                 status: 503

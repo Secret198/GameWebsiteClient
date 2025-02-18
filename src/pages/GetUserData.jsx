@@ -29,7 +29,6 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
         setLoading(true)
         const getUserData = async () => {
             const responseData = await getRequest(url, headers, "user/" + id)
-            console.log(responseData)
             if (responseData.response.status == 200) {
                 setUser(responseData.result.user)
                 setAchievements(responseData.result.achievements)
@@ -126,7 +125,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
             <UserDataShow user={user} achievements={achievements} admin={privilege == 10 ? true : false} />
             {((id === localStorage.getItem("userId") || privilege == 10) && !error && !loading) && <Link className="link" to={"/user/update/" + id}> <img src={editLogo} alt="Edit" /> </Link>}
             {/* {(privilege == 10 && !error && !loading) && <button onClick={user.deleted_at ? () => restoreUser(id) : () => deleteUser(id)}>{user.deleted_at ? "Vissaállítás" : "Fiók törlése"}</button>} */}
-            {(privilege == 10 && !error && !loading) && <button className="dataButton" onClick={user.deleted_at ? () => confirmSetup("restore", id) : () => confirmSetup("delete", id)}>{user.deleted_at ? "Vissaállítás" : <img src={deleteLogo} alt="Delete" /> }</button>}
+            {(privilege == 10 && !error && !loading) && <button className="dataButton" onClick={user.deleted_at ? () => confirmSetup("restore", id) : () => confirmSetup("delete", id)}>{user.deleted_at ? "Vissaállítás" : <img src={deleteLogo} alt="Delete" />}</button>}
             {(privilege == 10 && user.privilege != 10 && !error && !loading) && <button className="dataButtonAdmin" onClick={() => confirmSetup("makeAdmin", id)}>Adminná tevés</button>}
             {(showConfirm) && <ConfirmWindow text={confirmData.text} functionToCall={confirmData.functionToCall} setShow={confirmData.setShow} />}
         </>

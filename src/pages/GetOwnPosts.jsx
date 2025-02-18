@@ -68,10 +68,10 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
 
     useEffect(() => {
         if (loading == true && data.length > 0) {
-            if(search){
+            if (search) {
                 setSearchPage((prevPage) => prevPage + 1)
             }
-            else{
+            else {
                 setPage((prevPage) => prevPage + 1)
             }
         }
@@ -95,11 +95,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         navigation("/post/update/" + postId)
     }
 
-    // const deletePost = async (postId) => {
-    //     const responseData = await deleteRequest(url, headers, "post/" + postId)
-    //     //output is somehow
-    //     console.log(responseData)
-    // }
+
 
     const searchPost = async (event) => {
         event.preventDefault();
@@ -114,7 +110,6 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
             setSearchPage(1)
             setSearch("")
         }
-        // fetchUsers(event.target.userSearch.value)
     }
 
     return (

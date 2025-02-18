@@ -29,7 +29,6 @@ function AchievementList({ url, headers }) {
             else {
                 setError(data.result.message)
             }
-            console.log(data)
             setLoading(false)
         }
 

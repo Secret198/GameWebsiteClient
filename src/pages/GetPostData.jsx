@@ -65,7 +65,6 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
         }
         setShowConfirm(false)
         setLoading(false)
-        console.log(responseData)
     }
 
     const restorePost = async (postId) => {
@@ -80,7 +79,6 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
         else {
             setError(responseData.result.message)
         }
-        console.log(responseData)
         setShowConfirm(false)
         setLoading(false)
     }
@@ -97,13 +95,13 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
     }
     return (
         <div className="listBox">
-            {loading && <CircleLoader/>}
+            {loading && <CircleLoader />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
             <img src={post.image} alt="" />
-            
+
             <p>{post.post}</p>
             <div><img className="profileImage" src={userPic} alt="user" /><p className="userName">{post.name}</p></div>
-            
+
             <div className="postBottom">
                 <div className="likeNumber">
                     {(privilege == 10 && !error && !loading) && <button className="circleButton edit" onClick={() => editPost(post.id)}><img src={editLogo} alt="szerkesztés" /></button>}
@@ -120,7 +118,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
                 </div>
             </div>
             {/* {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>} */}
-            
+
             {(showConfirm) && <ConfirmWindow text={post.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={post.deleted_at ? () => restorePost(post.id) : () => deletePost(post.id)} setShow={setShowConfirm} />}
             {/* {!likedPosts.includes(post.id) ? <button onClick={() => likePost(post.id, { likes: true })}>Like</button> : <button className="liked" onClick={() => likePost(post.id, { likes: false })}>Like</button>} */}
         </div>
