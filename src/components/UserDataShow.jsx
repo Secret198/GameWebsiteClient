@@ -9,7 +9,7 @@ export default function UserDataShow({ user, achievements, admin }) {
         return (
             <>
                 <div className="userDataShow">
-                    <p>Név: {user.name} <br/> {user.privilege == 10 && "Admin"}</p>
+                    <p>Név: {user.name} <br /> {user.privilege == 10 && "Admin"}</p>
                     <p>Email: {user.email}</p>
                     <p>Halálok: </p><p className="right">{user.deaths}</p>
                     <p>Waves: </p><p className="right">{user.waves}</p>
@@ -19,8 +19,8 @@ export default function UserDataShow({ user, achievements, admin }) {
                     <p>3. Boss ölés: </p><p className="right">{user.boss3lvl}</p>
                     {user.deleted_at && <p>deleted_at: {processedDates.deleted_at.year} {process.deleted_at.time}</p>}
                     <div>
-                        <p>Utolsó update: {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
-                        <p>Profil készítése: {processedDates.created_at.year} {processedDates.created_at.time}</p>
+                        <p><i>Módosítva:</i> {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                        <p><i>Létrehozás:</i> {processedDates.created_at.year} {processedDates.created_at.time}</p>
                     </div>
 
                 </div>
@@ -47,7 +47,7 @@ export default function UserDataShow({ user, achievements, admin }) {
                     <p>1. Boss ölés: </p><p className="right">{user.boss1lvl}</p>
                     <p>2. Boss ölés: </p><p className="right">{user.boss2lvl}</p>
                     <p>3. Boss ölés: </p><p className="right">{user.boss3lvl}</p>
-                    <p>Profil készítése: {processedDates.created_at.year} {processedDates.created_at.time}</p>
+                    <p><i>Létrehozás:</i> {processedDates.created_at.year} {processedDates.created_at.time}</p>
 
                 </div>
                 <div>

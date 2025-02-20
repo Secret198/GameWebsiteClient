@@ -67,7 +67,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
     }
 
     let longPost = false
-    if(postState.post.length > postTitleCharacterLimit){
+    if (postState.post.length > postTitleCharacterLimit) {
         longPost = true
     }
 
@@ -77,26 +77,26 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                 <div className={postState.deleted_at ? "listBox deleteBox" : "listBox"}>
 
                     <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
-                    {(loading) && <CircleLoader position={5}/>}
+                    {(loading) && <CircleLoader position={5} />}
                     <div><img className="profileImage" src={userPic} alt="user" /><p className="userName">{postState.name}</p></div>
-                    
+
                     <div className="postBottom">
-                        
-                    
+
+
 
                         <div className="likeNumber">
                             <button className="circleButton edit" onClick={() => editPost(post.id)}><img src={editLogo} alt="szerkesztés" /></button>
-                            <button className="circleButton delete" onClick={() => setShowConfirm(true)}>{postState.deleted_at ? "Visszaállítás" :  <img src={deleteLogo} alt="törlés" />}</button>
+                            <button className="circleButton delete" onClick={() => setShowConfirm(true)}>{postState.deleted_at ? "Visszaállítás" : <img src={deleteLogo} alt="törlés" />}</button>
                             <button className="circleButton like" onClick={() => startLikeProcess(post.id, { likes: (!likedPostsArr.includes(post.id) ? true : false) })}><img src={(!likedPostsArr.includes(post.id) ? likeLogo : likeON)} alt="likeButton" /></button>
                             <p>{postState.likes}</p>
-                        
+
                         </div>
                         <div className="dates">
-                            {postState.deleted_at && <p className="topDate">{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
-                            <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-                            <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                            {postState.deleted_at && <p className="topDate"><i>Törölve:</i> {processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
+                            <p><i>Közzététel:</i> {processedDates.created_at.year} {processedDates.created_at.time}</p>
+                            <p className="bottomDate"><i>Módosítva:</i> {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                         </div>
-                    </div>                    
+                    </div>
                     {(showConfirm) && <ConfirmWindow text={postState.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={postState.deleted_at ? () => restorePost(postState.id) : () => deletePost(postState.id)} setShow={setShowConfirm} />}
                 </div>
             )
@@ -108,18 +108,18 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
             <div className="listBox">
 
                 <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post}</h2>
-                {(loading) && <CircleLoader/>}
+                {(loading) && <CircleLoader />}
                 <div><img className="profileImage" src={userPic} alt="user" /><p className="userName">{postState.name}</p></div>
-                
+
                 <div className="postBottom">
-                    
+
                     <div className="likeNumber">
                         <button className="circleButton like" onClick={() => startLikeProcess(post.id, { likes: (!likedPostsArr.includes(post.id) ? true : false) })}><img src={(!likedPostsArr.includes(post.id) ? likeLogo : likeON)} alt="likeButton" /></button>
                         <p>{postState.likes}</p>
                     </div>
                     <div className="dates">
-                        <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-                        <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                        <p> <i>Közzététel:</i>{processedDates.created_at.year} {processedDates.created_at.time}</p>
+                        <p className="bottomDate"> <i>Módosítva:</i>{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                     </div>
                 </div>
 

@@ -58,17 +58,17 @@ export default function UserList({ user, viewUser, editUser, admin, url, headers
                 {(loading) && <CircleLoader />}
                 {user.privilege == 10 && <p className="flare">Admin</p>}
                 <h2 className="postTitle" onClick={() => viewUser(user.id)}>{user.name}</h2>
-                
+
 
                 <div className="postBottom">
                     <div className="likeNumber">
-                    <button className="circleButton editNoLike" onClick={() => editUser(user.id)}> <img src={editLogo} alt="editButton" /> </button>
-                    <button className="circleButton deleteNoLike" onClick={() => setShowConfirm(true)}>{userState.deleted_at ? "Visszaállítás" : <img src={deleteLogo} alt="deleteButton" />}</button>
-                </div>
+                        <button className="circleButton editNoLike" onClick={() => editUser(user.id)}> <img src={editLogo} alt="editButton" /> </button>
+                        <button className="circleButton deleteNoLike" onClick={() => setShowConfirm(true)}>{userState.deleted_at ? "Visszaállítás" : <img src={deleteLogo} alt="deleteButton" />}</button>
+                    </div>
                     <div className="dates">
-                        {userState.deleted_at && <p className="topDate">{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
-                        <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-                        <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                        {userState.deleted_at && <p className="topDate"><i>Törölve:</i> {processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
+                        <p><i>Létrehozás:</i> {processedDates.created_at.year} {processedDates.created_at.time}</p>
+                        <p className="bottomDate"><i>Módosítva:</i> {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                     </div>
                 </div>
                 {(showConfirm) && <ConfirmWindow text={userState.deleted_at ? "Biztosan vissza szeretné állítani a felhasználót" : "Biztosan törölni szeretné a felhasználót"} functionToCall={userState.deleted_at ? () => restoreUser(userState.id) : () => deleteUser(userState.id)} setShow={setShowConfirm} />}

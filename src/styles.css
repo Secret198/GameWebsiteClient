@@ -830,6 +830,10 @@ button>img{
     background-color: rgb(107, 120, 155);
 }
 
+i{
+    font-size: smaller;
+}
+
 @media only screen and (max-width: 900px) {
     .navElement{
         padding: 10px 5px;
@@ -847,8 +851,6 @@ button>img{
     .coolBox{
         box-sizing: border-box;
         width: 100%;  
-        margin-left: 0;
-        transform: translate(0, 0);  
     }
 }
 
@@ -905,7 +907,7 @@ button>img{
 }
 
 @media only screen and (max-width: 550px) {
-    .confirmWindow, .centerScreen{
+    .confirmWindow{
         width: 300px;
     }
 
