@@ -38,7 +38,7 @@ export default function Home({ url, headers }) {
             {loading && <CircleLoader />}
             <div className="container">
                 {error && <FeedBack message={error} status={"failure"} />}
-                <h1 className="centerText">R.O.L.A.N.D</h1>
+                <h1 className="centerText">Runes of Light and Night Dominion</h1>
                 <div className="showCase">
                     <p className="justifyText">Egy brutális játék, ahol túl kell élned az ellenségek hullámait egy könyörtelen és folyamatosan változó kazamatában. Ugorj bele egy portálba, ami egyre mélyebbre visz a démoni fészekbe. Harcolj végig a rengeteg ellenségen, hogy megkeresd a jutalmadat a szint végén! Nyiss ki ládákat, hogy fegyvereket szerezz, amelyek még szórakoztatóbbá és könnyebbé teszik az ellenségek legyőzését! Szerelj fel rúnákat, hogy a karaktered különleges képességekkel rendelkezzen, és még erősebb legyen, mint valaha! Szerezz pénzt az utánad maradt holttestekből, vagy győzd le a gonosz főnököket, hogy még több gazdagságra tegyél szert! Látogass meg egy boltot, hogy elköltsd a kemény munkával szerzett érmeidet! És ha már nem bírod tovább, és a karaktered meghal, kezdheted újra az egészet a legelejétől! Semmit sem fejleszthetsz vagy tarthatsz meg! Milyen szórakoztató!</p>
                     <div className="imgContainer">
