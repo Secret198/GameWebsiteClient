@@ -16,9 +16,9 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
         setLoading(true)
         const responseData = await deleteRequest(url, headers, "achievement/" + achievementId)
         if (responseData.response.status == 200) {
+            setAchievementState(responseData.result.achievement)
             setError("")
             setSuccess(responseData.result.message)
-            setAchievementState(responseData.result.achievement)
         }
         else {
             setError(responseData.result.message)
@@ -31,9 +31,9 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
         setLoading(true)
         const responseData = await deleteRequest(url, headers, "achievement/restore/" + achievementId)
         if (responseData.response.status == 200) {
+            setAchievementState(responseData.result.achievement)
             setError("")
             setSuccess(responseData.result.message)
-            setAchievementState(responseData.result.achievement)
         }
         else {
             setError(responseData.result.message)
@@ -43,7 +43,7 @@ export default function AchievementItem({ achievement, setError, setSuccess, url
     }
 
     return (
-        <div className={achievement.deleted_at ? "listBox deleteBox" : "listBox"}>
+        <div className={achievementState.deleted_at ? "listBox deleteBox" : "listBox"}>
             {loading && <CircleLoader />}
             <h2>{achievement.name}</h2>
             <p>{achievement.description}</p>

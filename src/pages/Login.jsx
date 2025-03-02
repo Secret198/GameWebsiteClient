@@ -49,7 +49,7 @@ function Login({ url, headers, setLoggedIn }) {
 
     return (
         <div>
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <LoginBox login={login} stepBack={stepBack} />
             {loading && <CircleLoader />}
         </div>

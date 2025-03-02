@@ -59,32 +59,9 @@ export default function UserUpdate({ url, headers }) {
     return (
         <div>
             {loading && <CircleLoader />}
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
         </div>
     )
-
-    // if (success) {
-    //     return (
-    //         <div>
-    //             <FeedBack message={success} status={"success"} />
-    //             <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
-    //         </div>
-    //     )
-    // }
-    // else if (error) {
-    //     return (
-    //         <div>
-    //             <FeedBack message={error} status={"failure"} />
-    //             <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
-    //         </div>
-    //     )
-    // }
-    // else if (user) {
-    //     return <div>
-    //         {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-    //         <UserUpdateBox name={user.name} email={user.email} submitUser={updateUser} />
-    //     </div>
-    // }
 
 }

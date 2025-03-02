@@ -116,7 +116,7 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
 
     return (
         <div>
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} mode={"post"} />
             <Link className="linkButton" to={"/post/create"} ><img className="smallPicture" src={plusLogo} alt="newButton" />Új poszt</Link>
             {(data.length == 0 && !loading) && <NoData />}
@@ -132,19 +132,4 @@ export default function GetPosts({ url, headers, likedPosts, likePost, setLikedP
 
     )
 
-    // return (
-    //     <div>
-    //         {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-    //         <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} />
-    //         {privilege == 10 && data.map((item) => (
-    //             <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} deleted_at={item.deleted_at} editPost={editPost} deletePost={deletePost} restorePost={restorePost} admin={true} />
-    //         ))}
-    //         {privilege == 1 && data.map((item) => (
-    //             <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} admin={false} />
-    //         ))}
-    //         {(loading && (data.length < dataMaxNum || data.length == 0)) && <CircleLoader />}
-
-    //     </div>
-
-    // )
 }

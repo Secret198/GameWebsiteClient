@@ -1,4 +1,2 @@
 maybe image preview when uploading images
 timezone
-
-loader icon is a mess

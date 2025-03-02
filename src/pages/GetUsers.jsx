@@ -114,7 +114,7 @@ export default function GetUsers({ url, headers, setLoggedIn, scrollThreshold })
 
     return (
         <div>
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchUser} mode={"user"} />
             {(data.length == 0 && !loading) && <NoData />}
             {privilege == 10 && data.map((item) => (

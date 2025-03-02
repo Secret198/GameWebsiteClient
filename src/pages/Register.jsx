@@ -62,7 +62,7 @@ export default function Register({ url, headers, setLoggedIn }) {
 
     return (
         <div>
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <RegisterBox register={register} password={values.password} onChange={onChange} stepBack={stepBack} />
             {loading && <CircleLoader />}
 

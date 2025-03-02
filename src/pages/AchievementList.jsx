@@ -41,7 +41,7 @@ function AchievementList({ url, headers }) {
             <h1 className="achievementMargin">Achievements</h1>
             {loading && <CircleLoader />}
             {privilege == 10 && <Link className="linkButton" to={"/achievement/create"} ><img className="smallPicture" src={plusLogo} alt="newButton" />Új achievement</Link>}
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             {(!data && !loading) && <NoData />}
             <div>
                 {data.map((item) => (

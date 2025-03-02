@@ -47,7 +47,7 @@ export default function AchievementCreate({ url, headers }) {
     return (
         <div>
             {loading && <CircleLoader />}
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <AchievementBox submitAchievement={submitAchievement} selected={"kills"} isCreate={true} />
         </div>
     )

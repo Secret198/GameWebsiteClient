@@ -115,7 +115,7 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
     return (
         <div>
             <FilterOptions changeSortBy={changeSortBy} changeSortDir={changeSortDir} search={searchPost} mode={"post"} />
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             {((success || data.length == 0) && !loading) && <NoData />}
             {data.map((item) => (
                 <PostList key={item.id} post={item} viewPost={viewPost} likePost={likePost} likedPostsArr={likedPosts} editPost={editPost} url={url} headers={headers} setError={setError} setSuccess={setSuccess} admin={true} />

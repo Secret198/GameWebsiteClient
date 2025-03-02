@@ -17,8 +17,8 @@ export default function UserDataShow({ user, achievements, admin }) {
                     <p>1. Boss ölés: </p><p className="right">{user.boss1lvl}</p>
                     <p>2. Boss ölés: </p><p className="right">{user.boss2lvl}</p>
                     <p>3. Boss ölés: </p><p className="right">{user.boss3lvl}</p>
-                    {user.deleted_at && <p>deleted_at: {processedDates.deleted_at.year} {process.deleted_at.time}</p>}
                     <div>
+                        {user.deleted_at && <p><i>Törölve:</i> {processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
                         <p><i>Módosítva:</i> {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                         <p><i>Létrehozás:</i> {processedDates.created_at.year} {processedDates.created_at.time}</p>
                     </div>

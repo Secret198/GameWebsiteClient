@@ -61,32 +61,10 @@ export default function AchievementUpdate({ url, headers }) {
     return (
         <div>
             {loading && <CircleLoader />}
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <AchievementBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} isCreate={false} />
         </div>
     )
 
-    // if (success) {
-    //     return (
-    //         <div>
-    //             <FeedBack message={success} status={"success"} />
-    //             <AchievementBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} isCreate={false} />
-    //         </div>
-    //     )
-    // }
-    // else if (error) {
-    //     return (
-    //         <div>
-    //             <FeedBack message={error} status={"failure"} />
-    //             <AchievementBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} isCreate={false} />
-    //         </div>
-    //     )
-    // }
-    // else if (achievement) {
-    //     return <div>
-    //         {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
-    //         <AchievementBox name={achievement.name} selected={achievement.field} threshold={achievement.threshold} description={achievement.description} submitAchievement={updateAchievement} isCreate={false} />
-    //     </div>
-    // }
 
 }

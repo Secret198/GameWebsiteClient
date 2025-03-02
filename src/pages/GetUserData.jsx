@@ -121,7 +121,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
     return (
         <>
             {loading && <CircleLoader />}
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <UserDataShow user={user} achievements={achievements} admin={privilege == 10 ? true : false} />
             {((id === localStorage.getItem("userId") || privilege == 10) && !error && !loading) && <Link className="link" to={"/user/update/" + id}> <img src={editLogo} alt="Edit" /> </Link>}
             {/* {(privilege == 10 && !error && !loading) && <button onClick={user.deleted_at ? () => restoreUser(id) : () => deleteUser(id)}>{user.deleted_at ? "Vissaállítás" : "Fiók törlése"}</button>} */}

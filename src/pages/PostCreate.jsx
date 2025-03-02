@@ -24,7 +24,7 @@ export default function PostCreate({ url, headers }) {
             setError("")
             setSuccess(responseData.result.message)
             setTimeout(() => {
-                navigation("/post")
+                navigation("/post/show/" + responseData.result.post.id)
             }, 1000);
         }
         else {
@@ -56,7 +56,7 @@ export default function PostCreate({ url, headers }) {
     return (
         <div>
             {loading && <CircleLoader />}
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <PostBox submitPost={createPost} isCreate={true} />
 
         </div>

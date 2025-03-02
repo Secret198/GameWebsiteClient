@@ -96,7 +96,7 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
     return (
         <div className="listBox">
             {loading && <CircleLoader />}
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <img src={post.image} alt="" />
 
             <p>{post.post}</p>
@@ -112,9 +112,9 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
 
 
                 <div className="dates">
-                    {(privilege == 10 && post.deleted_at) && <p className="topDate">{processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
-                    <p>{processedDates.created_at.year} {processedDates.created_at.time}</p>
-                    <p className="bottomDate">{processedDates.updated_at.year} {processedDates.updated_at.time}</p>
+                    {(privilege == 10 && post.deleted_at) && <p className="topDate"><i>Törölve:</i> {processedDates.deleted_at.year} {processedDates.deleted_at.time}</p>}
+                    <p><i>Közzététel:</i> {processedDates.created_at.year} {processedDates.created_at.time}</p>
+                    <p className="bottomDate"><i>Módosítva:</i> {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                 </div>
             </div>
             {/* {(privilege == 10 && !error && !loading) && <button onClick={(post.deleted_at) ? () => restorePost(post.id) : () => deletePost(post.id)}>{(post.deleted_at) ? "Visszaállítás" : "Törlés"}</button>} */}

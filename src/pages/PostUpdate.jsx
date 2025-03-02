@@ -89,28 +89,9 @@ export default function PostUpdate({ url, headers }) {
     return (
         <div>
             {loading && <CircleLoader />}
-            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} />}
+            {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
         </div>
     )
-    // if (success) {
-    //     return (
-    //         <div>
-    //             <FeedBack message={success} status={"success"} />
-    //             <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
-    //         </div>
-    //     )
-    // }
-    // else if (error) {
-    //     return (
-    //         <div>
-    //             <FeedBack message={error} status={"failure"} />
-    //             <PostBox post={post.post} submitPost={updatePost} isCreate={false} />
-    //         </div>
-    //     )
-    // }
-    // else if (post) {
-
-    // }
 
 }

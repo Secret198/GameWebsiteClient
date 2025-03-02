@@ -286,6 +286,10 @@ input[type=number] {
     padding: 0 10px;
     font-size: 120%;
     border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 50px;
 }
 
 .feedBack > p{
@@ -365,6 +369,8 @@ textarea{
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: transparent;
+    border: none;
 }
 
 .xButton>img{
