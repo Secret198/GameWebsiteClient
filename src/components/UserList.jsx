@@ -79,7 +79,7 @@ export default function UserList({ user, viewUser, editUser, admin, url, headers
         return (
             <div className="listBox">
                 {user.privilege == 10 && <p className="flare">Admin</p>}
-                <h2 onClick={() => viewUser(user.id)}>{user.name}</h2>
+                <h2 className="postTitle" onClick={() => viewUser(user.id)}>{user.name}</h2>
             </div>
         )
     }
