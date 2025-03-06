@@ -1,9 +1,17 @@
+import { useNavigate } from "react-router-dom"
 import FormInput from "./FormInput"
+import backWhite from "../assets/backWhite.png"
 
 export default function AchievementBox({ submitAchievement, selected, name, threshold, description, isCreate }) {
+    const navigation = useNavigate()
+    const stepBack = () => {
+        navigation(-1)
+    }
+
     if (isCreate) {
         return (
-            <div className="coolBox centerHorizontal loginSize">
+            <div className="coolBox centerHorizontal loginSize listBoxPadding">
+                <button onClick={stepBack} className="circleButton backButton"><img src={backWhite} alt="backButton" /></button>
                 <h1>Achievement hozzáadás</h1>
                 <form className="loginForm" onSubmit={submitAchievement}>
                     <FormInput type={"text"} inputId={"name"} label={"Új achievement neve"} errorMessage={"Mező kitöltése kötelező"} />
@@ -25,7 +33,8 @@ export default function AchievementBox({ submitAchievement, selected, name, thre
     }
     else {
         return (
-            <div className="coolBox centerHorizontal loginSize">
+            <div className="coolBox centerHorizontal loginSize listBoxPadding">
+                <button onClick={stepBack} className="circleButton backButton"><img src={backWhite} alt="backButton" /></button>
                 <h1>Achievement szerkesztése</h1>
                 <form className="loginForm" onSubmit={submitAchievement}>
                     <FormInput type={"text"} inputId={"name"} label={"Achievement új neve"} errorMessage={"Mező kitöltése kötelező"} defaultValue={name} />

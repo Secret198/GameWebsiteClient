@@ -159,6 +159,8 @@ figcaption{
 .centerHorizontal{
     margin-left: 50%;
     transform: translateX(-50%);
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .loginSize{
@@ -449,6 +451,7 @@ option{
 }
 
 .listBox{
+    position: relative;
     z-index: 1;
     border-radius: 10px;
     padding: 10px 20px;
@@ -465,6 +468,11 @@ option{
     display: block;
     margin: auto;
     margin-top: 10px;
+}
+
+.listBoxPadding{
+    padding-top: 50px;
+    position: relative;
 }
 
 hr{

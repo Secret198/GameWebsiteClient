@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes, useOutletContext } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Layout from './pages/Layout';
 import Register from './pages/Register';
@@ -29,6 +29,7 @@ function App() {
     const [loggedIn, setLoggedIn] = useState((localStorage.getItem("token") ? true : false))
     const [likedPosts, setLikedPosts] = useState([])
 
+
     const likePost = async (postId, newPost) => {
         const responseData = await otherRequest(url, headers, "post/like/" + postId, newPost, "PATCH")
         if (newPost.likes) {
@@ -43,6 +44,7 @@ function App() {
         }
         return responseData
     }
+
     return (<>
         <BrowserRouter>
             <Routes>

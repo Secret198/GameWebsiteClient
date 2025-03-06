@@ -19,7 +19,6 @@ export default function Register({ url, headers, setLoggedIn }) {
     })
     const [loading, setLoading] = useState(false)
 
-
     const stepBack = () => {
         navigation(-1)
     }

@@ -11,8 +11,9 @@ import likeON from '../assets/heartON.png'
 import editLogo from '../assets/edit.png'
 import deleteLogo from '../assets/delete.png'
 import userPic from '../assets/user.png'
+import backWhite from "../assets/backWhite.png"
 
-export default function GetPostData({ url, headers, likedPosts, likePost, setLikedPosts }) {
+export default function GetPostData({ url, headers, likedPosts, likePost, setLikedPosts}) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const id = useParams().id
     const [error, setError] = useState("")
@@ -93,8 +94,14 @@ export default function GetPostData({ url, headers, likedPosts, likePost, setLik
             setError(responseData.result.message)
         }
     }
+
+    const stepBack = () => {
+        navigation(-1)
+    }
+
     return (
-        <div className="listBox">
+        <div className="listBox listBoxPadding">
+            <button onClick={stepBack} className="circleButton backButton"><img src={backWhite} alt="backButton" /></button>
             {loading && <CircleLoader />}
             {(error || success) && <FeedBack message={error ? error : success} status={error ? "failure" : "success"} setError={setError} setSuccess={setSuccess} />}
             <img src={post.image} alt="" />

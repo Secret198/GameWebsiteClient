@@ -36,7 +36,6 @@ export default function GetOwnPosts({ url, headers, likedPosts, likePost, setLik
         if (responseData.response.status == 200) {
             setLikedPosts(responseData.result.likedPosts)
             setDataMaxNum(responseData.result.posts.total)
-
             setData((prevData) => [...prevData, ...responseData.result.posts.data])
         }
         else {

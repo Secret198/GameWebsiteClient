@@ -5,7 +5,6 @@ import { useState } from "react"
 import otherRequest from "../components/otherRequest"
 import CircleLoader from "../components/CircleLoader"
 
-
 export default function AchievementCreate({ url, headers }) {
     headers.Authorization = "Bearer " + localStorage.getItem("token")
     const navigation = useNavigate()
@@ -43,6 +42,7 @@ export default function AchievementCreate({ url, headers }) {
             }
         }
     }
+
 
     return (
         <div>
