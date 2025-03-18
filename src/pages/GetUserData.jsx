@@ -32,6 +32,7 @@ export default function GetUserData({ url, headers, setLoggedIn }) {
             if (responseData.response.status == 200) {
                 setUser(responseData.result.user)
                 setAchievements(responseData.result.achievements)
+                console.log(responseData)
             }
             else {
                 setError(responseData.result.message)

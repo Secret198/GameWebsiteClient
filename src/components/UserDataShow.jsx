@@ -26,6 +26,7 @@ export default function UserDataShow({ user, achievements, admin }) {
                 </div>
                 <div>
                     <h2 className="achievementTitle">Achievements:</h2>
+                    <p className="centerText">{achievements.length} / {user.achievement_count}</p>
                     {
                         achievements.map((item) => (
                             <ShowAchievement key={item.id} name={item.name} description={item.description} />
