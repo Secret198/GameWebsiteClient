@@ -53,7 +53,7 @@ export default function UserList({ user, viewUser, editUser, admin, url, headers
     }
 
     if (admin) {
-        return (
+        return (<>
             <div className={userState.deleted_at ? "listBox deleteBox" : "listBox"}>
                 {(loading) && <CircleLoader />}
                 {user.privilege == 10 && <p className="flare">Admin</p>}
@@ -71,8 +71,9 @@ export default function UserList({ user, viewUser, editUser, admin, url, headers
                         <p className="bottomDate"><i>Módosítva:</i> {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                     </div>
                 </div>
-                {(showConfirm) && <ConfirmWindow text={userState.deleted_at ? "Biztosan vissza szeretné állítani a felhasználót" : "Biztosan törölni szeretné a felhasználót"} functionToCall={userState.deleted_at ? () => restoreUser(userState.id) : () => deleteUser(userState.id)} setShow={setShowConfirm} />}
             </div>
+            {(showConfirm) && <ConfirmWindow text={userState.deleted_at ? "Biztosan vissza szeretné állítani a felhasználót" : "Biztosan törölni szeretné a felhasználót"} functionToCall={userState.deleted_at ? () => restoreUser(userState.id) : () => deleteUser(userState.id)} setShow={setShowConfirm} />}
+            </>
         )
     }
     else {

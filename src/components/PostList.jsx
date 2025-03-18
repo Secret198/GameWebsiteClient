@@ -73,7 +73,7 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
 
     if (admin) {
         if (privilege == 10 || !postState.deleted_at) {
-            return (
+            return (<>
                 <div className={postState.deleted_at ? "listBox deleteBox" : "listBox"}>
 
                     <h2 className="postTitle" onClick={() => viewPost(post.id)}>{postState.post.substring(0, postTitleCharacterLimit)}{longPost && "..."}</h2>
@@ -97,8 +97,9 @@ export default function PostList({ post, url, headers, viewPost, editPost, likeP
                             <p className="bottomDate"><i>Módosítva:</i> {processedDates.updated_at.year} {processedDates.updated_at.time}</p>
                         </div>
                     </div>
-                    {(showConfirm) && <ConfirmWindow text={postState.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={postState.deleted_at ? () => restorePost(postState.id) : () => deletePost(postState.id)} setShow={setShowConfirm} />}
                 </div>
+                {(showConfirm) && <ConfirmWindow text={postState.deleted_at ? "Biztosan vissza szeretné állítani a posztot?" : "Biztosan törölni szeretné a posztot?"} functionToCall={postState.deleted_at ? () => restorePost(postState.id) : () => deletePost(postState.id)} setShow={setShowConfirm} />}
+            </>
             )
         }
 
